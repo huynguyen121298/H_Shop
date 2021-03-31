@@ -1,0 +1,138 @@
+﻿@model Model.DTO.DTO_Client.DTO_Item_Client
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using Model.DTO.DTO_Client;
+
+<!DOCTYPE html>
+
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Thanh Toán</title>
+</head>
+@if (Model != null)
+{
+    
+
+
+        
+
+
+        <div class="cart-page">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="cart-page-inner">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Sản phẩm</th>
+                                            <th>Giá</th>
+                                            <th>Số lượng</th>
+                                            <th>Tổng cộng</th>
+                                            <th>Xóa sản phẩm</th>
+                                        </tr>
+                                    </thead>
+
+                                    @foreach (DTO_Item_Client item in (List<DTO_Item_Client>)Session["cart"])
+                                    {
+
+
+
+                                        <tbody class="align-middle">
+                                            <tr>
+                                                <td>
+                                                    <div class="qty">
+
+                                                        @item.Product.Id_SanPham
+
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="img">
+                                                        <a href="#"><img src="@Url.Content(item.Product.Photo)" /></a>
+                                                        <p>@item.Product.Name</p>
+                                                    </div>
+                                                </td>
+                                                <td>@item.Product.Price</td>
+                                                <td>
+                                                    <div class="qty">
+
+                                                        @item.Quantity
+
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    @(item.Product.Price * item.Quantity)
+                                                </td>
+                                                @*<td><button><i class="fa fa-trash"></i></button></td>*@
+                                                <td><a href="@Url.Action("Remove", "Cart", new { id = item.Product.Id_SanPham })"><i class="fa fa-trash">Xóa</i></a></td>
+                                            </tr>
+
+                                        </tbody>
+
+
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                        <br>
+                        <a href="@Url.Action("Index", "Product")">Tiếp tục mua sắm</a>
+                        <br />
+                        <a href="~/Product/Details">Trở về</a>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="cart-page-inner">
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    <div class="cart-summary">
+                                        <div class="cart-content">
+                                            <h1>Tóm tắt giỏ hàng</h1>
+                                            <p>
+                                                Tổng hóa đơn<span>
+                                                    @{
+                                                        List<DTO_Item_Client> cart = (List<DTO_Item_Client>)Session["cart"];
+                                                        var total = cart.Sum(item => item.Product.Price * item.Quantity);
+                                                    }
+                                                    @total
+                                                </span>
+                                            </p>
+                                            <p>Shipping Cost<span>$1</span></p>
+
+                                        </div>
+                                        <div class="cart-btn">
+                                            <button>Update Cart</button>
+                                            <button>Checkout</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>Lỗi</span>
+
+                                                        }
+
+
+
+
+
+
+

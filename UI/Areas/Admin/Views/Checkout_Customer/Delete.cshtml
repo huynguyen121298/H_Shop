@@ -1,0 +1,39 @@
+﻿@model  Model.DTO.DTO_Ad.DTO_Checkout_Customer
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3 style="text-align:center;color:red">Bạn chắc chắn xóa không?</h3>
+<div>
+    <h4>Checkout_Customer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Mã khách hàng
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id_KH)
+        </dd>
+
+
+    </dl>
+    <div>
+        <p style="color:red"> @ViewBag.Mess</p>
+       
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Trở về", "Index")
+        </div>
+    }
+</div>

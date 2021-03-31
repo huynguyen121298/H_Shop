@@ -1,0 +1,192 @@
+﻿@*@model IEnumerable<WebApplication3.Areas.Admin.Models.Checkout_Oder>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Checkout_Customer.Id_KH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Id_SanPham)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenSP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SoLuong)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayTao)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Checkout_Customer.Id_KH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id_SanPham)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenSP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoLuong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayTao)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>*@
+@model IEnumerable<Model.DTO.DTO_Ad.DTO_Checkout_Order>
+
+@{
+    ViewBag.Title = "ListCheckOut";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo1"
+   aria-expanded="true" aria-controls="collapseTwo">
+    <i class="fas fa-fw fa-cog"></i>
+    <span>Tùy chọn xem</span>
+</a>
+<div id="collapseTwo1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+    <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Xem danh sách theo:</h6>
+        <a class="collapse-item" href="~/Admin/Checkout_Customer/Index">Danh sách khách đặt hàng</a><br />
+        <a class="collapse-item" href="~/Admin/Checkout_Order/Index">Chi tiết đặt hàng</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="header d-lg-flex">
+
+
+        <div class="row align-items-center">
+
+            <div class="search">
+                @using (Html.BeginForm("Index", "Checkout_Oder"))
+                {
+
+
+                    @Html.RadioButton("seachBy", "None")<text>Không lọc</text>
+                    @Html.RadioButton("seachBy", "ID")<text>Mã khách hàng</text>
+
+                    @Html.TextBox("timkiem")
+
+
+                    <input type="submit" onclick="remove()" id="btn-remove" value="Tìm kiếm" class="btn btn-outline-success" />
+                }
+
+                <script>
+                            $('#btn-remove').click(function () {
+                                $('#search')[0].reset();
+                            });
+                </script>
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary" style="text-align:center">Danh sách sản phẩm được đặt hàng</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Mã khách hàng</th>
+                        <th>Mã sản phẩm</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Giá sản phẩm</th>
+                        <th>Ngày Tạo</th>
+                        <th>Trạng thái</th>
+                        <th>Lựa chọn</th>
+
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Mã khách hàng</th>
+                        <th>Mã sản phẩm</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Giá sản phẩm</th>
+                        <th>Ngày Tạo</th>
+                        <th>Trạng thái</th>
+                        <th>Lựa chọn</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id_KH)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id_SanPham)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TenSP)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SoLuong)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Gia)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NgayTao)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem =>item.TrangThai)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Tùy chỉnh", "Edit", new { id = item.ID })
+                                @Html.ActionLink("Xóa", "Delete", new { id = item.ID })
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

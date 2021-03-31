@@ -1,0 +1,166 @@
+﻿@model WebApplication3.Models.Product
+@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using WebApplication3.Models
+
+
+@{
+    List<Item> cart = (List<Item>)Session["cart"];
+    var total = cart.Sum(item => item.Quantity * item.Product.Price);
+    var total1 = cart.Count();
+
+}
+<div class="breadcrumb-wrap">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Home/Index">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a href="~/Product/Index">Danh sách sản phẩm</a></li>
+            <li class="breadcrumb-item active">Thanh toán hóa đơn</li>
+        </ul>
+    </div>
+</div>
+<div class="checkout">
+    <div class="container-fluid">
+        @using (Html.BeginForm("saveOrder1", "Cart", FormMethod.Post))
+        {
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="checkout-inner">
+                        <div class="billing-address">
+                            <h2>Thanh toán hóa đơn </h2>
+
+
+
+                            <div class="row">
+                                @*div class="col-md-6">
+
+                                        <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.Name)">
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <input class="form-control" type="text" value="@Html.DisplayFor(model => model.Id_SanPham)">
+                                    </div>*@
+
+                                <div class="col-md-6">
+
+                                    <input class="form-control" type="text" value="" placeholder="Nhập Mã khách hàng" name="Id_KH">
+                                </div>
+                                <div class="col-md-6">
+
+                                    <input class="form-control" type="text" value="" placeholder="Nhập tên" name="FirstName">
+                                </div>
+                                <div class="col-md-6">
+
+                                    <input class="form-control" type="text" placeholder="Nhập Họ" name="LastName">
+                                </div>
+                                <div class="col-md-6">
+
+                                    <input class="form-control" type="email" placeholder="Nhập Email" name="Email">
+                                </div>
+                                <div class="col-md-6">
+
+                                    <input class="form-control" type="tel" placeholder="Nhập số điện thoại" name="sdt">
+                                </div>
+                                <div class="col-md-12">
+
+                                    <input class="form-control" type="text" placeholder="Nhập địa chỉ" name="diaChi">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Tỉnh/Thành phố</label>
+                                    <select class="custom-select" name="City">
+                                        <option selected>Hà Nội</option>
+                                        <option>Hồ Chí Minh</option>
+                                        <option>Đà Nẵng</option>
+                                        <option>Huế</option>
+                                        <option>Đăk Lăk</option>
+                                        <option>Nghệ An</option>
+                                        <option>Hà Tĩnh</option>
+                                        <option>Khánh Hóa</option>
+                                        <option>Phú Yên</option>
+                                        <option>Quảng Ngãi</option>
+                                        <option>An Giang</option>
+                                        <option>Tiền Giang</option>
+                                        <option>Long An</option>
+                                    </select>
+                                </div>
+                                @*<div class="col-md-6">
+                                        <label>City</label>
+                                        <input class="form-control" type="text" placeholder="City">
+                                    </div>*@
+
+                                <div class="col-md-6">
+
+                                    <input class="form-control" type="text" placeholder="ZIP Code" name="zip">
+                                </div>
+
+                            </div>
+                            <input type="submit" class="btn btn-success" value="Hoàn thành">
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="checkout-inner">
+                        <div class="checkout-summary">
+                            @*<p style="font-style:italic">Tổng số lượng sản phẩm mua<span>@total1</span></p>
+                                <h2>Tổng tiền thanh toán
+                                <br />
+                                <span style="color:red">@total VNĐ</span></h2>
+                                <p class="ship-cost">Giảm giá<span>VNĐ</span></p>*@
+                            <div class="cart-content">
+
+                                <p>
+                                    Thanh Toán<span>
+
+                                        @total
+                                        VNĐ
+                                    </span>
+                                </p>
+                                <p>
+                                    Giảm giá <input type="text"  onchange="Discount()" style=" width:85px; height:30px" id="discount" name="discount1" /> VNĐ
+
+
+                                </p>
+
+                                <p>
+                                    Tổng thanh toán
+                                    <br />
+                                    <span style="color:red">
+                                        @*@{
+                                                List<Item> cart1 = (List<Item>)Session["cart"];
+                                                var total1 = cart1.Sum(item => item.Product.Price * item.Quantity);
+                                            }
+                                            @total -*@
+
+                                        <input id="gia" name="gia1" type="text" value="@total VNĐ" />
+
+                                    </span>
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        }
+    </div>
+</div>
+<script>
+    function Discount() {
+
+            var dis = $('#discount').val();
+
+            $('#gia').val(@total -dis);
+
+        }
+</script>

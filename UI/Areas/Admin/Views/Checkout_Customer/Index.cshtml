@@ -1,0 +1,154 @@
+﻿
+@model IEnumerable<Model.DTO.DTO_Ad.DTO_Checkout_Customer>
+
+@{
+    ViewBag.Title = "ListCheckOut";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo1"
+   aria-expanded="true" aria-controls="collapseTwo">
+    <i class="fas fa-fw fa-cog"></i>
+    <span>Tùy chọn xem</span>
+</a>
+<div id="collapseTwo1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+    <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Xem danh sách theo:</h6>
+        <a class="collapse-item" href="~/Admin/Checkout_Customer/Index">Danh sách khách đặt hàng</a><br />
+        <a class="collapse-item" href="~/Admin/Checkout_Order/Index">Chi tiết đặt hàng</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="header d-lg-flex">
+
+
+        <div class="row align-items-center">
+
+            <div class="search">
+                @using (Html.BeginForm("Index", "Checkout_Customer", FormMethod.Post))
+                {
+
+
+                    @Html.RadioButton("seachby", "None")<text>Không lọc</text>
+                    @Html.RadioButton("seachby", "id")<text>Mã khách hàng</text>
+
+                    @Html.TextBox("timkiemtim")
+
+
+                    <input type="submit" value="Tìm kiếm" class="btn btn-outline-success" />
+                }
+
+                <script>
+                    $('#btn-remove').click(function () {
+                        $('#search')[0].reset();
+                    });
+                </script>
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary" style="text-align:center">Danh sách Khách đặt hàng</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Mã khách hàng</th>
+                        <th>Họ</th>
+                        <th>Tên</th>
+                        <th>Email</th>
+                        <th>Số điện thoại</th>
+                        <th>Địa chỉ</th>
+                        <th>Thành Phố</th>
+                        <th>Mã CODE</th>
+                        <th>Giảm giá</th>
+                        <th>Tổng tiền sau giảm</th>
+                        <th>Trạng thái</th>
+                        <th>Lựa chọn</th>
+
+
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Mã khách hàng</th>
+                        <th>Họ</th>
+                        <th>Tên</th>
+                        <th>Email</th>
+                        <th>Số điện thoại</th>
+                        <th>Địa chỉ</th>
+                        <th>Thành Phố</th>
+                        <th>Mã CODE</th>
+                        <th>Giảm giá</th>
+                        <th>Tổng tiền sau giảm</th>
+                        <th>Trạng Thái</th>
+                        <th>Lựa chọn</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id_KH)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FirstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SDT)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DiaChi)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.City)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Zipcode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.GiamGia)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TongTien)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TrangThai)
+                            </td>
+
+
+                            <td>
+                                @Html.ActionLink("Tùy chỉnh", "Edit", new { id = item.Id_KH }) |
+                                @Html.ActionLink("Xem chi tiết", "Details", new { id = item.Id_KH }) |
+                                @Html.ActionLink("Xóa", "Delete", new { id = item.Id_KH })
+
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+</div>
