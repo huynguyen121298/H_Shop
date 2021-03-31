@@ -160,7 +160,6 @@ namespace DAL.DAL_Ad
             try
             {
                 Product product = db.Products.Find(id);
-                //Item item = db.Items.Find(id);
                 Item item = db.Items.Find(id);
                 db.Products.Remove(product);
                 db.Items.Remove(item);
