@@ -1,0 +1,2 @@
+C:\Users\Huy\Documents\GitHub\H_Shop\BLL\obj\Debug\BLL.csprojAssemblyReference.cache
+C:\Users\Huy\Documents\GitHub\H_Shop\BLL\obj\Debug\BLL.csproj.CoreCompileInputs.cache

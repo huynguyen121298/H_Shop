@@ -1,0 +1,2 @@
+C:\Users\Huy\Documents\GitHub\H_Shop\UI\obj\Debug\UI.csprojAssemblyReference.cache
+C:\Users\Huy\Documents\GitHub\H_Shop\UI\obj\Debug\UI.csproj.CoreCompileInputs.cache
