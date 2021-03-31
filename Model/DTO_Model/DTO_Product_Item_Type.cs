@@ -1,4 +1,4 @@
-﻿using DAL.EF;
+﻿using Model.DTO.DTO_Ad;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -6,16 +6,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.DAL_Model
+namespace Model.DTO_Model
 {
-    public class Product_Item_Type
+   public class DTO_Product_Item_Type
     {
+        public DTO_Product_Item_Type()
+        {
+            Photo = "~/images_product/ap.jpg";
+        }
         public int Id_SanPham { get; set; }
 
         public int? Quantity { get; set; }
 
         public int Id_Item { get; set; }
-        //public string Type_Product { get; set; }
+       // public string Type_Product { get; set; }
 
 
         [StringLength(50)]
@@ -28,12 +32,10 @@ namespace DAL.DAL_Model
         //public HttpPostedFileBase ImageUpload { get; set; }
 
         public string Details { get; set; }
+        //public DTO_Product_Item_Type() { }
 
-        //public Product_Item_Type() { }
-
-        //public List<Product> proModel { get; set; }
-        //public List<Item> itemModel { get; set; }
-
+        //public DTO_Product proModel{ get; set; }
+        //public <DTO_Item itemModel { get; set; }
 
 
     }

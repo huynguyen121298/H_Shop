@@ -57,7 +57,7 @@
     <Compile Include="Common\Constants.cs" />
     <Compile Include="DTO\BoolResult.cs" />
     <Compile Include="DTO\DTO_Ad\DTO_Account.cs" />
-    <Compile Include="DTO\DTO_Ad\DTO_Account_Role.cs" />
+    <Compile Include="DTO_Model\DTO_Account_Role.cs" />
     <Compile Include="DTO\DTO_Ad\DTO_Checkout_Customer.cs" />
     <Compile Include="DTO\DTO_Ad\DTO_Checkout_Order.cs" />
     <Compile Include="DTO\DTO_Ad\DTO_Item.cs" />
@@ -68,6 +68,7 @@
     <Compile Include="DTO\DTO_Client\DTO_Item_Client.cs" />
     <Compile Include="DTO\DTO_Client\DTO_Product_Client.cs" />
     <Compile Include="DTO\DTO_Client\DTO_Users_Acc.cs" />
+    <Compile Include="DTO_Model\DTO_Product_Item_Type.cs" />
     <Compile Include="EF_Mapper\EntityMapper.cs" />
     <Compile Include="Mapping_Class\CustomRoleProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

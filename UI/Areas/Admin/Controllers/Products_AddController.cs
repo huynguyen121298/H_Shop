@@ -1,4 +1,5 @@
 ﻿using Model.DTO.DTO_Ad;
+using Model.DTO_Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -28,14 +29,14 @@ namespace UI.Areas.Admin.Controllers
         {
             HttpResponseMessage responseMessage = service.GetResponse("api/Products_Ad/GetProductById/"+Id);
             responseMessage.EnsureSuccessStatusCode();
-            DTO_Product dTO_Accounts = responseMessage.Content.ReadAsAsync<DTO_Product>().Result;
+            DTO_Product_Item_Type dTO_Accounts = responseMessage.Content.ReadAsAsync<DTO_Product_Item_Type>().Result;
             return View(dTO_Accounts);
         }
 
         // GET: Admin/Products_Add/Create
         public ActionResult Create()
         {
-            DTO_Product pro = new DTO_Product();
+            DTO_Product_Item_Type pro = new DTO_Product_Item_Type();
             return View(pro);
         }
        
@@ -52,8 +53,70 @@ namespace UI.Areas.Admin.Controllers
 
         // POST: Admin/Products_Add/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection, DTO_Product product,DTO_Item item, HttpPostedFileBase ImageUpload)
+        public ActionResult Create(FormCollection collection, DTO_Product_Item_Type dTO_Product_Item_Type, HttpPostedFileBase ImageUpload)
         {
+            //DTO_Product_Item_Type dTO_Product_Item_Type = new DTO_Product_Item_Type();
+            var stt = Request.Form["stt"];
+            if (stt == "Đồng hồ")
+            {
+                dTO_Product_Item_Type.Id_Item = 1;
+
+               
+            }
+            if (stt == "Máy ảnh và máy quay phim")
+            {
+                dTO_Product_Item_Type.Id_Item = 2;
+
+
+            }
+            if (stt == "Máy tính và laptop")
+            {
+                dTO_Product_Item_Type.Id_Item = 3;
+
+
+            }
+            if (stt == "Mẹ và bé")
+            {
+                dTO_Product_Item_Type.Id_Item = 4;
+
+
+            }
+            if (stt == "Sức khỏe và sắc đẹp")
+            {
+                dTO_Product_Item_Type.Id_Item = 5;
+
+
+            }
+            if (stt == "Thể thao và du lịch")
+            {
+                dTO_Product_Item_Type.Id_Item = 6;
+
+
+
+            }
+            if (stt == "Thiết bị gia dụng")
+            {
+                dTO_Product_Item_Type.Id_Item = 7;
+
+
+            }
+            if (stt == "Thời trang nam")
+            {
+                dTO_Product_Item_Type.Id_Item = 8;
+
+
+            }
+            if (stt == "Thời trang nữ")
+            {
+                dTO_Product_Item_Type.Id_Item = 9;
+
+
+            }
+
+          
+
+
+
             try
             {
                 if (ImageUpload != null)
@@ -61,17 +124,57 @@ namespace UI.Areas.Admin.Controllers
                     string fileName = Path.GetFileNameWithoutExtension(ImageUpload.FileName);
                     string extension = Path.GetExtension(ImageUpload.FileName);
                     fileName = fileName + extension;
-                    product.Photo = "~/images_product/" + fileName;
+                    dTO_Product_Item_Type.Photo = "~/images_product/" + fileName;
                     ImageUpload.SaveAs(Path.Combine(Server.MapPath("~/images_product/"), fileName));
+                    //var idSP = Request.Form["id"];
+                    //var quantity = Request.Form["sl"];
+                    //dTO_Product_Item_Type.Id_SanPham = Convert.ToInt32(idSP);
+                    dTO_Product_Item_Type.Details = Request.Form["details"];
+
+                    //dTO_Product_Item_Type.Quantity = Convert.ToInt32(quantity);
+                    HttpResponseMessage responseUser = service.PostResponse("api/Products_Ad/CreateProduct/", dTO_Product_Item_Type);
+                   
+                    responseUser.EnsureSuccessStatusCode();
+                    //HttpResponseMessage responseUser1 = service.PostResponse("api/Products_Ad/CreateItem/", item);
+                    
                 }
-                var idSP = Request.Form["idSP"];
-                item.Id_SanPham = Convert.ToInt32(idSP);
-                product.Id_SanPham = Convert.ToInt32(idSP);
-                product.Photo = Request.Form["ImageUpload"];
-                HttpResponseMessage responseUser = service.PostResponse("api/Products_Ad/CreateProduct/" ,product);
-                responseUser.EnsureSuccessStatusCode();
-                HttpResponseMessage responseUser1 = service.PostResponse("api/Products_Ad/CreateItem/", item);
-                responseUser1.EnsureSuccessStatusCode();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //try
+            //{
+            //    if (ImageUpload != null)
+            //    {
+            //        string fileName = Path.GetFileNameWithoutExtension(ImageUpload.FileName);
+            //        string extension = Path.GetExtension(ImageUpload.FileName);
+            //        fileName = fileName + extension;
+            //      dTO_Product_Item_Type.proModel. = "~/images_product/" + fileName;
+            //        ImageUpload.SaveAs(Path.Combine(Server.MapPath("~/images_product/"), fileName));
+            //        var idSP = Request.Form["id"];
+            //        item.Id_SanPham = Convert.ToInt32(idSP);
+            //        product.Id_SanPham = Convert.ToInt32(idSP);
+            //        product.Details = Request.Form["details"];
+            //        var quantity = Request.Form["sl"];
+            //        item.Quantity = Convert.ToInt32(quantity);
+            //        //product.Photo = Request.Form["ImageUpload"];
+            //        HttpResponseMessage responseUser = service.PostResponse("api/Products_Ad/CreateProduct/", dTO_Product_Item_Type);
+                   
+            //        responseUser.EnsureSuccessStatusCode();
+            //        //HttpResponseMessage responseUser1 = service.PostResponse("api/Products_Ad/CreateItem/", item);
+                    
+            //    }
+               
 
 
                 return RedirectToAction("Index");
@@ -83,18 +186,118 @@ namespace UI.Areas.Admin.Controllers
         }
 
         // GET: Admin/Products_Add/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int Id)
         {
-            return View();
+            ServiceRepository service = new ServiceRepository();
+            HttpResponseMessage responseMessage = service.GetResponse("api/Products_Ad/GetProductById/" + Id);
+            responseMessage.EnsureSuccessStatusCode();
+            DTO_Product_Item_Type dtoAccounts = responseMessage.Content.ReadAsAsync<DTO_Product_Item_Type>().Result;
+
+            return View(dtoAccounts);
         }
 
         // POST: Admin/Products_Add/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, FormCollection collection, DTO_Product_Item_Type dTO_Product_Item_Type, HttpPostedFileBase ImageUpload)
         {
+            var stt = Request.Form["stt"];
+            if (stt == "Đồng hồ")
+            {
+                dTO_Product_Item_Type.Id_Item = 1;
+
+
+            }
+            if (stt == "Máy ảnh và máy quay phim")
+            {
+                dTO_Product_Item_Type.Id_Item = 2;
+
+
+            }
+            if (stt == "Máy tính và laptop")
+            {
+                dTO_Product_Item_Type.Id_Item = 3;
+
+
+            }
+            if (stt == "Mẹ và bé")
+            {
+                dTO_Product_Item_Type.Id_Item = 4;
+
+
+            }
+            if (stt == "Sức khỏe và sắc đẹp")
+            {
+                dTO_Product_Item_Type.Id_Item = 5;
+
+
+            }
+            if (stt == "Thể thao và du lịch")
+            {
+                dTO_Product_Item_Type.Id_Item = 6;
+
+
+
+            }
+            if (stt == "Thiết bị gia dụng")
+            {
+                dTO_Product_Item_Type.Id_Item = 7;
+
+
+            }
+            if (stt == "Thời trang nam")
+            {
+                dTO_Product_Item_Type.Id_Item = 8;
+
+
+            }
+            if (stt == "Thời trang nữ")
+            {
+                dTO_Product_Item_Type.Id_Item = 9;
+
+
+            }
+
+
+
+
+
             try
             {
-                // TODO: Add update logic here
+                if (ImageUpload != null)
+                {
+                    string fileName = Path.GetFileNameWithoutExtension(ImageUpload.FileName);
+                    string extension = Path.GetExtension(ImageUpload.FileName);
+                    fileName = fileName + extension;
+                    dTO_Product_Item_Type.Photo = "~/images_product/" + fileName;
+                    ImageUpload.SaveAs(Path.Combine(Server.MapPath("~/images_product/"), fileName));
+                    //var idSP = Request.Form["id"];
+                    //var quantity = Request.Form["sl"];
+                    //dTO_Product_Item_Type.Id_SanPham = Convert.ToInt32(idSP);
+                    dTO_Product_Item_Type.Details = Request.Form["details"];
+
+                    //dTO_Product_Item_Type.Quantity = Convert.ToInt32(quantity);
+                    HttpResponseMessage responseUser = service.PostResponse("api/Products_Ad/UpdateProduct/", dTO_Product_Item_Type);
+
+                    responseUser.EnsureSuccessStatusCode();
+                    //HttpResponseMessage responseUser1 = service.PostResponse("api/Products_Ad/CreateItem/", item);
+
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
 
                 return RedirectToAction("Index");
             }

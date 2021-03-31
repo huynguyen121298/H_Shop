@@ -1,4 +1,5 @@
 ﻿using Model.DTO.DTO_Ad;
+using Model.DTO_Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,15 +34,20 @@ namespace Web_API.Controllers
             return Json<List<DTO_Product>>(BLL_Products.GetAllProducts());
         }
         [Route("CreateProduct")]
-        public bool CreateProduct(DTO_Product dTO_Product)
+        public int  CreateProduct(DTO_Product_Item_Type dTO_Product_Item)
         {
-            return BLL_Products.CreateProduct(dTO_Product);
+            return BLL_Products.CreateProduct(dTO_Product_Item);
         }
-        [Route("CreateItem")]
-        public bool CreateItem( DTO_Item item)
+        [Route("UpdateProduct")]
+        public int UpdateProduct(DTO_Product_Item_Type dTO_Product_Item)
         {
-            return BLL_Products.CreateItem( item);
+            return BLL_Products.UpdateProduct(dTO_Product_Item);
         }
+        //[Route("CreateItem")]
+        //public bool CreateItem( DTO_Item item)
+        //{
+        //    return BLL_Products.CreateItem( item);
+        //}
 
         // POST: api/Products
         public void Post([FromBody]string value)

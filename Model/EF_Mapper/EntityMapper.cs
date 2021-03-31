@@ -8,6 +8,7 @@ using Model.DTO.DTO_Client;
 using AutoMapper;
 using DAL.EF;
 using DAL.DAL_Model;
+using Model.DTO_Model;
 
 namespace Model.EF_Mapper
 {
@@ -27,6 +28,9 @@ namespace Model.EF_Mapper
 
             Mapper.CreateMap<Product, DTO_Product>();
             Mapper.CreateMap<DTO_Product, Product>();
+
+            Mapper.CreateMap<DTO_Product_Item_Type, Product_Item_Type>();
+            Mapper.CreateMap<Product_Item_Type, DTO_Product_Item_Type>();
 
             Mapper.CreateMap<Item, DTO_Item_Client>();
             Mapper.CreateMap<DTO_Item_Client, Item>();

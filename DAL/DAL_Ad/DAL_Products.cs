@@ -35,61 +35,105 @@ namespace DAL.DAL_Ad
         }
 
 
-        public bool InsertProduct(Product productItem)
+        public int InsertProduct(Product productItem, Item item)
         {
-            bool status;
-            try
+            //bool status;
+
+            using (var transaction = db.Database.BeginTransaction())
             {
-                db.Products.Add(productItem);
-               
-                db.SaveChanges();
-                status = true;
-            }
-            catch (Exception)
-            {
-                status = false;
-            }
-            return status;
-        }
-        public bool InsertItem(Item item)
-        {
-            bool status;
-            try
-            {
+                    db.Products.Add(productItem);
               
-                db.Items.Add(item);
-                db.SaveChanges();
-                status = true;
+                    db.Items.Add(item);
+              
+
+
+                
+                try
+                {
+                    int result = db.SaveChanges();
+                    transaction.Commit();
+                    return result;
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    return -2;
+                }
             }
-            catch (Exception)
-            {
-                status = false;
-            }
-            return status;
+
+
+            //try
+            //{
+            //    db.Products.Add(productItem);
+            //    d
+
+            //    db.SaveChanges();
+            //    status = true;
+            //}
+            //catch (Exception)
+            //{
+            //    status = false;
+            //}
+            //return status;
         }
-        public bool UpdateProduct(Product productItem)
+        //public bool InsertItem(Item item)
+        //{
+        //    bool status;
+        //    try
+        //    {
+              
+        //        db.Items.Add(item);
+        //        db.SaveChanges();
+        //        status = true;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        status = false;
+        //    }
+        //    return status;
+        //}
+        public int UpdateProduct(Product productItem, Item item)
         {
-            bool status;
-            try
+            using (var transaction = db.Database.BeginTransaction())
             {
+
+
+
                 Product prodItem = db.Products.Where(p => p.Id_SanPham == productItem.Id_SanPham).FirstOrDefault();
                 if (prodItem != null)
                 {
                     prodItem.Id_SanPham = productItem.Id_SanPham;
                     prodItem.Name = productItem.Name;
                     prodItem.Price = productItem.Price;
-                    prodItem.Photo = prodItem.Photo;
-                    prodItem.Details = prodItem.Details;
-                    //prodItem.
-                    //DbContext.SaveChanges();
+                    prodItem.Photo = productItem.Photo;
+                    prodItem.Details = productItem.Details;
+                    prodItem.Id_Item = productItem.Id_Item;
+                    
                 }
-                status = true;
+
+                Item it = db.Items.Where(p => p.Id_SanPham == productItem.Id_SanPham).FirstOrDefault();
+                if (it != null)
+                {
+                    it.Id_SanPham = item.Id_SanPham;
+                    it.Quantity = item.Quantity;
+                    
+                }
+
+                try
+                {
+
+
+                    int result = db.SaveChanges();
+                    transaction.Commit();
+                    return result;
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    return -2;
+                }
             }
-            catch (Exception)
-            {
-                status = false;
-            }
-            return status;
+            
         }
         //public bool DeleteProduct(int id)
         //{

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAL.DAL_Model;
 using DAL.EF;
 using Model.DTO.DTO_Ad;
+using Model.DTO_Model;
 using Model.EF_Mapper;
 
 namespace BLL.BLL_Ad
@@ -42,23 +44,50 @@ namespace BLL.BLL_Ad
         //    Item account = mapObj.Translate();
         //    return admin_Acc_dal.Create(account);
         //}
-        public bool CreateProduct(DTO_Product dTO_Account)
+        public int CreateProduct(DTO_Product_Item_Type dTO_Account)
         {
-            EntityMapper<DTO_Product, Product> mapObj = new EntityMapper<DTO_Product, Product>();
-           
-            Product account = mapObj.Translate(dTO_Account);
-           
-            return dAL_Product.InsertProduct(account);
-        }
-        public bool CreateItem( DTO_Item item)
-        {
-         
-            EntityMapper<DTO_Item, Item> mapObj1 = new EntityMapper<DTO_Item, Item>();
-           
-            Item account1 = mapObj1.Translate(item);
+            EntityMapper<DTO_Product_Item_Type, Product_Item_Type> mapObj = new EntityMapper< DTO_Product_Item_Type, Product_Item_Type> ();
+            Product_Item_Type product_Item_Type = new Product_Item_Type();
+            product_Item_Type = mapObj.Translate(dTO_Account);
+            Product products = new Product();
+            products.Id_Item = product_Item_Type.Id_Item;
+            products.Id_SanPham = product_Item_Type.Id_SanPham;
+            products.Name = product_Item_Type.Name;
+            products.Photo = product_Item_Type.Photo;
+            products.Price = product_Item_Type.Price;
+            products.Details = product_Item_Type.Details;
+
+            Item item = new Item();
+            item.Id_SanPham = product_Item_Type.Id_SanPham;
+            item.Quantity = product_Item_Type.Quantity;
+
+          
+               
             
-            return dAL_Product.InsertItem( account1);
+
+          
+               
+            
+
+
+
+            //EntityMapper<DTO_Product, Product> mapObj = new EntityMapper<DTO_Product, Product>();
+            //Product account = mapObj.Translate(dTO_Account.);
+            //EntityMapper<DTO_Item, Item> mapObj1 = new EntityMapper<DTO_Item, Item>();
+            //Item account1 = mapObj1.Translate(item);
+            
+           
+            return dAL_Product.InsertProduct(products,item);
         }
+        //public bool CreateItem( DTO_Item item)
+        //{
+         
+        //    EntityMapper<DTO_Item, Item> mapObj1 = new EntityMapper<DTO_Item, Item>();
+           
+        //    Item account1 = mapObj1.Translate(item);
+            
+        //    return dAL_Product.InsertItem( account1);
+        //}
         public bool DeleteAccount(int id)
         {
             return dAL_Product.DeleteProduct(id);
@@ -71,6 +100,42 @@ namespace BLL.BLL_Ad
 
         //    return dTO_Accounts;
         //}
+
+        public int UpdateProduct(DTO_Product_Item_Type dTO_Account)
+        {
+            EntityMapper<DTO_Product_Item_Type, Product_Item_Type> mapObj = new EntityMapper<DTO_Product_Item_Type, Product_Item_Type>();
+            Product_Item_Type product_Item_Type = new Product_Item_Type();
+            product_Item_Type = mapObj.Translate(dTO_Account);
+            Product products = new Product();
+            products.Id_Item = product_Item_Type.Id_Item;
+            products.Id_SanPham = product_Item_Type.Id_SanPham;
+            products.Name = product_Item_Type.Name;
+            products.Photo = product_Item_Type.Photo;
+            products.Price = product_Item_Type.Price;
+            products.Details = product_Item_Type.Details;
+
+            Item item = new Item();
+            item.Id_SanPham = product_Item_Type.Id_SanPham;
+            item.Quantity = product_Item_Type.Quantity;
+
+
+
+
+
+
+
+
+
+
+
+            //EntityMapper<DTO_Product, Product> mapObj = new EntityMapper<DTO_Product, Product>();
+            //Product account = mapObj.Translate(dTO_Account.);
+            //EntityMapper<DTO_Item, Item> mapObj1 = new EntityMapper<DTO_Item, Item>();
+            //Item account1 = mapObj1.Translate(item);
+
+
+            return dAL_Product.UpdateProduct(products, item);
+        }
 
     }
 }
