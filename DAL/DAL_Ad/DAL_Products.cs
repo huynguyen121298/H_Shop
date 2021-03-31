@@ -161,7 +161,9 @@ namespace DAL.DAL_Ad
             {
                 Product product = db.Products.Find(id);
                 //Item item = db.Items.Find(id);
+                Item item = db.Items.Find(id);
                 db.Products.Remove(product);
+                db.Items.Remove(item);
                 //db.Items.Remove(item);
                 db.SaveChanges();
                 return true;
