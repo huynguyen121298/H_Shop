@@ -57,6 +57,7 @@
     <Compile Include="Common\Constants.cs" />
     <Compile Include="DTO\BoolResult.cs" />
     <Compile Include="DTO\DTO_Ad\DTO_Account.cs" />
+    <Compile Include="DTO\DTO_Client\DTO_Feedback.cs" />
     <Compile Include="DTO_Model\DTO_Account_Role.cs" />
     <Compile Include="DTO\DTO_Ad\DTO_Checkout_Customer.cs" />
     <Compile Include="DTO\DTO_Ad\DTO_Checkout_Order.cs" />

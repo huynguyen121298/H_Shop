@@ -53,6 +53,9 @@ namespace Model.EF_Mapper
             Mapper.CreateMap<Account_Role, DTO.DTO_Ad.DTO_Account_Role>();
             Mapper.CreateMap<DTO.DTO_Ad.DTO_Account_Role, Account_Role>();
 
+            Mapper.CreateMap<Feedback, DTO_Feedback>();
+            Mapper.CreateMap<DTO_Feedback, Feedback>();
+
         }
 
 

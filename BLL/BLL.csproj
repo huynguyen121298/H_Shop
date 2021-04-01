@@ -55,6 +55,7 @@
     <Compile Include="BLL_Ad\BLL_Products.cs" />
     <Compile Include="BLL_Ad\BLL_User_Acc.cs" />
     <Compile Include="BLL_Client\BLL_Cart.cs" />
+    <Compile Include="BLL_Client\BLL_Feedback.cs" />
     <Compile Include="BLL_Client\BLL_Home.cs" />
     <Compile Include="BLL_Client\BLL_Product.cs" />
     <Compile Include="Class1.cs" />

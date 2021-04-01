@@ -2573,6 +2573,7 @@
     <Content Include="Views\Cart\Thankyou1.cshtml" />
     <Content Include="Views\Cart\Thankyou.cshtml" />
     <Content Include="Views\Customer\ResetPassword.cshtml" />
+    <Content Include="Views\Shared\_Layout_Product.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

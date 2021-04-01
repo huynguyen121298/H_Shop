@@ -231,6 +231,7 @@
     <Compile Include="Controllers\Checkout_CustomerController.cs" />
     <Compile Include="Controllers\Checkout_OrderController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\User_AccController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\API_Ad\User_AccController.cs" />

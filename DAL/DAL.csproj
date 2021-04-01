@@ -89,6 +89,7 @@
     <Compile Include="DAL_Ad\DAL_Products.cs" />
     <Compile Include="DAL_Ad\DAL_User_Acc.cs" />
     <Compile Include="DAL_Client\DAL_Cart.cs" />
+    <Compile Include="DAL_Client\DAL_Feedback.cs" />
     <Compile Include="DAL_Client\DAL_Home.cs" />
     <Compile Include="DAL_Client\DAL_Product.cs" />
     <Compile Include="DAL_Model\Account_Role.cs" />

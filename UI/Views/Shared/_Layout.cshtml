@@ -389,34 +389,38 @@ author URL: http://w3layouts.com
                 </div>
 
                 <div class="col-lg-8 mt-5">
-                    <form action="saveFeedbacks" method="post">
-                        <div class="row main-w3layouts-sectns">
-                            <div class="col-md-6 w3-btm-spc form-text1">
-                                <input type="text" value="" placeholder="Nhập tên" name="Name">
+                    @using (Html.BeginForm("saveFeedbacks", "Home", FormMethod.Post))
+                    {
+                        <form action="saveFeedbacks" method="post">
+                            <div class="row main-w3layouts-sectns">
+                                <div class="col-md-6 w3-btm-spc form-text1">
+                                    <input type="text" value="" placeholder="Nhập tên" name="Name">
+                                </div>
+                                <div class="col-md-6 w3-btm-spc form-text2">
+                                    <input type="text" placeholder="Nhập SDT" name="SDT">
+                                </div>
                             </div>
-                            <div class="col-md-6 w3-btm-spc form-text2">
-                                <input type="text" placeholder="Nhập SDT" name="SDT">
+                            <div class="row main-w3layouts-sectns">
+                                <div class="col-md-6 w3-btm-spc form-text1">
+                                    <input type="text" value="" placeholder="Nhập Email" name="Email">
+                                </div>
+                                <div class="col-md-6 w3-btm-spc form-text2">
+                                    <input class="form-control" type="text" placeholder="Nhập tiêu đề" name="content">
+                                </div>
                             </div>
-                        </div>
-                        <div class="row main-w3layouts-sectns">
-                            <div class="col-md-6 w3-btm-spc form-text1">
-                                <input type="text" value="" placeholder="Nhập Email" name="Email">
+                            <div class="main-w3layouts-sectns ">
+                                <div class="w3-btm-spc form-text2 p-0">
+                                    <textarea name="details" placeholder="Nhập nội dung của bạn"></textarea>
+                                </div>
                             </div>
-                            <div class="col-md-6 w3-btm-spc form-text2">
-                                <input class="form-control" type="text" placeholder="Nhập tiêu đề" name="content">
-                            </div>
-                        </div>
-                        <div class="main-w3layouts-sectns ">
-                            <div class="w3-btm-spc form-text2 p-0">
-                                <textarea name="details" placeholder="Nhập nội dung của bạn"></textarea>
-                            </div>
-                        </div>
 
 
 
-                        <input class="btn btn-outline-primary" onclick="Add()" type="submit" value="Gửi">
+                            <input class="btn btn-outline-primary" onclick="Add()" type="submit" value="Gửi">
 
-                    </form>
+                        </form>
+                    }
+
                 </div>
                 <div class="col-lg-4 mt-5">
                     <div class="contact-info">
