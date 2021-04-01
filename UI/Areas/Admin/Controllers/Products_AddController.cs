@@ -27,7 +27,7 @@ namespace UI.Areas.Admin.Controllers
         // GET: Admin/Products_Add/Details/5
         public ActionResult Details(int Id)
         {
-            HttpResponseMessage responseMessage = service.GetResponse("api/Products_Ad/GetProductById/"+Id);
+            HttpResponseMessage responseMessage = service.GetResponse("api/Products_Ad/GetProductItemById/"+Id);
             responseMessage.EnsureSuccessStatusCode();
             DTO_Product_Item_Type dTO_Accounts = responseMessage.Content.ReadAsAsync<DTO_Product_Item_Type>().Result;
             return View(dTO_Accounts);
@@ -189,7 +189,7 @@ namespace UI.Areas.Admin.Controllers
         public ActionResult Edit(int Id)
         {
             ServiceRepository service = new ServiceRepository();
-            HttpResponseMessage responseMessage = service.GetResponse("api/Products_Ad/GetProductById/" + Id);
+            HttpResponseMessage responseMessage = service.GetResponse("api/Products_Ad/GetProductItemById/" + Id);
             responseMessage.EnsureSuccessStatusCode();
             DTO_Product_Item_Type dtoAccounts = responseMessage.Content.ReadAsAsync<DTO_Product_Item_Type>().Result;
 
@@ -263,25 +263,43 @@ namespace UI.Areas.Admin.Controllers
 
             try
             {
-                if (ImageUpload != null)
+                if (ModelState.IsValid)
                 {
-                    string fileName = Path.GetFileNameWithoutExtension(ImageUpload.FileName);
-                    string extension = Path.GetExtension(ImageUpload.FileName);
-                    fileName = fileName + extension;
-                    dTO_Product_Item_Type.Photo = "~/images_product/" + fileName;
-                    ImageUpload.SaveAs(Path.Combine(Server.MapPath("~/images_product/"), fileName));
-                    //var idSP = Request.Form["id"];
-                    //var quantity = Request.Form["sl"];
-                    //dTO_Product_Item_Type.Id_SanPham = Convert.ToInt32(idSP);
-                    dTO_Product_Item_Type.Details = Request.Form["details"];
+                    
+                    if (ImageUpload != null)
+                    {
 
-                    //dTO_Product_Item_Type.Quantity = Convert.ToInt32(quantity);
-                    HttpResponseMessage responseUser = service.PostResponse("api/Products_Ad/UpdateProduct/", dTO_Product_Item_Type);
+                        string fileName = Path.GetFileNameWithoutExtension(ImageUpload.FileName);
+                        string extension = Path.GetExtension(ImageUpload.FileName);
+                        fileName = fileName + extension;
+                        ImageUpload.SaveAs(Path.Combine(Server.MapPath("~/images_product/"), fileName));
 
-                    responseUser.EnsureSuccessStatusCode();
-                    //HttpResponseMessage responseUser1 = service.PostResponse("api/Products_Ad/CreateItem/", item);
+                        dTO_Product_Item_Type.Details = Request.Form["details"];
 
+                        //dTO_Product_Item_Type.Quantity = Convert.ToInt32(quantity);
+                        HttpResponseMessage responseUser = service.PostResponse("api/Products_Ad/UpdateProduct/", dTO_Product_Item_Type);
+
+                        responseUser.EnsureSuccessStatusCode();
+                        //var idSP = Request.Form["id"];
+                        //var quantity = Request.Form["sl"];
+                        //dTO_Product_Item_Type.Id_SanPham = Convert.ToInt32(idSP);
+
+                        //HttpResponseMessage responseUser1 = service.PostResponse("api/Products_Ad/CreateItem/", item);
+
+                    }
+                    else
+                    {
+                        dTO_Product_Item_Type.Details = Request.Form["details"];
+
+                        //dTO_Product_Item_Type.Quantity = Convert.ToInt32(quantity);
+                        HttpResponseMessage responseUser = service.PostResponse("api/Products_Ad/UpdateProduct/", dTO_Product_Item_Type);
+
+                        responseUser.EnsureSuccessStatusCode();
+                    }
+                  
+                   
                 }
+               
 
 
 

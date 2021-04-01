@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using DAL.DAL_Model;
 using DAL.EF;
 
 namespace DAL.DAL_Ad
@@ -32,6 +33,27 @@ namespace DAL.DAL_Ad
         public Product GetProDuctById(int id)
         {
             return db.Products.Where(s=>s.Id_SanPham==id).FirstOrDefault();
+        }
+        public Product_Item_Type GetProductItemById(int id)
+        {
+            var infoProduct = from item in db.Items
+                              join product in db.Products on item.Id_SanPham equals product.Id_SanPham
+                              where product.Id_SanPham == id && item.Id_SanPham==id
+                              select new Product_Item_Type()
+                              {
+                                  Id_SanPham = product.Id_SanPham,
+                                  Name = product.Name,
+                                  Price = product.Price,
+                                  Details = product.Details,
+                                  Photo = product.Photo,
+                                  Id_Item=product.Id_Item,
+                                  Quantity=item.Quantity,
+                                     
+                                  
+
+
+                                   };
+            return infoProduct.FirstOrDefault();
         }
 
 
