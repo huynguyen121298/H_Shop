@@ -228,6 +228,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API_Ad\Admin_accController.cs" />
     <Compile Include="Controllers\API_Ad\Products_AdController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\Checkout_CustomerController.cs" />
     <Compile Include="Controllers\Checkout_OrderController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
@@ -273,6 +274,7 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

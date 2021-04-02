@@ -273,7 +273,7 @@ namespace UI.Areas.Admin.Controllers
                         string extension = Path.GetExtension(ImageUpload.FileName);
                         fileName = fileName + extension;
                         ImageUpload.SaveAs(Path.Combine(Server.MapPath("~/images_product/"), fileName));
-
+                        dTO_Product_Item_Type.Photo = "~/images_product/" + fileName;
                         dTO_Product_Item_Type.Details = Request.Form["details"];
 
                         //dTO_Product_Item_Type.Quantity = Convert.ToInt32(quantity);

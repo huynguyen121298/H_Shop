@@ -268,6 +268,7 @@ namespace UI.Controllers
                 DTO_Product_Item_Type proItem = responseUser.Content.ReadAsAsync<DTO_Product_Item_Type>().Result;
 
 
+               
                 li.Add(new DTO_Product_Item_Type()
                 {
 
@@ -321,6 +322,169 @@ namespace UI.Controllers
             }
             return RedirectToAction("Index", "Product");
             //return View();
+        }
+        public ActionResult Giam(int Id, DTO_Product_Item_Type item1)
+        {
+            if (Session["cart"] == null)
+            {
+                List<DTO_Product_Item_Type> li = new List<DTO_Product_Item_Type> ();
+                HttpResponseMessage responseUser = service.GetResponse("api/Products_Ad/GetProductItemById/" + Id);
+                responseUser.EnsureSuccessStatusCode();
+                DTO_Product_Item_Type proItem = responseUser.Content.ReadAsAsync<DTO_Product_Item_Type>().Result;
+
+                li.Add(new DTO_Product_Item_Type()
+                {
+
+                    Id_SanPham = proItem.Id_SanPham,
+                    Name = proItem.Name,
+                    Price = proItem.Price,
+                    Details = proItem.Details,
+                    Photo = proItem.Photo,
+                    Id_Item = proItem.Id_Item,
+                    Quantity = 1
+                });
+                Session["cart"] = li;
+
+
+
+
+
+
+            }
+            else
+            {
+                List<DTO_Product_Item_Type> li = (List<DTO_Product_Item_Type>)Session["cart"];
+                HttpResponseMessage responseUser = service.GetResponse("api/Products_Ad/GetProductItemById/" + Id);
+                responseUser.EnsureSuccessStatusCode();
+                DTO_Product_Item_Type proItem = responseUser.Content.ReadAsAsync<DTO_Product_Item_Type>().Result;
+
+                int index = isExist(Id);
+                if (index != -1)
+                {
+                    li[index].Quantity--;
+                }
+                else
+                {
+                    li.Add(new DTO_Product_Item_Type()
+                    {
+                        Id_SanPham = proItem.Id_SanPham,
+                        Name = proItem.Name,
+                        Price = proItem.Price,
+                        Details = proItem.Details,
+                        Photo = proItem.Photo,
+                        Id_Item = proItem.Id_Item,
+                        Quantity = -1
+                    });
+
+                }
+
+
+                Session["cart"] = li;
+
+            }
+
+            return RedirectToAction("Details", "Product");
+
+        }
+        public ActionResult Update(int Id, FormCollection fc)
+        {
+
+            List<DTO_Product_Item_Type> li = (List<DTO_Product_Item_Type>)Session["cart"];
+            HttpResponseMessage responseUser = service.GetResponse("api/Products_Ad/GetProductItemById/" + Id);
+            responseUser.EnsureSuccessStatusCode();
+            DTO_Product_Item_Type proItem = responseUser.Content.ReadAsAsync<DTO_Product_Item_Type>().Result;
+
+            int index = isExist(Id);
+            if (index != -1)
+            {
+
+
+                li[index].Quantity++;
+
+
+            }
+            else
+            {
+                li.Add(new DTO_Product_Item_Type()
+                {
+
+                    Id_SanPham = proItem.Id_SanPham,
+                    Name = proItem.Name,
+                    Price = proItem.Price,
+                    Details = proItem.Details,
+                    Photo = proItem.Photo,
+                    Id_Item = proItem.Id_Item,
+                    Quantity = 1
+                });
+
+            }
+
+
+            Session["cart"] = li;
+
+
+            return RedirectToAction("Details", "Product");
+        }
+        public ActionResult Tang(int Id, DTO_Product_Item_Type item1)
+        {
+            if (Session["cart"] == null)
+            {
+                List<DTO_Product_Item_Type> li = new List<DTO_Product_Item_Type>();
+                HttpResponseMessage responseUser = service.GetResponse("api/Products_Ad/GetProductItemById/" + Id);
+                responseUser.EnsureSuccessStatusCode();
+                DTO_Product_Item_Type proItem = responseUser.Content.ReadAsAsync<DTO_Product_Item_Type>().Result;
+
+                li.Add(new DTO_Product_Item_Type()
+                {
+
+                    Id_SanPham = proItem.Id_SanPham,
+                    Name = proItem.Name,
+                    Price = proItem.Price,
+                    Details = proItem.Details,
+                    Photo = proItem.Photo,
+                    Id_Item = proItem.Id_Item,
+                    Quantity = 1
+                });
+                Session["cart"] = li;
+
+
+
+
+
+
+            }
+            else
+            {
+                List<DTO_Product_Item_Type> li = (List<DTO_Product_Item_Type>)Session["cart"];
+                HttpResponseMessage responseUser = service.GetResponse("api/Products_Ad/GetProductItemById/" + Id);
+                responseUser.EnsureSuccessStatusCode();
+                DTO_Product_Item_Type proItem = responseUser.Content.ReadAsAsync<DTO_Product_Item_Type>().Result;
+
+                int index = isExist(Id);
+                if (index != -1)
+                {
+                    li[index].Quantity++;
+                }
+                else
+                {
+                    li.Add(new DTO_Product_Item_Type()
+                    {
+                        Id_SanPham = proItem.Id_SanPham,
+                        Name = proItem.Name,
+                        Price = proItem.Price,
+                        Details = proItem.Details,
+                        Photo = proItem.Photo,
+                        Id_Item = proItem.Id_Item,
+                        Quantity = +1
+                    });
+
+                }
+
+
+                Session["cart"] = li;
+
+            }
+            return RedirectToAction("Details", "Product");
         }
 
         public ActionResult Details1(int Id)
@@ -387,7 +551,9 @@ namespace UI.Controllers
 
 
             }
-            return RedirectToAction("LuaChon");
+            return RedirectToAction("LuaChon","Cart");
         }
+
+       
     }
 }

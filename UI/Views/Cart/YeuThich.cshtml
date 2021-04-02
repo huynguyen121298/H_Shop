@@ -5,11 +5,11 @@
 }
 
 @{
-    List<Item> cart = (List<Item>)Session["cart_"];
+    List<DTO_Product_Item_Type> cart = (List<DTO_Product_Item_Type>)Session["cart_"];
     //var total = cart.Sum(item => item.Product.Price * item.Quantity);
     //var total1 = cart.Count();
 }
-@using WebApplication3.Models;
+@using Model.DTO_Model;
 
 
 
@@ -58,22 +58,22 @@
                     <div class="product-detail-top">
 
 
-                        @foreach (Item item in (List<Item>)Session["cart_"])
+                        @foreach (DTO_Product_Item_Type item in (List<DTO_Product_Item_Type>)Session["cart_"])
                         {
                             <div class="row align-items-center">
                                 <div class="col-md-5">
                                     <div class="product-slider-single normal-slider">
-                                        <img src="@Url.Content(item.Product.Photo)" />
+                                        <img src="@Url.Content(item.Photo)" />
 
                                     </div>
                                     <div class="product-slider-single-nav normal-slider">
-                                        <div class="slider-nav-img"> <img src="@Url.Content(item.Product.Photo)" /></div>
+                                        <div class="slider-nav-img"> <img src="@Url.Content(item.Photo)" /></div>
 
                                     </div>
                                 </div>
                                 <div class="col-md-7">
                                     <div class="product-content">
-                                        @item.Product.Name
+                                        @item.Name
                                         <div class="ratting">
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
@@ -83,14 +83,14 @@
                                         </div>
                                         <div>
                                             <h4 class="product-price-range"> giá sản phẩm</h4>
-                                            <p><span style="color:red"> @item.Product.Price </span> VNĐ</p>
+                                            <p><span style="color:red"> @item.Price </span> VNĐ</p>
                                         </div>
 
                                         <div class="p-color">
 
                                             <div class="btn-group btn-group-sm">
-                                                <a class="btn" href="@Url.Action("Remove_", "Cart", new { id = item.Product.Id_SanPham })">Xóa khỏi sản phẩm yêu thích </a>
-                                                <a onclick="AddCart()" class="btn" href="@Url.Action("Buy", "Cart", new { id = item.Product.Id_SanPham })"><i class="fa fa-shopping-bag"></i>Xác nhận mua</a>
+                                                <a class="btn" href="@Url.Action("Remove_", "Cart", new { id = item.Id_SanPham })">Xóa khỏi sản phẩm yêu thích </a>
+                                                <a onclick="AddCart()" class="btn" href="@Url.Action("Buy", "Cart", new { id = item.Id_SanPham })"><i class="fa fa-shopping-bag"></i>Xác nhận mua</a>
 
                                             </div>
                                             <script>
@@ -127,7 +127,7 @@
 
                                                         <p>
 
-                                                            @item.Product.Details
+                                                            @item.Details
 
                                                         </p>
                                                     </div>

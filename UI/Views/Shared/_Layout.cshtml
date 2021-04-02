@@ -546,13 +546,13 @@ author URL: http://w3layouts.com
                     </p>
 
                 </div>
-                <div id="btnlogin" style="display:none" class="copy-right text-center">
+                <div id="btnlogin" @*style="display:none"*@ class="copy-right text-center">
 
                     <a href="~/Admin/Account/Login">
                         <p style="font-style:italic oblique">Vào Trang ADMIN</p>
                     </a>
                 </div>
-                @if (Request.Cookies["firstname"] != null)
+                @*@if (Request.Cookies["firstname"] != null)
                 {
                     <script>
 
@@ -565,7 +565,7 @@ author URL: http://w3layouts.com
 
                     </script>
 
-                }
+                }*@
                 <!-- //copyright -->
 
 

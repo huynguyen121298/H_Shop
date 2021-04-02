@@ -6,11 +6,11 @@
 
 @{
     
-    Product item = (Product)Session["cart__"];
+    DTO_Product_Item_Type item = (DTO_Product_Item_Type)Session["cart__"];
     //var total = cart.Sum(item => item.Product.Price * item.Quantity);
     //var total1 = cart.Count();
 }
-@using WebApplication3.Models;
+@using Model.DTO_Model;
 
 
 
@@ -146,7 +146,7 @@
 
                                     <div id="reviews" class="container tab-pane fade">
                                         <div class="reviews-submitted">
-                                            <div class="reviewer"> Để lại đánh giá của bạn - <span>@DateTime.Today</span></div>
+                                            <div class="reviewer"> Để lại đánh giá của bạn - <span>@DateTime.Now</span></div>
                                             <div class="ratting">
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
@@ -165,7 +165,7 @@
                                                 <i class="far fa-star"></i>
                                                 <i class="far fa-star"></i>
                                             </div>
-                                            @using (Html.BeginForm("saveFeedbacks_luachon", "Home", FormMethod.Post))
+                                            @using (Html.BeginForm("saveFeedbacks", "Home", FormMethod.Post))
                                             {
                                                 <div class="row form">
                                                     <div class="col-sm-6">

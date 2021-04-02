@@ -136,8 +136,8 @@ author URL: http://w3layouts.com
                                 <a href="#">Tài Khoản <span class="fa fa-angle-down" aria-hidden="true"></span></a>
                                 <ul class="inner-dropdown">
 
-                                    <li><a href="~/Home/Login_user">Đăng nhập</a></li>
-                                    <li><a href="~/Home/Register">Đăng ký</a></li>
+                                    <li><a href="~/Customer/Login">Đăng nhập</a></li>
+                                    <li><a href="~/Customer/Signin">Đăng ký</a></li>
                                 </ul>
 
 
@@ -499,13 +499,13 @@ author URL: http://w3layouts.com
                         <br />
 
                     </div>
-                    <div id="btnlogin" style="display:none" class="copy-right text-center">
+                    <div id="btnlogin" @*style="display:none"*@ class="copy-right text-center">
 
                         <a href="~/Admin/Account/Login">
                             <p style="font-style:italic oblique">Vào Trang ADMIN</p>
                         </a>
                     </div>
-                    @if (Request.Cookies["firstname"] != null)
+                    @*@if (Request.Cookies["firstname"] != null)
                     {
                         <script>
 
@@ -518,7 +518,7 @@ author URL: http://w3layouts.com
 
                         </script>
 
-                    }
+                    }*@
                     <!-- //copyright -->
 
 

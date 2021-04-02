@@ -1,14 +1,14 @@
-﻿@model WebApplication3.Models.Product
+﻿@model Model.DTO_Model.DTO_Product_Item_Type
 @{
     ViewBag.Title = "Checkout";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@using WebApplication3.Models
+@using Model.DTO_Model;
 
 
 @{
-    List<Item> cart = (List<Item>)Session["cart"];
-    var total = cart.Sum(item => item.Quantity * item.Product.Price);
+    List<DTO_Product_Item_Type> cart = (List<DTO_Product_Item_Type>)Session["cart"];
+    var total = cart.Sum(item => item.Quantity * item.Price);
     var total1 = cart.Count();
 
 }
