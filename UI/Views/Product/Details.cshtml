@@ -1,10 +1,14 @@
 ﻿
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout_.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-@using Model.DTO.DTO_Client;
+@{
+    List<DTO_Product_Item_Type> cart = (List<DTO_Product_Item_Type>)Session["cart"];
+    var total = cart.Sum(item => item.Price * item.Quantity);
+    var total1 = cart.Count();
+}
+@using Model.DTO_Model;
 
 
 
@@ -27,19 +31,14 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="~/lib/slick/slick.css" rel="stylesheet">
     <link href="~/lib/slick/slick-theme.css" rel="stylesheet">
-
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <!-- Template Stylesheet -->
     <link href="~/css/style_SP.css" rel="stylesheet">
 </head>
 
 <body>
-    <!-- Top bar Start -->
-    <!-- Top bar End -->
-    <!-- Nav Bar Start -->
-    <!-- Nav Bar End -->
-    <!-- Bottom Bar Start -->
-    <!-- Bottom Bar End -->
-    <!-- Breadcrumb Start -->
+
     <div class="breadcrumb-wrap">
         <div class="container-fluid">
             <ul class="breadcrumb">
@@ -58,22 +57,22 @@
                     <div class="product-detail-top">
 
 
-                        @foreach (DTO_Item_Client item in (List<DTO_Item_Client>)Session["cart"])
+                        @foreach (DTO_Product_Item_Type item in (List<DTO_Product_Item_Type>)Session["cart"])
                         {
                             <div class="row align-items-center">
                                 <div class="col-md-5">
                                     <div class="product-slider-single normal-slider">
-                                        <img src="@Url.Content(item.Product.Photo)" />
+                                        <img src="@Url.Content(item.Photo)" />
 
                                     </div>
                                     <div class="product-slider-single-nav normal-slider">
-                                        <div class="slider-nav-img"> <img src="@Url.Content(item.Product.Photo)" /></div>
+                                        <div class="slider-nav-img"> <img src="@Url.Content(item.Photo)" /></div>
 
                                     </div>
                                 </div>
                                 <div class="col-md-7">
                                     <div class="product-content">
-                                        @item.Product.Name
+                                        @item.Name
                                         <div class="ratting">
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
@@ -81,22 +80,28 @@
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
                                         </div>
-                                        <div >
-                                            <h4>Price:</h4>
-                                            <p><span>@item.Product.Price</span>VNĐ</p>
+                                        <div>
+                                            <h4 class="product-price-range">Tổng giá sản phẩm</h4>
+                                            <p><span style="color:red"> @(item.Price * item.Quantity)</span> VNĐ</p>
                                         </div>
                                         <div class="quantity">
-                                            <h4>Quantity:</h4>
-                                            <div class="quantity">
-                                                @*<button class="btn-minus"><i class="fa fa-minus"></i></button>*@
-                                                <a class="btn-minus" href="@Url.Action("Giam", "Product", new { id = item.Product.Id_SanPham })"><i class="fa fa-minus"></i> Giảm số lượng </a>
+                                            <h4>Số lượng:</h4>
+                                            <br />
 
-                                                <input type="text" value=" @item.Quantity">
-                                                @*<button class="btn-plus"><i class="fa fa-plus"></i></button>*@
-                                                <a class="btn-minus" href="@Url.Action("Tang", "Product", new { id = item.Product.Id_SanPham })"><i class="fa fa-plus"></i> Tăng Số lượng </a>
+                                            @*<button class="btn-minus"><i class="fa fa-minus"></i></button>*@
+                                            <a href=" @Url.Action("Giam", "Product", new { id = item.Id_SanPham })" class="btn-minus" id="giam"><i class="fa fa-minus"></i> Giảm số lượng </a>
+
+                                            <input type="text" name="quantity" value=" @item.Quantity">
+
+                                            <a href=" @Url.Action("Tang", "Product", new { id = item.Id_SanPham })" class="btn-plus" id="giam"><i class="fa fa-plus"></i> Tăng số lượng </a>
 
 
-                                            </div>
+
+
+                                            @*<button class="btn-plus"><i class="fa fa-plus"></i></button>*@
+                                            @*<button class="btn-minus" id="tang"><i class="fa fa-plus"></i> Tăng Số lượng </button>*@
+
+
                                         </div>
                                         <div class="p-size">
                                             <h4>Size:</h4>
@@ -115,27 +120,59 @@
                                                 <button type="button" class="btn">Blue</button>
                                             </div>
                                         </div>
+
+                                        @*<div class="p-color">
+
+                                                <div class="btn-group btn-group-sm">
+                                                    <a href=" @Url.Action("Update", "Product", new { id = item.Product.Id_SanPham })" class="btn" id="giam"><i class="fa fa-shopping-cart"></i> Cập nhật </a>
+
+                                                </div>
+
+                                            </div>*@
+
                                         <div class="p-color">
 
                                             <div class="btn-group btn-group-sm">
-                                                <a href="@Url.Action("Remove", "Product", new { id = item.Product.Id_SanPham })">Xóa sản phẩm </a>
+                                                <a class="btn" href="@Url.Action("Remove", "Product", new { id = item.Id_SanPham })">Xóa sản phẩm </a>
                                             </div>
-                                        </div>
-                                        <div class="action">
-                                            @*<a class="btn" href=""><i class="fa fa-shopping-cart"></i>Add to Cart</a>*@
-                                            <a class="btn" href="@Url.Action("Buy", "Cart", new { id = item.Product.Id_SanPham })"><i class="fa fa-shopping-bag"></i>Xác nhận mua</a>
 
                                         </div>
+                                        <div class="row product-detail-bottom">
+                                            <div class="col-lg-12">
+                                                <ul class="nav nav-pills nav-justified">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active" data-toggle="pill" href="#description">Chi tiết sản phẩm</a>
+                                                    </li>
+
+
+                                                </ul>
+
+                                                <div class="tab-content">
+                                                    <div id="description" class="container tab-pane active">
+
+                                                        <p>
+
+                                                            @item.Details
+
+                                                        </p>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
                         }
 
+
                         <div class="row product-detail-bottom">
                             <div class="col-lg-12">
                                 <ul class="nav nav-pills nav-justified">
                                     <li class="nav-item">
-                                        <a class="nav-link active" data-toggle="pill" href="#description">Chi tiết sản phẩm</a>
+                                        <a class="btn" href="@Url.Action("Buy_", "Cart")"><i class="fa fa-shopping-bag"></i>Xác nhận mua</a>
                                     </li>
 
                                     <li class="nav-item">
@@ -144,20 +181,17 @@
                                 </ul>
 
                                 <div class="tab-content">
-                                    <div id="description" class="container tab-pane active">
-                                        <h4>Chi tiết</h4>
-                                        <p>
-                                            @foreach (DTO_Item_Client item in (List<DTO_Item_Client>
-                                            )Session["cart"])
-                                            {
-                                                @item.Product.Details
-                                            }
-                                        </p>
-                                    </div>
+                                    <!--<div id="description" class="container tab-pane active">
+                                    <div class="action">-->
+                                    @*<a class="btn" href=""><i class="fa fa-shopping-cart"></i>Add to Cart</a>*@
+                                    <!--<a class="btn" href="@Url.Action("Buy", "Cart")"><i class="fa fa-shopping-bag"></i>Xác nhận mua</a>
+
+                                        </div>
+                                    </div>-->
 
                                     <div id="reviews" class="container tab-pane fade">
                                         <div class="reviews-submitted">
-                                            <div class="reviewer"> Để lại đánh giá của bạn - <span>@DateTime.Today</span></div>
+                                            <div class="reviewer"> Để lại đánh giá của bạn - <span>@DateTime.Now</span></div>
                                             <div class="ratting">
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
@@ -165,7 +199,7 @@
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
                                             </div>
-                                            
+
                                         </div>
                                         <div class="reviews-submit">
                                             <h4>Để lại phản hồi của bạn</h4>
@@ -176,36 +210,93 @@
                                                 <i class="far fa-star"></i>
                                                 <i class="far fa-star"></i>
                                             </div>
-                                            <div class="row form">
-                                                <div class="col-sm-6">
-                                                    <input type="text" placeholder="Name">
+                                            @using (Html.BeginForm("saveFeedbacks_details", "Home", FormMethod.Post))
+                                            {
+                                                <div class="row form">
+                                                    <div class="col-sm-6">
+                                                        <input type="text" value="" placeholder="Nhập tên" name="Name">
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" value="" placeholder="Nhập Email" name="Email">
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <input type="text" placeholder="Nhập SDT" name="SDT">
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <input class="form-control" type="text" placeholder="Nhập tiêu đề" name="content">
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <textarea name="details" placeholder="Nhập nội dung của bạn"></textarea>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <input class="btn btn-outline-primary" onclick="Add()" type="submit" value="Gửi">
+                                                    </div>
                                                 </div>
-                                                <div class="col-sm-6">
-                                                    <input type="email" placeholder="Email">
-                                                </div>
-                                                <div class="col-sm-12">
-                                                    <textarea placeholder="Nhập nội dung"></textarea>
-                                                </div>
-                                                <div class="col-sm-12">
-                                                    <button>Gửi</button>
-                                                </div>
-                                            </div>
+                                            }
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
+                        <div class="sidebar-widget tag">
+                            <h2 class="title">Sản phẩm tìm kiếm nhiều</h2>
+                            <a href="#">Áo thun nữ</a>
+                            <a href="#">Hoa quả</a>
+                            <a href="#">Balo</a>
+                            <a href="#">Túi xách nữ</a>
+                            <a href="#">Ví da nam</a>
+                            <a href="#">Giày Gucci</a>
+                            <a href="#">Dép quai ngang</a>
+                            <a href="#">Iphone 12 Pro Max</a>
+                            <a href="#">Macbook</a>
+                            <a href="#">Samsung Note 10</a>
+                            <a href="#">Tivi 97"</a>
+                            <a href="#">Ghế mátxa</a>
+                        </div>
 
+                        @section Upload {
+                            <script>
+                                $('#tang').click(function (event) {
+                                    event.preventDefault();
+                                    $.ajax({
+                                        url: '/Product/Tang',
+                                        type: 'POST',
+                                        data: { increment: true },
+                                        success: function () { alert('Request has returned') }
+                                    });
+                                    return +val + 1;
+                                });
+
+                            </script>
+                        }
                     </div>
 
-                <!-- Side Bar Start -->
-                <!-- Side Bar End -->
+                    <!-- Side Bar Start -->
+                    <!-- Side Bar End -->
+                </div>
             </div>
         </div>
-    </div>
 
-</div>
+    </div>
+    <script>
+
+
+        function AddCart() {
+            Swal.fire({
+                position: 'top',
+                icon: 'success',
+                title: 'Thêm sản phẩm thành công',
+                showConfirmButton: false,
+                timer: 300000
+            })
+
+
+
+        }
+
+
+    </script>
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -218,4 +309,17 @@
 </body>
 </html>
 
+
+@*<script type="text/javascript">
+        $('#quantity').data('count', 0);
+        $('#tang').click(function () {
+            $('#quantity').html(function () {
+                var $this = $(this),
+                    count = $this.data('count') + 1;
+
+                $this.data('count', count);
+                return count;
+            });
+        });
+    </script>*@
 

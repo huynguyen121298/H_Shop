@@ -1,5 +1,6 @@
 ﻿using BLL.BLL_Client;
 using Model.DTO.DTO_Client;
+using Model.DTO_Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace Web_API.Controllers
     public class ProductController : ApiController
     {
         BLL_Product bLL_Product = new BLL_Product();
+        BLL.BLL_Ad.BLL_Products BLL_Products = new BLL.BLL_Ad.BLL_Products();
         // GET: api/Product
         public IEnumerable<string> Get()
         {
@@ -27,13 +29,23 @@ namespace Web_API.Controllers
         {
             return Json<List<DTO_Product_Client>>(bLL_Product.GetAllProducts());
         }
+        [Route("GetAllProductItem")]
+        public JsonResult<List<DTO_Product_Item_Type>> GetAllProductItem()
+        {
+            return Json<List<DTO_Product_Item_Type>>(BLL_Products.GetAllProductItem());
+        }
         [HttpGet]
         [Route("GetProductById/{Id:int}")]
         public JsonResult<DTO_Product_Client> GetProductById(int Id)
         {
             return Json<DTO_Product_Client>(bLL_Product.GetProductById(Id));
         }
-
+        [HttpGet]
+        [Route("GetProductItemById/{Id:int}")]
+        public JsonResult<DTO_Product_Item_Type> GetProductItemById(int Id)
+        {
+            return Json<DTO_Product_Item_Type>(BLL_Products.GetProductItemById(Id));
+        }
         // POST: api/Product
         public void Post([FromBody]string value)
         {

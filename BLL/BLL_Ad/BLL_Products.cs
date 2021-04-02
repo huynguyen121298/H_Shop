@@ -25,6 +25,17 @@ namespace BLL.BLL_Ad
             }
             return dTO_Products;
         }
+        public List<DTO_Product_Item_Type> GetAllProductItem()
+        {
+            EntityMapper<Product_Item_Type, DTO_Product_Item_Type> mapObj = new EntityMapper<Product_Item_Type, DTO_Product_Item_Type>();
+            List<Product_Item_Type> products = dAL_Product.GetAllProductItemById();
+            List<DTO_Product_Item_Type> dTO_Products = new List<DTO_Product_Item_Type>();
+            foreach (var item in products)
+            {
+                dTO_Products.Add(mapObj.Translate(item));
+            }
+            return dTO_Products;
+        }
         public DTO_Product GetProductById(int id)
         {
             EntityMapper<Product, DTO_Product> mapObj = new EntityMapper<Product, DTO_Product>();

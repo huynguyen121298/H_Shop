@@ -47,13 +47,34 @@ namespace DAL.DAL_Ad
                                   Details = product.Details,
                                   Photo = product.Photo,
                                   Id_Item=product.Id_Item,
-                                  Quantity=item.Quantity,
+                                  Quantity=item.Quantity
                                      
                                   
 
 
                                    };
             return infoProduct.FirstOrDefault();
+        }
+        public List<Product_Item_Type> GetAllProductItemById()
+        {
+            var infoProduct = from item in db.Items
+                              join product in db.Products on item.Id_SanPham equals product.Id_SanPham
+                              
+                              select new Product_Item_Type()
+                              {
+                                  Id_SanPham = product.Id_SanPham,
+                                  Name = product.Name,
+                                  Price = product.Price,
+                                  Details = product.Details,
+                                  Photo = product.Photo,
+                                  Id_Item = product.Id_Item,
+                                  Quantity = item.Quantity
+
+
+
+
+                              };
+            return infoProduct.ToList();
         }
 
 

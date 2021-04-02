@@ -1,5 +1,5 @@
-﻿@model IEnumerable<Model.DTO.DTO_Client.DTO_Product_Client>
-@using Model.DTO.DTO_Client;
+﻿@model IEnumerable<Model.DTO_Model.DTO_Product_Item_Type>
+@using Model.DTO_Model;
 
 @{
     ViewBag.Title = "Index";
@@ -136,7 +136,7 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="row">
-                        @foreach (DTO_Product_Client item in Model)
+                        @foreach (DTO_Product_Item_Type item in Model)
                         {
 
                             <div class="col-md-4">
@@ -172,7 +172,7 @@
 
                                     </div>
                                     <div class="product-price">
-                                        <a class="btn" href="@Url.Action("Details", "Cart", new { id = item.Id_SanPham })"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>
+                                        <a class="btn" href="@Url.Action("Buy", "Product", new { id = item.Id_SanPham })"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>
 
 
                                     </div>
