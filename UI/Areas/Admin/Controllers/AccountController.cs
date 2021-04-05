@@ -127,7 +127,7 @@ namespace UI.Areas.Admin.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Vui lòng kiểm tra lại thông tin");
+                    ViewData["ErrorMessage"]= "Vui lòng kiểm tra lại thông tin";
                     return View(model);
                 }
             

@@ -12,21 +12,21 @@ namespace UI.Models
         [Key, Column(Order = 1)]
         //[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int idUser { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Yêu cầu nhập id")]
         [StringLength(50, MinimumLength = 3)]
         public string FirstName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Yêu cầu nhập FisrtName")]
         [StringLength(50, MinimumLength = 3)]
         public string LastName { get; set; }
        
         [Required(ErrorMessage = "Yêu cầu nhập email")]
         [EmailAddress(ErrorMessage = "Vui lòng nhập email thực.")]
-        [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}")]
+        
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        [Required]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,15}$")]
+        [Required(ErrorMessage = "Yêu cầu nhập Mật khẩu")]
+       
         [DataType(DataType.Password)]
         public string Password { get; set; }
 

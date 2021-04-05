@@ -205,13 +205,13 @@ namespace UI.Controllers
                 return this.View();
             
         }
-        public ActionResult Signin()
+        public ActionResult Signup()
         {
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Signin([Bind(Include = "FirstName,LastName,Email,Password,ConfirmPassword")] RegisterModel model, string AuthenticationCode)
+        public ActionResult Signup([Bind(Include = "FirstName,LastName,Email,Password,ConfirmPassword")] RegisterModel model, string AuthenticationCode)
         {
             var authenticationEmail = (AuthenticationEmail)Session[Constants.AUTHENTICATIONEMAIL_SESSION];
             if (ModelState.IsValid & authenticationEmail != null)
@@ -257,10 +257,15 @@ namespace UI.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Mã xác thực không hợp lệ");
+                    ViewData["ErrorMessage"]= "Mã xác thực không hợp lệ";
                     return View(model);
                 }
             }
+            else
+            {
+                ViewData["ErrorMessage"] = "Vui lòng kiểm tra lại mã xác thực";
+            }
+
             return View(model);
         }
         public DTO_Users_Acc GetCustomerByEmail(string mail)

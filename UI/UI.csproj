@@ -2564,7 +2564,7 @@
     <Content Include="Views\Shared\_Layout_.cshtml" />
     <Content Include="Views\Customer\ForgotPassword.cshtml" />
     <Content Include="Views\Customer\Login.cshtml" />
-    <Content Include="Views\Customer\Signin.cshtml" />
+    <Content Include="Views\Customer\Signup.cshtml" />
     <Content Include="Views\Customer\ProfileUser.cshtml" />
     <Content Include="Views\Shared\Error_.cshtml" />
     <Content Include="Views\Product\BagCart.cshtml" />
