@@ -23,6 +23,26 @@ namespace UI.Areas.Admin.Controllers
             List<DTO_Product> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Product>>().Result;
             return View(dTO_Accounts);
         }
+        public ActionResult GetAllProductByType()
+        {
+
+            HttpResponseMessage responseMessage = service.GetResponse("api/Products_Ad/GetAllProductByType");
+            responseMessage.EnsureSuccessStatusCode();
+            List<List<DTO_Product>> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<List<DTO_Product>>>().Result;
+            return View(dTO_Accounts);
+        }
+        public ActionResult Index2(int id)
+        {
+           
+
+
+            HttpResponseMessage responseMessage = service.GetResponse("api/Products_Ad/GetAllProductByIdItem/"+id);
+            responseMessage.EnsureSuccessStatusCode();
+            List<DTO_Product> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Product>>().Result;
+            return View(dTO_Accounts);
+        }
+
+
 
         // GET: Admin/Products_Add/Details/5
         public ActionResult Details(int Id)

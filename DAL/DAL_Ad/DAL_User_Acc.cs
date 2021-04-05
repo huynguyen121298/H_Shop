@@ -1,4 +1,5 @@
-﻿using DAL.EF;
+﻿using DAL.Common;
+using DAL.EF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,8 +37,8 @@ namespace DAL.DAL_Ad
                 acc.FirstName = account.FirstName;
                 acc.Email = account.Email;
                 acc.LastName = account.LastName;
-                acc.Password = account.Password;
-                acc.RoleId = account.RoleId;
+                acc.Password = Encryptor.MD5Hash(account.Password); 
+                //acc.RoleId = account.RoleId;
 
                 db.SaveChanges();
                 return true;

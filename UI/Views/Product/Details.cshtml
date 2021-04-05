@@ -31,8 +31,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="~/lib/slick/slick.css" rel="stylesheet">
     <link href="~/lib/slick/slick-theme.css" rel="stylesheet">
-    <script src="~/Scripts/jquery-3.4.1.js"></script>
-    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    @*<script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
     <!-- Template Stylesheet -->
     <link href="~/css/style_SP.css" rel="stylesheet">
 </head>
@@ -91,9 +91,9 @@
                                             @*<button class="btn-minus"><i class="fa fa-minus"></i></button>*@
                                             <a href=" @Url.Action("Giam", "Product", new { id = item.Id_SanPham })" class="btn-minus" id="giam"><i class="fa fa-minus"></i> Giảm số lượng </a>
 
-                                            <input type="text" name="quantity" value=" @item.Quantity">
+                                            <input type="text" name="quantity" id="quantity" value=" @item.Quantity">
 
-                                            <a href=" @Url.Action("Tang", "Product", new { id = item.Id_SanPham })" class="btn-plus" id="giam"><i class="fa fa-plus"></i> Tăng số lượng </a>
+                                            <a href=" #" class="btn-plus" id="tang" onclick="tangSoLuong(@item.Id_SanPham)"><i class="fa fa-plus"></i> Tăng số lượng </a>
 
 
 
@@ -257,17 +257,28 @@
 
                         @section Upload {
                             <script>
-                                $('#tang').click(function (event) {
-                                    event.preventDefault();
+                                //$('#tang').click(function (event) {
+                                //    event.preventDefault();
+                                //    $.ajax({
+                                //        url: '/Product/Tang',
+                                //        type: 'POST',
+                                //        data: {  },
+                                //        success: function () { alert('thanh cong') }
+                                //    });
+                                   
+                                //});
+                                function tangSoLuong(id) {
                                     $.ajax({
                                         url: '/Product/Tang',
+                                        data: { Id: id },
+                                        dataType: 'json',
                                         type: 'POST',
-                                        data: { increment: true },
-                                        success: function () { alert('Request has returned') }
+                                        success: function (res) {
+                                            console.log(res.soLuong)
+                                            $("#quantity").val(res.soLuong)
+                                        }
                                     });
-                                    return +val + 1;
-                                });
-
+                                }
                             </script>
                         }
                     </div>

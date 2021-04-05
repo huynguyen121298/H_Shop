@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using DAL.Common;
 using DAL.DAL_Model;
 using DAL.EF;
 
@@ -77,7 +78,7 @@ namespace DAL.DAL_Ad
                 acc.FirstName = account.FirstName;
                 acc.Email = account.Email;
                 acc.LastName = account.LastName;
-                acc.Password = account.Password;
+                acc.Password = Encryptor.MD5Hash(account.Password);
                 acc.RoleId = account.RoleId;
                
                     db.SaveChanges();

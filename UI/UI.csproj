@@ -2518,6 +2518,8 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="Areas\Admin\Views\Account\NotAuthorize.cshtml" />
+    <Content Include="Areas\Admin\Views\Products_Add\GetAllProductByType.cshtml" />
+    <Content Include="Areas\Admin\Views\Products_Add\Index2.cshtml" />
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -2574,6 +2576,7 @@
     <Content Include="Views\Cart\Thankyou.cshtml" />
     <Content Include="Views\Customer\ResetPassword.cshtml" />
     <Content Include="Views\Shared\_Layout_Product.cshtml" />
+    <Content Include="Views\Product\Index2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

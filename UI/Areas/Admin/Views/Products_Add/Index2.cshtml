@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<Model.DTO.DTO_Ad.DTO_Product>
 
+
 @using Model.DTO.DTO_Ad;
 @{
     ViewBag.Title = "Index";
@@ -14,30 +15,6 @@
     <i class="fas fa-fw fa-cog"></i>
     <span>Tùy chọn sản phẩm</span>
 </a>
-@*<div id="collapseTwo1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Xem sản phẩm theo:</h6>
-            <a class="collapse-item" href="~/Admin/Products_Add/Index">Tất cả sản phẩm</a><br />
-            <a class="collapse-item" href="~/Admin/Products_Add/DongHo">Đồng hồ</a>
-            <br>
-            <a class="collapse-item" href="~/Admin/Products_Add/ThoiTrangNam">Thời trang nam</a>
-            <br />
-            <a class="collapse-item" href="~/Admin/Products_Add/ThoiTrangNu">Thời trang nữ</a>
-            <br>
-            <a class="collapse-item" href="~/Admin/Products_Add/MevaBe">Mẹ và bé</a>
-            <br />
-            <a class="collapse-item" href="~/Admin/Products_Add/ThietBiGiaDung">Thiết bị gia dụng</a>
-            <br />
-            <a class="collapse-item" href="~/Admin/Products_Add/MayAnhvaMayQuayPhim">Máy ảnh và Máy Quay Phim</a>
-            <br />
-
-            <a class="collapse-item" href="~/Admin/Products_Add/MayTinhvaLapTop">Máy tính và LapTop</a>
-            <br />
-            <a class="collapse-item" href="~/Admin/Products_Add/TheThaovaDuLich">Thể thao và du lịch</a>
-            <br>
-            <a class="collapse-item" href="~/Admin/Products_Add/SucKhoevaSacDep">Sức khỏe và sắc đẹp</a>
-        </div>
-    </div>*@
 <div id="collapseTwo1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
     <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Xem sản phẩm theo:</h6>
@@ -52,7 +29,7 @@
         <br />
         <a class="collapse-item" href=" @Url.Action("Index2", "Products_Add", new { id = 7 })">Thiết bị gia dụng</a>
         <br />
-        <a class="collapse-item" href="@Url.Action("Index2", "Products_Add", new { id = 2 })">Máy ảnh và Máy Quay Phim</a>
+        <a class="collapse-item" href=" @Url.Action("Index2", "Products_Add", new { id = 2 })">Máy ảnh và Máy Quay Phim</a>
         <br />
 
         <a class="collapse-item" href=" @Url.Action("Index2", "Products_Add", new { id = 3 })">Máy tính và LapTop</a>
@@ -63,6 +40,7 @@
     </div>
 </div>
 
+
 <p style="font-size:larger ;text-align:center">
 
     <a class="btn btn-warning " href=" @Url.Action("Create", "Products_Add")"> Tạo sản phẩm mới </a>
@@ -72,6 +50,8 @@
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary" style="text-align:center">Danh sách sản phẩm</h6>
     </div>
+  
+   
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -100,25 +80,25 @@
 
                     @foreach (var item in Model)
                     {
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Bạn xác nhận xóa không?</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Bấm Xóa để xác nhận Xóa, Đóng để hủy
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                                        <a class="btn btn-danger " href=" @Url.Action("Delete", "Products_Add", new { id = item.Id_SanPham })">Xóa</a>
+                        @*<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Bạn xác nhận xóa không?</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Bấm Xóa để xác nhận Xóa, Đóng để hủy
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                            <a class="btn btn-danger " href=" @Url.Action("Delete", "Products_Add", new { id = item.Id_SanPham })">Xóa</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            </div>*@
                         <tr>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Id_SanPham)

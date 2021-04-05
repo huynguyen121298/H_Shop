@@ -23,6 +23,15 @@ namespace UI.Controllers
           List<DTO_Product_Item_Type> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Product_Item_Type>>().Result;
             return View(dTO_Accounts);
         }
+        public ActionResult Index2(int id)
+        {
+
+            HttpResponseMessage responseMessage = service.GetResponse("api/product/GetAllProductByIdItemClient/"+id);
+            responseMessage.EnsureSuccessStatusCode();
+            // List<DTO_Product_Client> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Product_Client>>().Result;
+            List<DTO_Product_Item_Type> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Product_Item_Type>>().Result;
+            return View(dTO_Accounts);
+        }
 
         // GET: Product/Details/5
         public ActionResult Details()
@@ -256,6 +265,7 @@ namespace UI.Controllers
             return RedirectToAction("Details", "Product");
 
         }
+        
         public ActionResult Buy_Favorite(int Id)
         {
             if (Session["cart"] == null)
@@ -425,6 +435,7 @@ namespace UI.Controllers
 
             return RedirectToAction("Details", "Product");
         }
+        [HttpPost]
         public ActionResult Tang(int Id, DTO_Product_Item_Type item1)
         {
             if (Session["cart"] == null)
@@ -433,7 +444,7 @@ namespace UI.Controllers
                 HttpResponseMessage responseUser = service.GetResponse("api/Products_Ad/GetProductItemById/" + Id);
                 responseUser.EnsureSuccessStatusCode();
                 DTO_Product_Item_Type proItem = responseUser.Content.ReadAsAsync<DTO_Product_Item_Type>().Result;
-
+                DTO_Product_Item_Type dTO_Product_Item_Type = new DTO_Product_Item_Type();
                 li.Add(new DTO_Product_Item_Type()
                 {
 
@@ -446,7 +457,7 @@ namespace UI.Controllers
                     Quantity = 1
                 });
                 Session["cart"] = li;
-
+                return Json(new { soLuong = item1.Quantity });
 
 
 
@@ -467,6 +478,7 @@ namespace UI.Controllers
                 }
                 else
                 {
+                    DTO_Product_Item_Type dTO_Product_Item_Type = new DTO_Product_Item_Type();
                     li.Add(new DTO_Product_Item_Type()
                     {
                         Id_SanPham = proItem.Id_SanPham,
@@ -477,14 +489,15 @@ namespace UI.Controllers
                         Id_Item = proItem.Id_Item,
                         Quantity = +1
                     });
+                    return Json(new { soLuong = li});
 
                 }
 
 
                 Session["cart"] = li;
-
+                return Json(new { soLuong = li });
             }
-            return RedirectToAction("Details", "Product");
+           
         }
 
         public ActionResult Details1(int Id)

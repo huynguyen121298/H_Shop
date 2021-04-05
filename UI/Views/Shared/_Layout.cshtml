@@ -121,16 +121,16 @@ author URL: http://w3layouts.com
                                 <a href="#">Sản phẩm <span class="fa fa-angle-down" aria-hidden="true"></span></a>
                                 <input type="checkbox" id="drop-2" />
                                 <ul class="inner-dropdown  ">
-                                    <li><a href="~/Product/ThoiTrangNam"> Thời trang nam</a></li>
+                                    <li><a href="@Url.Action("Index2", "Product", new { id = 8 })"> Thời trang nam</a></li>
 
-                                    <li><a href="~/Product/ThoiTrangNu"> Thời trang nữ</a></li>
-                                    <li><a href="~/Product/MaytinhvaLapTop">Máy tính và Laptop</a></li>
-                                    <li><a href="~/Product/MayAnhvaMayQuayPhim">Máy ảnh và máy quay phim</a></li>
-                                    <li><a href="~/Product/DongHo">Đồng hồ</a></li>
-                                    <li><a href="~/Product/ThietBiGiaDung">Thiết bị gia dụng</a></li>
-                                    <li><a href="~/Product/TheThaovaDuLich">Thể thao và du lịch</a></li>
-                                    <li><a href="~/Product/MevaBe"> Mẹ và bé</a></li>
-                                    <li><a href="~/Product/SucKhoevaSacDep">Sức khỏe và sắc đẹp</a></li>
+                                    <li><a href=" @Url.Action("Index2", "Product", new { id = 9 })"> Thời trang nữ</a></li>
+                                    <li><a href=" @Url.Action("Index2", "Product", new { id = 3 })">Máy tính và Laptop</a></li>
+                                    <li><a href=" @Url.Action("Index2", "Product", new { id = 2 })">Máy ảnh và máy quay phim</a></li>
+                                    <li><a href=" @Url.Action("Index2", "Product", new { id = 1 })">Đồng hồ</a></li>
+                                    <li><a href=" @Url.Action("Index2", "Product", new { id = 7 })">Thiết bị gia dụng</a></li>
+                                    <li><a href=" @Url.Action("Index2", "Product", new { id = 6 })">Thể thao và du lịch</a></li>
+                                    <li><a href=" @Url.Action("Index2", "Product", new { id = 4 })"> Mẹ và bé</a></li>
+                                    <li><a href=" @Url.Action("Index2", "Product", new { id = 5 })">Sức khỏe và sắc đẹp</a></li>
 
 
                                 </ul>
@@ -553,19 +553,19 @@ author URL: http://w3layouts.com
                     </a>
                 </div>
                 @*@if (Request.Cookies["firstname"] != null)
-                {
-                    <script>
+                    {
+                        <script>
 
 
-                        document.getElementById("btnlogin").style.display = 'block';
+                            document.getElementById("btnlogin").style.display = 'block';
 
 
 
 
 
-                    </script>
+                        </script>
 
-                }*@
+                    }*@
                 <!-- //copyright -->
 
 
@@ -577,6 +577,9 @@ author URL: http://w3layouts.com
     <script src="~/js/jquery-3.3.1.min.js"></script>
     <script src="~/js/owl.carousel.js"></script>
     <script src="~/js/JavaScript.js"></script>
+    @Scripts.Render("~/Scripts/bootstrap.js")
+    @Scripts.Render("~/Scripts/jquery-3.4.1.js")
+    @RenderSection("scripts", required: false)
     @RenderSection("Upload", required: false)
     @RenderSection("UpProduct", required: false)
     <script>

@@ -39,6 +39,20 @@ namespace Web_API.Controllers
         {
             return Json<List<DTO_Product>>(BLL_Products.GetAllProducts());
         }
+
+        [HttpGet]
+        [Route("GetAllProductByIdItem/{id:int}")]
+        public JsonResult<List<DTO_Product>> GetAllProductByIdItem(int id)
+        {
+            return Json<List<DTO_Product>>(BLL_Products.GetProductById_Item(id));
+        }
+
+        [HttpGet]
+        [Route("GetAllProductByType")]
+        public JsonResult<List<List<DTO_Product>>> GetAllProductByType()
+        {
+            return Json<List<List<DTO_Product>>>(BLL_Products.GetAllProductItem_Type());
+        }
         [Route("CreateProduct")]
         public int  CreateProduct(DTO_Product_Item_Type dTO_Product_Item)
         {

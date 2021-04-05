@@ -100,7 +100,7 @@
                                             <img src="@Url.Content(item.Photo)" />
                                         </a>
                                         <div class="product-action">
-                                            <a href=" @Url.Action("Buy_Favorite", "Product", new { id = item.Id_SanPham })" onclick="Buy()"><i class="fa fa-cart-plus"></i></a>
+                                            <a onclick="AddCart()" href=" @Url.Action("Buy_Favorite", "Product", new { id = item.Id_SanPham })"><i class="fa fa-cart-plus"></i></a>
                                             <a href=" @Url.Action("Details_", "Cart", new { id = item.Id_SanPham })"><i class="fa fa-heart"></i></a>
                                             <a class="btn" href=" @Url.Action("Details1", "Product", new { id = item.Id_SanPham })">
                                                 <i class="fa fa-search"></i>
@@ -200,21 +200,21 @@
 
     <script>
 
-        $(document).ready(function Buy () {
-           
+        //$(document).ready(function () {
+        //    $('#btn_mua').click(function () {
 
-                $.ajax({
-                    url: "/Product/Buy_Favorite",
-                    type:'POST',
-                    data: {},
-                    success: function () {
-                    console.log("OK");
-            }
+        //        $.ajax({
+        //            url: "/Cart/Details",
+        //            type:'POST',
+        //            data: {},
+        //            success: function () {
+        //            console.log("OK");
+        //    }
 
-                })
+        //        })
 
-           
-        });
+        //    });
+        //});
         function AddCart() {
             Swal.fire({
                 position: 'top',

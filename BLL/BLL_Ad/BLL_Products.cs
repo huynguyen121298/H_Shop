@@ -36,6 +36,22 @@ namespace BLL.BLL_Ad
             }
             return dTO_Products;
         }
+        public List<List<DTO_Product>> GetAllProductItem_Type()
+        {
+            EntityMapper<Product, DTO_Product> mapObj = new EntityMapper<Product, DTO_Product>();
+            List<List<Product>> products = dAL_Product.getproductByType();
+            List<List<DTO_Product>> dTO_Products = new List<List<DTO_Product>>();
+            foreach (var item in products)
+            {
+                List<DTO_Product> dTO_Products1 = new List<DTO_Product>();
+                foreach(var item1 in item)
+                {
+                    dTO_Products1.Add(mapObj.Translate(item1));
+                }
+                dTO_Products.Add(dTO_Products1);
+            }
+            return dTO_Products;
+        }
         public DTO_Product GetProductById(int id)
         {
             EntityMapper<Product, DTO_Product> mapObj = new EntityMapper<Product, DTO_Product>();
@@ -44,11 +60,35 @@ namespace BLL.BLL_Ad
 
             return dTO_Accounts;
         }
+        public List<DTO_Product> GetProductById_Item(int id)
+        {
+            EntityMapper<Product, DTO_Product> mapObj = new EntityMapper<Product, DTO_Product>();
+           List<Product> products = dAL_Product.getproductById_Item(id);
+            List<DTO_Product> dTO_Accounts = new List<DTO_Product>();
+            foreach (var item in products)
+            {
+                dTO_Accounts.Add(mapObj.Translate(item));
+            }
+
+            return dTO_Accounts;
+        }
         public DTO_Product_Item_Type GetProductItemById(int id)
         {
             EntityMapper<Product_Item_Type, DTO_Product_Item_Type> mapObj = new EntityMapper<Product_Item_Type, DTO_Product_Item_Type>();
             Product_Item_Type account = dAL_Product.GetProductItemById(id);
             DTO_Product_Item_Type dTO_Accounts = mapObj.Translate(account);
+
+            return dTO_Accounts;
+        }
+        public List<DTO_Product_Item_Type> GetProductItemById_client(int id)
+        {
+            EntityMapper<Product_Item_Type, DTO_Product_Item_Type> mapObj = new EntityMapper<Product_Item_Type, DTO_Product_Item_Type>();
+            List<Product_Item_Type> account = dAL_Product.GetProductItemById_Client(id);
+            List<DTO_Product_Item_Type> dTO_Accounts = new List<DTO_Product_Item_Type>();
+            foreach(var item in account)
+            {
+                dTO_Accounts.Add(mapObj.Translate(item));
+            }
 
             return dTO_Accounts;
         }

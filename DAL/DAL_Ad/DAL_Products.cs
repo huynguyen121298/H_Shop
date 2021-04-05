@@ -55,6 +55,27 @@ namespace DAL.DAL_Ad
                                    };
             return infoProduct.FirstOrDefault();
         }
+        public List<Product_Item_Type> GetProductItemById_Client(int id)
+        {
+            var infoProduct = from item in db.Item_Type
+                              join product in db.Products on item.Id_Item equals product.Id_Item
+                              where product.Id_Item == id && item.Id_Item == id
+                              select new Product_Item_Type()
+                              {
+                                  Id_SanPham = product.Id_SanPham,
+                                  Name = product.Name,
+                                  Price = product.Price,
+                                  Details = product.Details,
+                                  Photo = product.Photo,
+                                  Id_Item = product.Id_Item,
+                                  Type_Product =item.Type_Product
+
+
+
+
+                              };
+            return infoProduct.ToList();
+        }
         public List<Product_Item_Type> GetAllProductItemById()
         {
             var infoProduct = from item in db.Items
@@ -217,66 +238,37 @@ namespace DAL.DAL_Ad
            
             
         }
-        public List<Product> product(int id)
+        public List<Product> getproductById_Item(int id)
         {
-
-            
-            var results= db.Products.Where(m => m.Id_Item ==id).ToList();
-
-            return (results);
-            //if (results == 1)
-                
-            //        return db.Products.Where(m => m.Id_Item == 1).ToList();
-
-                
-
-
-            //if (results == 2)
-            
-            //    return db.Products.Where(m => m.Id_Item == 2).ToList();
-            
-            //if (results == 3)
+            //List<Item_Type> item_Types = new List<Item_Type>();
+           // List<Product> productsByType = new List<Product>();
+           // item_Types = db.Item_Type.ToList();
+            //foreach (Item_Type item in item_Types)
             //{
-            //    return db.Products.Where(m => m.Id_Item == 3).ToList();
+            //    List<Product> products = db.Products.Where(m => m.Id_Item == id).ToList();
+            //    productsByType.Add(products);
             //}
-            //if (results == 4)
-            //{
-            //    return db.Products.Where(m => m.Id_Item == 4).ToList();
-            //}
-            //if (results == 5)
-            //{
-            //    return db.Products.Where(m => m.Id_Item == 5).ToList();
-            //}
-            //if (results == 6)
-            //{
-            //    return db.Products.Where(m => m.Id_Item == 6).ToList();
-            //}
-            //if (results == 7)
-            //{
-            //    return db.Products.Where(m => m.Id_Item == 7).ToList();
-            //}
-            //if (results == 8)
-            //{
-            //    return db.Products.Where(m => m.Id_Item == 8).ToList();
-            //}
-            //if (results == 9)
-            //{
-            //    return db.Products.Where(m => m.Id_Item == 9).ToList();
-            //}
-
-               
-
-
+            return db.Products.Where(m => m.Id_Item == id).ToList();
         }
+        public List<List<Product>> getproductByType()
+        {
+            //    List<Item_Type> item_Types = new List<Item_Type>();
+            //    List<Object> productsByType = new List<Object>();
+            //    item_Types = db.Item_Type.ToList();
+            //    foreach (Item_Type item in item_Types)
+            //    {
+            //        Object obj_name = new object;
+            //        obj_name.Type_id = item.Id_Item;
+            //        obj_name.Name = item.Name;
+            //        List<Product> products = db.Products.Where(m => m.Id_Item == item.Id_Item).ToList();
+            //        obj_name.products = products;
+            //        productsByType.Add(products);
+            //    }
+            //return productsByType;
+            return null;
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
+
+       }
 
     }
 }

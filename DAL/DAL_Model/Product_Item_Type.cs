@@ -15,7 +15,7 @@ namespace DAL.DAL_Model
         public int? Quantity { get; set; }
 
         public int Id_Item { get; set; }
-        //public string Type_Product { get; set; }
+        public string Type_Product { get; set; }
 
 
         [StringLength(50)]

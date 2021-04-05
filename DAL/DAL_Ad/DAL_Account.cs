@@ -88,7 +88,7 @@ namespace DAL.DAL_Ad
 
 
                     userAccount.idUser = custom.idUser;
-                   // userAccount.Password = Encryptor.MD5Hash(custom.Password);
+                    userAccount.Password = Encryptor.MD5Hash(custom.Password);
                     userAccount.LastName = custom.LastName;
                     userAccount.FirstName = custom.FirstName;
                     userAccount.Email = custom.Email;
