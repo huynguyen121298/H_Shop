@@ -41,7 +41,14 @@ namespace DAL.DAL_Ad
         {
             return db.Checkout_Oder.Where(s => s.ID == id).FirstOrDefault();
         }
-
+        public Checkout_Oder GetAccountByIdKH(int id)
+        {
+            return db.Checkout_Oder.Where(s => s.Id_KH == id).FirstOrDefault();
+        }
+        public List<Checkout_Oder> GetListAccountById(int id)
+        {
+            return db.Checkout_Oder.Where(s => s.ID == id).ToList();
+        }
         // GET: Admin/Admin_acc/Details/5
 
 

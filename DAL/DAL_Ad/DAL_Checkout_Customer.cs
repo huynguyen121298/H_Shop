@@ -41,11 +41,15 @@ namespace DAL.DAL_Ad
         {
             return db.Checkout_Customer.Where(s => s.Id_KH == id).FirstOrDefault();
         }
+        public List<Checkout_Customer> GetListAccountById(int id)
+        {
+            return db.Checkout_Customer.Where(s => s.Id_KH == id).ToList();
+        }
 
         // GET: Admin/Admin_acc/Details/5
 
 
-       
+
 
         public bool Edit(Checkout_Customer account)
         {

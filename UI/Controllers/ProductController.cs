@@ -354,7 +354,7 @@ namespace UI.Controllers
                     Quantity = 1
                 });
                 Session["cart"] = li;
-
+                return Json(new { soLuong = li });
 
 
 
@@ -372,6 +372,7 @@ namespace UI.Controllers
                 if (index != -1)
                 {
                     li[index].Quantity--;
+                    li[index].Price = proItem.Price * li[index].Quantity;
                 }
                 else
                 {
@@ -385,15 +386,16 @@ namespace UI.Controllers
                         Id_Item = proItem.Id_Item,
                         Quantity = -1
                     });
+                    return Json(new { soLuong = li });
 
                 }
 
 
                 Session["cart"] = li;
-
+                return Json(new { soLuong = li });
             }
 
-            return RedirectToAction("Details", "Product");
+            
 
         }
         public ActionResult Update(int Id, FormCollection fc)
@@ -457,7 +459,7 @@ namespace UI.Controllers
                     Quantity = 1
                 });
                 Session["cart"] = li;
-                return Json(new { soLuong = item1.Quantity });
+                return Json(new { soLuong = li });
 
 
 
@@ -475,6 +477,7 @@ namespace UI.Controllers
                 if (index != -1)
                 {
                     li[index].Quantity++;
+                    li[index].Price = proItem.Price * li[index].Quantity;
                 }
                 else
                 {

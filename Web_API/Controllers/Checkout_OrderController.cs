@@ -50,5 +50,17 @@ namespace Web_API.Controllers
         {
             return Json<DTO_Checkout_Order>(bLL_checkout_acc.GetAccountById(Id));
         }
+        [HttpGet]
+        [Route("GetOrderByIdKH/{Id:int}")]
+        public JsonResult<DTO_Checkout_Order> GetOrderByIdKH(int Id)
+        {
+            return Json<DTO_Checkout_Order>(bLL_checkout_acc.GetAccountByIdKH(Id));
+        }
+        [HttpGet]
+        [Route("GetListOrderById/{Id:int}")]
+        public JsonResult<List<DTO_Checkout_Order>> GetListOrderById(int Id)
+        {
+            return Json<List<DTO_Checkout_Order>>(bLL_checkout_acc.GetListAccountById(Id));
+        }
     }
 }

@@ -1,68 +1,4 @@
-﻿@*@model IEnumerable<WebApplication3.Areas.Admin.Models.Checkout_Oder>
-
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
-}
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Checkout_Customer.Id_KH)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Id_SanPham)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TenSP)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SoLuong)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gia)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NgayTao)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Checkout_Customer.Id_KH)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id_SanPham)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TenSP)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SoLuong)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NgayTao)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-            </td>
-        </tr>
-    }
-
-</table>*@
+﻿
 @model IEnumerable<Model.DTO.DTO_Ad.DTO_Checkout_Order>
 
 @{
@@ -108,6 +44,7 @@
                             $('#btn-remove').click(function () {
                                 $('#search')[0].reset();
                             });
+                    
                 </script>
             </div>
 
@@ -155,7 +92,28 @@
 
                     @foreach (var item in Model)
                     {
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Bạn xác nhận xóa không?</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Bấm Xóa để xác nhận Xóa, Đóng để hủy
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                        <a class="btn btn-primary " href=" @Url.Action("Delete", "Checkout_Order", new { id = item.ID })">Xóa</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <tr>
+
                             <td>
                                 @Html.DisplayFor(modelItem => item.Id_KH)
                             </td>
@@ -175,11 +133,14 @@
                                 @Html.DisplayFor(modelItem => item.NgayTao)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem =>item.TrangThai)
+                                @Html.DisplayFor(modelItem => item.TrangThai)
                             </td>
                             <td>
-                                @Html.ActionLink("Tùy chỉnh", "Edit", new { id = item.ID })
-                                @Html.ActionLink("Xóa", "Delete", new { id = item.ID })
+                                <a class="btn btn-success " href=" @Url.Action("Edit", "Checkout_Order", new { id = item.ID })">Chỉnh sửa</a>
+                                <a class="btn btn-primary " href=" @Url.Action("Details", "Checkout_Order", new { id = item.Id_KH })">Chi tiết</a>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+                                    Xóa
+                                </button>
                             </td>
 
                         </tr>

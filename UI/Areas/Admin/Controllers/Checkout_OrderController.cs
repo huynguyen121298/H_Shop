@@ -15,34 +15,49 @@ namespace UI.Areas.Admin.Controllers
         ServiceRepository service = new ServiceRepository();
 
         // GET: Admin/Checkout_Order
-        public ActionResult Index()
+        public ActionResult Index(string seachby, int? timkiemtim)
         {
 
+            if (seachby == "id")
+            {
+                HttpResponseMessage responseMessage1 = service.GetResponse("api/Checkout_Customer/GetListOrderById/" + timkiemtim);
+                responseMessage1.EnsureSuccessStatusCode();
+                List<DTO_Checkout_Order> dtocustomer = responseMessage1.Content.ReadAsAsync<List<DTO_Checkout_Order>>().Result;
+                return View(dtocustomer);
+            }
 
-            HttpResponseMessage responseMessage = service.GetResponse("api/Checkout_Order/getallOrder");
-            responseMessage.EnsureSuccessStatusCode();
-            List<DTO_Checkout_Order> DTO_Checkout_Orders = responseMessage.Content.ReadAsAsync<List<DTO_Checkout_Order>>().Result;
-            return View(DTO_Checkout_Orders);
-        }
-        [HttpGet]
-        public ActionResult Edit(int id)
-        {
-            ServiceRepository service = new ServiceRepository();
-            HttpResponseMessage responseMessage = service.GetResponse("api/Checkout_Order/GetOrderById/" + id);
-            responseMessage.EnsureSuccessStatusCode();
-            DTO_Checkout_Order dtoOrder = responseMessage.Content.ReadAsAsync<DTO_Checkout_Order>().Result;
 
-            return View(dtoOrder);
+            else
+            {
+                HttpResponseMessage responseMessage = service.GetResponse("api/Checkout_Order/getallOrder");
+                responseMessage.EnsureSuccessStatusCode();
+                List<DTO_Checkout_Order> DTO_Checkout_Orders = responseMessage.Content.ReadAsAsync<List<DTO_Checkout_Order>>().Result;
+                return View(DTO_Checkout_Orders);
+
+            }
+
+
+           
         }
+        //[HttpGet]
+        //public ActionResult Edit(int id)
+        //{
+        //    ServiceRepository service = new ServiceRepository();
+        //    HttpResponseMessage responseMessage = service.GetResponse("api/Checkout_Order/GetOrderById/" + id);
+        //    responseMessage.EnsureSuccessStatusCode();
+        //    DTO_Checkout_Order dtoOrder = responseMessage.Content.ReadAsAsync<DTO_Checkout_Order>().Result;
+
+        //    return View(dtoOrder);
+        //}
         [HttpGet]
         public ActionResult Details(int id)
         {
             ServiceRepository service = new ServiceRepository();
-            HttpResponseMessage responseMessage = service.GetResponse("api/Checkout_Order/GetAccountById/" + id);
+            HttpResponseMessage responseMessage = service.GetResponse("api/Checkout_Customer/GetCustomerById/" + id);
             responseMessage.EnsureSuccessStatusCode();
-            DTO_Checkout_Order dtoOrder = responseMessage.Content.ReadAsAsync<DTO_Checkout_Order>().Result;
+            DTO_Checkout_Customer dtocustomer = responseMessage.Content.ReadAsAsync<DTO_Checkout_Customer>().Result;
 
-            return View(dtoOrder);
+            return View(dtocustomer);
         }
         [HttpPost]
         public ActionResult Edit(DTO_Checkout_Order DTO_Checkout_Order)

@@ -44,6 +44,27 @@ namespace BLL.BLL_Ad
 
             return dTO_Accounts;
         }
+        public DTO_Checkout_Order GetAccountByIdKH(int id)
+        {
+            EntityMapper<Checkout_Oder, DTO_Checkout_Order> mapObj = new EntityMapper<Checkout_Oder, DTO_Checkout_Order>();
+            Checkout_Oder account = bll_cAcc.GetAccountByIdKH(id);
+            DTO_Checkout_Order dTO_Accounts = mapObj.Translate(account);
+
+            return dTO_Accounts;
+        }
+        public List<DTO_Checkout_Order> GetListAccountById(int id)
+        {
+            EntityMapper<Checkout_Oder, DTO_Checkout_Order> mapObj = new EntityMapper<Checkout_Oder, DTO_Checkout_Order>();
+            List<Checkout_Oder> account = bll_cAcc.GetListAccountById(id);
+            List<DTO_Checkout_Order> dTO_Accounts = new List<DTO_Checkout_Order>();
+            foreach(var item in account)
+            {
+                dTO_Accounts.Add(mapObj.Translate(item));
+            }
+
+
+            return dTO_Accounts;
+        }
 
         public bool Update_Ad_acc(DTO_Checkout_Order dTO_Account)
         {

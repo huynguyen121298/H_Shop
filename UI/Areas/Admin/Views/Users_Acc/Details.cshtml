@@ -5,10 +5,10 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2 style="color:aquamarine">Chi tiết tài khoản của khách hàng</h2>
 
 <div>
-    <h4>Users_Acc</h4>
+    
     <hr />
     <dl class="dl-horizontal">
         
@@ -47,6 +47,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.idUser }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Chỉnh sửa", "Edit", new { id = Model.idUser }) |
+    @Html.ActionLink("Trở về", "Index")
 </p>

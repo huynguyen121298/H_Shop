@@ -82,16 +82,16 @@
                                         </div>
                                         <div>
                                             <h4 class="product-price-range">Tổng giá sản phẩm</h4>
-                                            <p><span style="color:red"> @(item.Price * item.Quantity)</span> VNĐ</p>
+                                            <p><span id="total-price" style="color:red"> @(item.Price * item.Quantity)</span> VNĐ</p>
                                         </div>
                                         <div class="quantity">
                                             <h4>Số lượng:</h4>
                                             <br />
 
                                             @*<button class="btn-minus"><i class="fa fa-minus"></i></button>*@
-                                            <a href=" @Url.Action("Giam", "Product", new { id = item.Id_SanPham })" class="btn-minus" id="giam"><i class="fa fa-minus"></i> Giảm số lượng </a>
+                                            <a href="#" class="btn-minus" id="giam" onclick="giamSoLuong(@item.Id_SanPham)"><i class="fa fa-minus"></i> Giảm số lượng </a>
 
-                                            <input type="text" name="quantity" id="quantity" value=" @item.Quantity">
+                                            <input type="number" min="0" name="quantity" id="quantity" value=" @item.Quantity ">
 
                                             <a href=" #" class="btn-plus" id="tang" onclick="tangSoLuong(@item.Id_SanPham)"><i class="fa fa-plus"></i> Tăng số lượng </a>
 
@@ -274,11 +274,35 @@
                                         dataType: 'json',
                                         type: 'POST',
                                         success: function (res) {
+                                            console.log("Res is: " + res)
+                                            console.log(res)
                                             console.log(res.soLuong)
-                                            $("#quantity").val(res.soLuong)
+                                            console.log("Quantity is: " + res.soLuong[0]["Quantity"])
+                                            console.log("Price is: " + res.soLuong[0]["Price"])
+                                            $("#quantity").val(res.soLuong[0]["Quantity"])
+                                            $("#total-price").html(res.soLuong[0]["Price"])
                                         }
                                     });
                                 }
+                                function giamSoLuong(id) {
+                                    $.ajax({
+                                        url: '/Product/Giam',
+                                        data: { Id: id },
+                                        dataType: 'json',
+                                        type: 'POST',
+                                        success: function (res) {
+                                            console.log("Res is: " + res)
+                                            console.log(res)
+                                            console.log(res.soLuong)
+                                            console.log("Quantity is: " + res.soLuong[0]["Quantity"])
+                                            console.log("Price is: " + res.soLuong[0]["Price"])
+                                            $("#quantity").val(res.soLuong[0]["Quantity"])
+                                            $("#total-price").html(res.soLuong[0]["Price"])
+                                        }
+                                    });
+                                }
+
+
                             </script>
                         }
                     </div>

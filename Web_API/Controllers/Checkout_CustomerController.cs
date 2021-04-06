@@ -50,5 +50,11 @@ namespace Web_API.Controllers
         {
             return Json<DTO_Checkout_Customer>(bLL_checkout_acc.GetAccountById(Id));
         }
+        [HttpGet]
+        [Route("GetListCustomerById/{Id:int}")]
+        public JsonResult <List<DTO_Checkout_Customer>> GetListCustomerById(int Id)
+        {
+            return Json<List<DTO_Checkout_Customer>>(bLL_checkout_acc.GetListAccountById(Id));
+        }
     }
 }
