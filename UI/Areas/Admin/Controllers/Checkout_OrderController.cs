@@ -39,16 +39,16 @@ namespace UI.Areas.Admin.Controllers
 
            
         }
-        //[HttpGet]
-        //public ActionResult Edit(int id)
-        //{
-        //    ServiceRepository service = new ServiceRepository();
-        //    HttpResponseMessage responseMessage = service.GetResponse("api/Checkout_Order/GetOrderById/" + id);
-        //    responseMessage.EnsureSuccessStatusCode();
-        //    DTO_Checkout_Order dtoOrder = responseMessage.Content.ReadAsAsync<DTO_Checkout_Order>().Result;
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            ServiceRepository service = new ServiceRepository();
+            HttpResponseMessage responseMessage = service.GetResponse("api/Checkout_Order/GetOrderById/" + id);
+            responseMessage.EnsureSuccessStatusCode();
+            DTO_Checkout_Order dtoOrder = responseMessage.Content.ReadAsAsync<DTO_Checkout_Order>().Result;
 
-        //    return View(dtoOrder);
-        //}
+            return View(dtoOrder);
+        }
         [HttpGet]
         public ActionResult Details(int id)
         {
@@ -107,6 +107,21 @@ namespace UI.Areas.Admin.Controllers
 
         public ActionResult Delete(int id)
         {
+            //try
+            //{
+            //    // TODO: Add delete logic here
+
+
+            //    HttpResponseMessage response = service.DeleteResponse("api/Checkout_Order/DeleteOrder/" + id);
+            //    response.EnsureSuccessStatusCode();
+
+
+            //    return RedirectToAction("Index");
+            //}
+            //catch
+            //{
+            //    return View();
+            //}
             try
             {
                 // TODO: Add delete logic here
@@ -116,11 +131,11 @@ namespace UI.Areas.Admin.Controllers
                 response.EnsureSuccessStatusCode();
 
 
-                return RedirectToAction("Index");
+                return Json(new { mes = true });
             }
             catch
             {
-                return View();
+                return Json(new { mes = false });
             }
         }
     }

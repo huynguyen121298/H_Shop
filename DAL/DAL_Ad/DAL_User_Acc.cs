@@ -54,6 +54,35 @@ namespace DAL.DAL_Ad
 
 
         }
+        public bool Edit2(Users_Acc account)
+        {
+
+            // Account acc = db.Accounts.Where(s => s.idUser == account.idUser).FirstOrDefault();
+            var acc = GetAccountById(account.idUser);
+            if (acc != null)
+            {
+                acc.idUser = account.idUser;
+                acc.FirstName = account.FirstName;
+                acc.Email = account.Email;
+                acc.LastName = account.LastName;
+                //acc.Password = Encryptor.MD5Hash(account.Password);
+                //acc.RoleId = account.RoleId;
+
+                db.SaveChanges();
+                return true;
+            }
+
+
+
+
+
+            return false;
+
+
+
+
+        }
+
 
         public bool Create(Users_Acc account)
         {

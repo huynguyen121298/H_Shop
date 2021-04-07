@@ -50,18 +50,38 @@ namespace UI.Areas.Admin.Controllers
         public ActionResult Edit(DTO_Account dTO_Account)
         {
             var stt = Request.Form["stt"];
+            var pass = Request.Form["pass"];
             if (stt == "Admin")
             {
                 dTO_Account.RoleId = 1;
-                HttpResponseMessage response = service.PostResponse("api/Admin_acc/Update/", dTO_Account);
-                response.EnsureSuccessStatusCode();
+                if (pass != "")
+                {
+                    HttpResponseMessage response = service.PostResponse("api/Admin_acc/Update/", dTO_Account);
+                    response.EnsureSuccessStatusCode();
+                }
+                else
+                {
+
+                    HttpResponseMessage response = service.PostResponse("api/Admin_acc/Update2/", dTO_Account);
+                    response.EnsureSuccessStatusCode();
+                }
+                
             }
             else
             {
 
                 dTO_Account.RoleId = 2;
-                HttpResponseMessage response = service.PostResponse("api/Admin_acc/Update/", dTO_Account);
-                response.EnsureSuccessStatusCode();
+                if (pass != "")
+                {
+                    HttpResponseMessage response = service.PostResponse("api/Admin_acc/Update/", dTO_Account);
+                    response.EnsureSuccessStatusCode();
+                }
+                else
+                {
+
+                    HttpResponseMessage response = service.PostResponse("api/Admin_acc/Update2/", dTO_Account);
+                    response.EnsureSuccessStatusCode();
+                }
             }
 
            
@@ -116,11 +136,13 @@ namespace UI.Areas.Admin.Controllers
                 response.EnsureSuccessStatusCode();
 
 
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return Json(new { mes = true });
             }
             catch
             {
-                return View();
+                //return View();
+                return Json(new { mes = false });
             }
         }
     }

@@ -46,9 +46,20 @@ namespace UI.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Edit(DTO_User_Acc DTO_User_Acc)
         {
+            var pass = Request.Form["pass"];
 
-            HttpResponseMessage response = service.PostResponse("api/User_acc/Update/", DTO_User_Acc);
-            response.EnsureSuccessStatusCode();
+           
+            if (pass != "")
+            {
+                HttpResponseMessage response = service.PostResponse("api/User_acc/Update/", DTO_User_Acc);
+                response.EnsureSuccessStatusCode();
+            }
+            else
+            {
+
+                HttpResponseMessage response = service.PostResponse("api/User_acc/Update2/", DTO_User_Acc);
+                response.EnsureSuccessStatusCode();
+            }
 
 
             return RedirectToAction("Index");
@@ -66,11 +77,13 @@ namespace UI.Areas.Admin.Controllers
                 response.EnsureSuccessStatusCode();
 
 
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return Json(new { mes = true });
             }
             catch
             {
-                return View();
+                //return View();
+                return Json(new { mes = false });
             }
         }
     }

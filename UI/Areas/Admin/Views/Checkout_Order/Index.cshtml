@@ -60,6 +60,28 @@
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary" style="text-align:center">Danh sách sản phẩm được đặt hàng</h6>
     </div>
+
+    <div class="modal fade" id="del" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Bạn xác nhận xóa không?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Bấm Xóa để xác nhận Xóa, Đóng để hủy
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <a class="btn btn-primary" @*href=" @Url.Action("Delete", "Checkout_Customer", new { id =})*@ onclick="xoaSanPham()">Xóa</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -92,25 +114,7 @@
 
                     @foreach (var item in Model)
                     {
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Bạn xác nhận xóa không?</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Bấm Xóa để xác nhận Xóa, Đóng để hủy
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                                        <a class="btn btn-primary " href=" @Url.Action("Delete", "Checkout_Order", new { id = item.ID })">Xóa</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
 
                         <tr>
 
@@ -138,9 +142,10 @@
                             <td>
                                 <a class="btn btn-success " href=" @Url.Action("Edit", "Checkout_Order", new { id = item.ID })">Chỉnh sửa</a>
                                 <a class="btn btn-primary " href=" @Url.Action("Details", "Checkout_Order", new { id = item.Id_KH })">Chi tiết</a>
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+                                <button type="button" class="btn btn-danger" data-toggle="modal" onclick="target(@item.ID)" data-target="#del">
                                     Xóa
                                 </button>
+
                             </td>
 
                         </tr>
@@ -151,3 +156,23 @@
         </div>
     </div>
 </div>
+<script>
+    var del;
+    function target(id) {
+        del = id;
+    }
+    function xoaSanPham() {
+        $.ajax({
+            url: '/Checkout_Order/Delete',
+            data: { id: del },
+            dataType: 'json',
+            type: 'POST',
+            success: function (res) {
+                if (res.mes)
+                    location.reload();
+                else
+                    alert("Không thể xóa vì còn đơn đặt hàng ");
+            }
+        });
+    }
+</script>

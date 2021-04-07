@@ -110,7 +110,7 @@ namespace UI.Areas.Admin.Controllers
         //    return View(dtocustomer);
         //}
 
-        public ActionResult Delete(int id, DTO_Checkout_Customer dTO_Checkout_Customer)
+        public ActionResult Delete(int id)
         {
             try
             {
@@ -125,12 +125,12 @@ namespace UI.Areas.Admin.Controllers
                     response.EnsureSuccessStatusCode();
 
 
-                    return RedirectToAction("Index");
+                    return Json(new { mes = true });
                 }
                 else
                 {
                     ViewBag.Mess = "Không thể xóa vì khách hàng đang còn đơn đặt hàng";
-                    return View(dTO_Checkout_Customer);
+                    return Json(new { mes = false });
                 }
                
 
@@ -139,7 +139,7 @@ namespace UI.Areas.Admin.Controllers
             catch
             {
                 ViewBag.Mess = "Có lỗi ngoài ý muốn, vui lòng kiểm tra lại";
-                return View(dTO_Checkout_Customer);
+                return Json(new { mes = false });
             }
         }
     }

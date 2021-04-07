@@ -80,6 +80,14 @@ namespace BLL.BLL_Ad
 
             return dTO_Accounts;
         }
+        public DTO_Product_Item_Type GetProductItemById2(string id)
+        {
+            EntityMapper<Product_Item_Type, DTO_Product_Item_Type> mapObj = new EntityMapper<Product_Item_Type, DTO_Product_Item_Type>();
+            Product_Item_Type account = dAL_Product.GetProductItemById2(id);
+            DTO_Product_Item_Type dTO_Accounts = mapObj.Translate(account);
+
+            return dTO_Accounts;
+        }
         public List<DTO_Product_Item_Type> GetProductItemById_client(int id)
         {
             EntityMapper<Product_Item_Type, DTO_Product_Item_Type> mapObj = new EntityMapper<Product_Item_Type, DTO_Product_Item_Type>();
@@ -110,14 +118,14 @@ namespace BLL.BLL_Ad
             product_Item_Type = mapObj.Translate(dTO_Account);
             Product products = new Product();
             products.Id_Item = product_Item_Type.Id_Item;
-            products.Id_SanPham = product_Item_Type.Id_SanPham;
+            //products.Id_SanPham = product_Item_Type.Id_SanPham;
             products.Name = product_Item_Type.Name;
             products.Photo = product_Item_Type.Photo;
             products.Price = product_Item_Type.Price;
             products.Details = product_Item_Type.Details;
 
             Item item = new Item();
-            item.Id_SanPham = product_Item_Type.Id_SanPham;
+            //item.Id_SanPham = product_Item_Type.Id_SanPham;
             item.Quantity = product_Item_Type.Quantity;
 
           

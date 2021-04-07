@@ -123,7 +123,7 @@ namespace UI.Areas.Admin.Controllers
                     //Session[Constants.USER_SESSION] = null;
                     //Session[Constants.USER_SESSION] = u;
 
-                    return RedirectToAction("Login", "Account");
+                    return View();
                 }
                 else
                 {
@@ -188,7 +188,7 @@ namespace UI.Areas.Admin.Controllers
             }
             else
             {
-                ViewBag.SuccessMessage("", "Tên đăng nhập hoặc mật khẩu không tồn tại.");
+                ViewData["ErrorMessage"]=( "Tên đăng nhập hoặc mật khẩu không tồn tại.");
             }
             return this.View();
 

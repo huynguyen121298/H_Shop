@@ -40,6 +40,11 @@ namespace Web_API.Controllers
         {
             return bLL_Admin_Acc.Update_Ad_acc(dTO_Account);
         }
+        [Route("Update2")]
+        public bool Update2(DTO_Account dTO_Account)
+        {
+            return bLL_Admin_Acc.Update_Ad_acc2(dTO_Account);
+        }
 
         // DELETE: api/Admin_acc/5
         [Route("DeleteAccount/{id:int}")]

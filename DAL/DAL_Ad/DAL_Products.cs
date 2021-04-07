@@ -55,6 +55,27 @@ namespace DAL.DAL_Ad
                                    };
             return infoProduct.FirstOrDefault();
         }
+        public Product_Item_Type GetProductItemById2(string id)
+        {
+            var infoProduct = from item in db.Items
+                              join product in db.Products on item.Id_SanPham equals product.Id_SanPham
+                              //where product.Id_SanPham == id && item.Id_SanPham == id
+                              select new Product_Item_Type()
+                              {
+                                  Id_SanPham = product.Id_SanPham,
+                                  Name = product.Name,
+                                  Price = product.Price,
+                                  Details = product.Details,
+                                  Photo = product.Photo,
+                                  Id_Item = product.Id_Item,
+                                  Quantity = item.Quantity
+
+
+
+
+                              };
+            return infoProduct.FirstOrDefault();
+        }
         public List<Product_Item_Type> GetProductItemById_Client(int id)
         {
             var infoProduct = from item in db.Item_Type
@@ -99,19 +120,22 @@ namespace DAL.DAL_Ad
         }
 
 
+
         public int InsertProduct(Product productItem, Item item)
         {
             //bool status;
 
             using (var transaction = db.Database.BeginTransaction())
             {
-                    db.Products.Add(productItem);
-              
                     db.Items.Add(item);
-              
+                 db.SaveChanges();
+                    
+                    productItem.Id_SanPham = item.Id_SanPham;
+                    db.Products.Add(productItem);
 
 
-                
+
+
                 try
                 {
                     int result = db.SaveChanges();

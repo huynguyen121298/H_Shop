@@ -55,6 +55,12 @@ namespace BLL.BLL_Ad
             Users_Acc account = mapObj.Translate(dTO_Account);
             return admin_Acc_dal.Edit(account);
         }
+        public bool Update_Ad_acc2(DTO_User_Acc dTO_Account)
+        {
+            EntityMapper<DTO_User_Acc, Users_Acc> mapObj = new EntityMapper<DTO_User_Acc, Users_Acc>();
+            Users_Acc account = mapObj.Translate(dTO_Account);
+            return admin_Acc_dal.Edit2(account);
+        }
         public bool DeleteAccount(int id)
         {
             return admin_Acc_dal.DeleteAccount(id);
