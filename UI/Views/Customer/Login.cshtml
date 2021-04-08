@@ -67,10 +67,12 @@
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
 
-                                                <input class="custom-control-input" id="check3" name="check3" type="checkbox" value="show password" onclick="myFunction()">
-                                                @Html.CheckBoxFor(model => model.RememberMe, new { @style = "text-align:left;display:inline-block;", @class = "pull-left" })<p style="text-align:left">Remember me</p>
-
-                                                <label class="custom-control-label" for="check3">Show password</label>
+                                                <input  class="custom-control-input" id="check3" name="check3" type="checkbox" value="show password" onclick="myFunction()">
+                                                @Html.CheckBoxFor(model => model.RememberMe, new { @style = "text-align:left;display:inline-block;", @class = " pull-left" })<label style="margin-left: 10px; display:inline-block;">Remember me </label>        
+                                                <br />
+                                                @*@Html.LabelFor("check3", "Show password")*@
+                                            <label class="custom-control-label " style="margin-left:23px";display:inline-block;" for="check3">Show password</label>
+                                                @*<input type="checkbox" style = "text-align:left;display:inline-block;"class = "pull-left" value="@Model.RememberMe" />*@
                                             </div>
                                         </div>
                                         <div class="warning">
@@ -97,21 +99,20 @@
                                             </div>
                                         </div>
                                         <hr>
-                                        @*<a href="https://accounts.google.com/ServiceLogin?continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&service=mail&sacu=1&rip=1" class="btn btn-google btn-user btn-block">
-                <i class="fab fa-google fa-fw"></i> Login with Google
-            </a>
-            <a href="https://www.facebook.com/" class="btn btn-facebook btn-user btn-block">
-                <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
-            </a>*@
-                                        <div class="g-signin2 btn btn-facebook btn-user btn-block" style="display:block;" data-onsuccess="onSignIn"> </div>
+                                        <a href="~/Customer/LoginFacebook" class="btn btn-facebook btn-user btn-block">
+                                            <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
+                                        </a>
+                                        <div class="btn btn-google btn-user btn-block">
+                                            <div class="g-signin2 " style="display:block;margin-left:105px" data-onsuccess="onSignIn"><i class="fab fa-google fa-fw"></i> Login with Google </div>
+
+                                        </div>
+
                                         @*<a id="btnGoogle" class="btn btn-google btn-user btn-block">
                 <i class="fab fa-google fa-fw"></i> Login with Google
             </a>*@
                                         @*<button class="btn btn-danger btn-classic" id="btnGoogle">Đăng nhập bằng Google</button>*@
 
-                                        <a href="~/Customer/LoginFacebook" class="btn btn-facebook btn-user btn-block">
-                                            <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
-                                        </a>
+
 
                                     }
 

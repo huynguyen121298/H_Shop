@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 using UI.Service;
+using PagedList;
 
 namespace UI.Controllers
 {
@@ -14,23 +15,69 @@ namespace UI.Controllers
     {
         ServiceRepository service = new ServiceRepository();
         // GET: Product
-        public ActionResult Index()
+        public ActionResult Index(string seachBy, string search, int? page, int? gia, int? gia_)
         {
+           
 
-            HttpResponseMessage responseMessage = service.GetResponse("api/product/getallproductitem");
+            if (page == null) page = 1;
+
+           
+           
+            int pageSize = 10;
+
+            int pageNumber = (page ?? 1);
+
+            if (seachBy == "NameProduct")
+            {
+                //return View(db.Products.Where(s => s.Name.StartsWith(search)).ToList().ToPagedList(pageNumber, pageSize));
+                HttpResponseMessage responseMessage2 = service.GetResponse("api/product/GetAllProductByName"+search);
+                responseMessage2.EnsureSuccessStatusCode();
+
+                List<DTO_Product_Item_Type> dTO_Accounts2 = responseMessage2.Content.ReadAsAsync<List<DTO_Product_Item_Type>>().Result;
+                return View(dTO_Accounts2.ToPagedList(pageNumber,pageSize));
+
+            }
+
+
+            if (seachBy == "Price")
+            {
+               // //return View(db.Products.Where(s => s.Price <= gia && s.Price >= gia_).ToList().ToPagedList(pageNumber, pageSize));
+               //// HttpResponseMessage responseMessage2 = service.GetResponse("api/product/GetAllProductByPrice/" gia+gia_);
+               // responseMessage.EnsureSuccessStatusCode();
+
+               // List<DTO_Product_Item_Type> dTO_Accounts2 = responseMessage2.Content.ReadAsAsync<List<DTO_Product_Item_Type>>().Result;
+               // return View(dTO_Accounts2.ToPagedList(pageNumber, pageSize));
+
+            }
+            HttpResponseMessage responseMessage = service.GetResponse("api/product/GetAllProductItemByPageList");
             responseMessage.EnsureSuccessStatusCode();
-           // List<DTO_Product_Client> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Product_Client>>().Result;
-          List<DTO_Product_Item_Type> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Product_Item_Type>>().Result;
-            return View(dTO_Accounts);
+
+            List<DTO_Product_Item_Type> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Product_Item_Type>>().Result;
+
+
+            return View(dTO_Accounts.ToPagedList(pageNumber, pageSize));
+
+
+
+
+          //  HttpResponseMessage responseMessage = service.GetResponse("api/product/getallproductitem");
+          //  responseMessage.EnsureSuccessStatusCode();
+           
+          //List<DTO_Product_Item_Type> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Product_Item_Type>>().Result;
+          //  return View(dTO_Accounts);
         }
         public ActionResult Index2(int id)
         {
 
             HttpResponseMessage responseMessage = service.GetResponse("api/product/GetAllProductByIdItemClient/"+id);
             responseMessage.EnsureSuccessStatusCode();
-            // List<DTO_Product_Client> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Product_Client>>().Result;
             List<DTO_Product_Item_Type> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Product_Item_Type>>().Result;
-            return View(dTO_Accounts);
+            if(dTO_Accounts == null)
+            {
+                return Content("Chưa có sản phẩm bạn đang muốn tìm kiếm");
+            }
+            var view = dTO_Accounts.ToPagedList(1,10);
+            return View(view);
         }
 
         // GET: Product/Details/5
@@ -568,6 +615,10 @@ namespace UI.Controllers
 
             }
             return RedirectToAction("LuaChon","Cart");
+        }
+        public PartialViewResult Search()
+        {
+            return PartialView("Search");
         }
 
        

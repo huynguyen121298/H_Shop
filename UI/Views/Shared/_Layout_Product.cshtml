@@ -1,5 +1,5 @@
-﻿@*@using PagedList.Mvc;
-@model PagedList.IPagedList<Model.DTO.DTO_Client.DTO_Product_Client>*@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<Model.DTO_Model.DTO_Product_Item_Type>
 @using Model.DTO_Model;
 <!--
 author: W3layouts
@@ -253,259 +253,262 @@ author URL: http://w3layouts.com
 
 
     </section>
-    
-        @using (Html.BeginForm("Index", "Product"))
-        {
-            <div id="hello" class="topnav">
-                <table   id="chao" class="table table-bordered table-active ">
-                    Lọc sản phẩm theo:
-                    <tr >
-                        <td>
-                            @Html.RadioButton("seachBy", "NameProduct") <text> Tên sản phẩm</text>
-                        </td>
-                        <td>
-                            @Html.TextBox("search")
-                        </td>
-                    </tr>
-                    <tr >
-                        <td>
-                            @Html.RadioButton("seachBy", "Price") <text> Giá sản phẩm từ</text>
-                        </td>
-                        <td>
-                            @Html.TextBox("gia_")  <text> đến</text>  @Html.TextBox("gia")
-                        </td>
-                    </tr>
-                    <tr >
-                        <td>
-                            @Html.RadioButton("seachBy", "None")<text>Không lọc</text>
-                        </td>
-                        <td>
-                            <input type="submit" onclick="remove()" id="btn-remove" value="Tìm kiếm" class="btn btn-outline-success center" />
 
-                        </td>
-                    </tr>
-                </table>
-            </div>
+    @using (Html.BeginForm("Index", "Product"))
+    {
+        <div id="hello" class="topnav">
+            <table id="chao" class="table table-bordered table-active ">
+                Lọc sản phẩm theo:
+                <tr>
+                    <td>
+                        @Html.RadioButton("seachBy", "NameProduct") <text> Tên sản phẩm</text>
+                    </td>
+                    <td>
+                        @Html.TextBox("search")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.RadioButton("seachBy", "Price") <text> Giá sản phẩm từ</text>
+                    </td>
+                    <td>
+                        @Html.TextBox("gia_")  <text> đến</text>  @Html.TextBox("gia")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.RadioButton("seachBy", "None")<text>Không lọc</text>
+                    </td>
+                    <td>
+                        <input type="submit" onclick="remove()" id="btn-remove" value="Tìm kiếm" class="btn btn-outline-success center" />
 
-
-        }
-
-        <script>
-
-            $('#btn-remove').click(function () {
-                document.getElementById('#chao').reset();
-                $('#hello')[0].reset();
-            });
-        </script>
-
-
-
-
-        <!-- //header -->
-        <!-- main-slider -->
-
-        <div>
-            @RenderBody();
+                    </td>
+                </tr>
+            </table>
         </div>
-        <!-- /main-slider -->
-        <!-- About -->
-        <!-- //stats -->
-        <!-- contact -->
-        @*<div class="col-md-12">
-            <nav aria-label="Page navigation example" style="color:red">
-                Trang @(Model.PageCount<Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+        @Html.Action("Search", "Product")
 
 
-                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    }
+    <div>
+        @Html.Action("Search", "Product")
+    </div>
+    <script>
+
+        $('#btn-remove').click(function () {
+            document.getElementById('#chao').reset();
+            $('#hello')[0].reset();
+        });
+    </script>
 
 
-            </nav>
-        </div>*@
-        <section class="contact py-5" id="contact">
-            <div class="container py-md-5">
-                <div class="row">
-                    <div class="col-lg-4 contact-left">
-                        <p>
-                            Liên hệ chúng tôi
-                        </p>
-                        <h3 class="heading">Liên lạc</h3>
-                        <p class="mt-3">
-                            Nếu bạn có bất kỳ thắc mắc nào hoặc muốn nói chuyện với chúng tôi, vui lòng liên hệ với chúng tôi để biết thêm chi tiết theo bên dưới
-                            thông tin đã cho.
-                        </p>
 
-                    </div>
-                    <div class="col-lg-8 about-text">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15676.273867632177!2d106.71046386775461!3d10.80606817682145!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528a16940b30b%3A0x1b25a34b7a3ab959!2zUGjGsOG7nW5nIDI1LCBCw6xuaCBUaOG6oW5oLCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmgsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1606188970470!5m2!1svi!2s" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
 
-                    </div>
+    <!-- //header -->
+    <!-- main-slider -->
 
-                    <div class="col-lg-8 mt-5">
+    <div>
+        @RenderBody();
+    </div>
+    <!-- /main-slider -->
+    <!-- About -->
+    <!-- //stats -->
+    <!-- contact -->
+    <div class="col-md-12">
+        <nav aria-label="Page navigation example" style="color:red">
+            Trang @(Model.PageCount<Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
 
-                        @using (Html.BeginForm("saveFeedbacks", "Home", FormMethod.Post))
-                        {
-                            <div class="row main-w3layouts-sectns">
-                                <div class="col-md-6 w3-btm-spc form-text1">
-                                    <input type="text" value="" placeholder="Nhập tên" name="Name">
-                                </div>
-                                <div class="col-md-6 w3-btm-spc form-text2">
-                                    <input type="text" placeholder="Nhập SDT" name="SDT">
-                                </div>
+
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
+
+        </nav>
+    </div>
+    <section class="contact py-5" id="contact">
+        <div class="container py-md-5">
+            <div class="row">
+                <div class="col-lg-4 contact-left">
+                    <p>
+                        Liên hệ chúng tôi
+                    </p>
+                    <h3 class="heading">Liên lạc</h3>
+                    <p class="mt-3">
+                        Nếu bạn có bất kỳ thắc mắc nào hoặc muốn nói chuyện với chúng tôi, vui lòng liên hệ với chúng tôi để biết thêm chi tiết theo bên dưới
+                        thông tin đã cho.
+                    </p>
+
+                </div>
+                <div class="col-lg-8 about-text">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15676.273867632177!2d106.71046386775461!3d10.80606817682145!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528a16940b30b%3A0x1b25a34b7a3ab959!2zUGjGsOG7nW5nIDI1LCBCw6xuaCBUaOG6oW5oLCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmgsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1606188970470!5m2!1svi!2s" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+
+                </div>
+
+                <div class="col-lg-8 mt-5">
+
+                    @using (Html.BeginForm("saveFeedbacks", "Home", FormMethod.Post))
+                    {
+                        <div class="row main-w3layouts-sectns">
+                            <div class="col-md-6 w3-btm-spc form-text1">
+                                <input type="text" value="" placeholder="Nhập tên" name="Name">
                             </div>
-                            <div class="row main-w3layouts-sectns">
-                                <div class="col-md-6 w3-btm-spc form-text1">
-                                    <input type="text" value="" placeholder="Nhập Email" name="Email">
-                                </div>
-                                <div class="col-md-6 w3-btm-spc form-text2">
-                                    <input class="form-control" type="text" placeholder="Nhập tiêu đề" name="content">
-                                </div>
+                            <div class="col-md-6 w3-btm-spc form-text2">
+                                <input type="text" placeholder="Nhập SDT" name="SDT">
                             </div>
-                            <div class="main-w3layouts-sectns ">
-                                <div class="w3-btm-spc form-text2 p-0">
-                                    <textarea name="details" placeholder="Nhập nội dung của bạn"></textarea>
-                                </div>
+                        </div>
+                        <div class="row main-w3layouts-sectns">
+                            <div class="col-md-6 w3-btm-spc form-text1">
+                                <input type="text" value="" placeholder="Nhập Email" name="Email">
                             </div>
+                            <div class="col-md-6 w3-btm-spc form-text2">
+                                <input class="form-control" type="text" placeholder="Nhập tiêu đề" name="content">
+                            </div>
+                        </div>
+                        <div class="main-w3layouts-sectns ">
+                            <div class="w3-btm-spc form-text2 p-0">
+                                <textarea name="details" placeholder="Nhập nội dung của bạn"></textarea>
+                            </div>
+                        </div>
 
 
 
-                            <input class="btn" onclick="Add()" type="submit" value="Gửi">
+                        <input class="btn" onclick="Add()" type="submit" value="Gửi">
 
-                        }
+                    }
 
 
-                    </div>
-                    <div class="col-lg-4 mt-5">
-                        <div class="contact-info">
-                            <div class="footer-style-w3ls">
-                                <p>
-                                    <span class="fa fa-map-marker" aria-hidden="true"></span><strong> Vị trí</strong> :Công ty HShop_,
-                                    phường 25,Quận Bình Thạnh , Thành Phố Hồ Chí Minh.
-                                </p>
-                            </div>
-                            <div class="footer-style-w3ls mt-2">
-                                <p><span class="fa fa-phone" aria-hidden="true"></span><strong> Phone</strong> : 0853506715</p>
-                            </div>
-                            <div class="footer-style-w3ls mt-2">
-                                <p><span class="fa fa-fax" aria-hidden="true"></span><strong> Fax</strong> : +84853506715</p>
-                            </div>
-                            <div class="footer-style-w3ls mt-2">
-                                <p><span class="fa fa-fax" aria-hidden="true"></span><strong> Giám đốc</strong> : Mr:Nguyễn Tuấn Huy</p>
-                            </div>
-                            <div class="footer-style-w3ls mt-2">
-                                <p>
-                                    <span class="fa fa-envelope" aria-hidden="true"></span><strong> Email</strong> : <a href="mailto:nguyentuanhuy301198@gmail.com">nguyentuanhuy301198@gmail.com</a>
-                                </p>
-                            </div>
+                </div>
+                <div class="col-lg-4 mt-5">
+                    <div class="contact-info">
+                        <div class="footer-style-w3ls">
+                            <p>
+                                <span class="fa fa-map-marker" aria-hidden="true"></span><strong> Vị trí</strong> :Công ty HShop_,
+                                phường 25,Quận Bình Thạnh , Thành Phố Hồ Chí Minh.
+                            </p>
+                        </div>
+                        <div class="footer-style-w3ls mt-2">
+                            <p><span class="fa fa-phone" aria-hidden="true"></span><strong> Phone</strong> : 0853506715</p>
+                        </div>
+                        <div class="footer-style-w3ls mt-2">
+                            <p><span class="fa fa-fax" aria-hidden="true"></span><strong> Fax</strong> : +84853506715</p>
+                        </div>
+                        <div class="footer-style-w3ls mt-2">
+                            <p><span class="fa fa-fax" aria-hidden="true"></span><strong> Giám đốc</strong> : Mr:Nguyễn Tuấn Huy</p>
+                        </div>
+                        <div class="footer-style-w3ls mt-2">
+                            <p>
+                                <span class="fa fa-envelope" aria-hidden="true"></span><strong> Email</strong> : <a href="mailto:nguyentuanhuy301198@gmail.com">nguyentuanhuy301198@gmail.com</a>
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- //contact -->
-        <!-- Newsletter -->
-        <section class="subscribe-text py-5" id="subscribe">
-            <div class="container py-lg-3">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <h3 class="heading mb-3">Theo dõi bản tin</h3>
-                        <p>
-                            Bằng cách đăng ký vào danh sách gửi thư của chúng tôi, bạn sẽ luôn nhận được tin tức và cập nhật thông tin mới nhất từ ​​chúng tôi. Vui lòng làm
-                            đăng ký!
-                        </p>
-                    </div>
-                    <div class="col-lg-5 offset-lg-1">
-                        <form action="#" method="post">
-                            <input type="email" name="Email" placeholder="Enter your email..." required="">
-                            <button class="btn1"><span class="fa fa-paper-plane" aria-hidden="true"></span></button>
-                            <div class="clearfix"> </div>
-                        </form>
-                        <p class="mt-3">
-                            Chúng tôi tôn trọng quyền riêng tư của bạn và sẽ không bao giờ chia sẻ địa chỉ email của bạn với bất kỳ người nào hoặc
-                            cơ quan.
-                        </p>
-                    </div>
+        </div>
+    </section>
+    <!-- //contact -->
+    <!-- Newsletter -->
+    <section class="subscribe-text py-5" id="subscribe">
+        <div class="container py-lg-3">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h3 class="heading mb-3">Theo dõi bản tin</h3>
+                    <p>
+                        Bằng cách đăng ký vào danh sách gửi thư của chúng tôi, bạn sẽ luôn nhận được tin tức và cập nhật thông tin mới nhất từ ​​chúng tôi. Vui lòng làm
+                        đăng ký!
+                    </p>
+                </div>
+                <div class="col-lg-5 offset-lg-1">
+                    <form action="#" method="post">
+                        <input type="email" name="Email" placeholder="Enter your email..." required="">
+                        <button class="btn1"><span class="fa fa-paper-plane" aria-hidden="true"></span></button>
+                        <div class="clearfix"> </div>
+                    </form>
+                    <p class="mt-3">
+                        Chúng tôi tôn trọng quyền riêng tư của bạn và sẽ không bao giờ chia sẻ địa chỉ email của bạn với bất kỳ người nào hoặc
+                        cơ quan.
+                    </p>
                 </div>
             </div>
-        </section>
-        <!-- //Newsletter -->
-        <!-- footer -->
-        <footer class="footerv4-w3ls py-sm-5 py-4" id="footer">
-            <div class="footerv4-top">
-                <div class="container">
+        </div>
+    </section>
+    <!-- //Newsletter -->
+    <!-- footer -->
+    <footer class="footerv4-w3ls py-sm-5 py-4" id="footer">
+        <div class="footerv4-top">
+            <div class="container">
 
-                    <!-- footer logo -->
-                    <div class="footer-logo text-center">
-                        <a href="index.html"><span class="fa fa-stumbleupon" aria-hidden="true"></span> HShop_Ecommerce </a>
-                    </div>
-                    <!-- pay -->
-                    <div class="container-fluid">
+                <!-- footer logo -->
+                <div class="footer-logo text-center">
+                    <a href="index.html"><span class="fa fa-stumbleupon" aria-hidden="true"></span> HShop_Ecommerce </a>
+                </div>
+                <!-- pay -->
+                <div class="container-fluid">
 
 
-                        <div class="row payment align-items-center">
-                            <div class="col-md-6">
-                                <div class="payment-method">
+                    <div class="row payment align-items-center">
+                        <div class="col-md-6">
+                            <div class="payment-method">
 
-                                    <img src="~/images/payment-method.png" alt="Payment Method" />
-                                </div>
+                                <img src="~/images/payment-method.png" alt="Payment Method" />
                             </div>
-                            <div class="col-md-6">
-                                <div class="payment-security">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="payment-security">
 
-                                    <img src="~/images/godaddy.svg" style="width:80px;height:100px" alt="Payment Security" />
-                                    <img src="~/images/norton.svg" style="width:80px;height:100px" alt="Payment Security" />
-                                    <img src="~/images/ssl.svg" style="width:80px;height:100px" alt="Payment Security" />
-                                </div>
+                                <img src="~/images/godaddy.svg" style="width:80px;height:100px" alt="Payment Security" />
+                                <img src="~/images/norton.svg" style="width:80px;height:100px" alt="Payment Security" />
+                                <img src="~/images/ssl.svg" style="width:80px;height:100px" alt="Payment Security" />
                             </div>
                         </div>
                     </div>
-                    <!-- end pay -->
-                    <!-- //footer logo -->
-                    <!-- footer nav links -->
-                    <div class="d-flex align-items-center footer-nav-wthree justify-content-center my-3">
-                        <ul class="footer-link">
-                            <li>
-                                <a href="#home">Home</a>
-                            </li>
-                            <li>
-                                <a href="#about">Giới thiệu</a>
-                            </li>
-                            <li>
-                                <a href="#services">Hệ thống</a>
-                            </li>
-                            <li>
-                                <a href="#gallery">Bộ sưu tập</a>
-                            </li>
-                            <li>
-                                <a href="#facts">Kết nối doanh nghiệp</a>
-                            </li>
-                        </ul>
-                    </div>
+                </div>
+                <!-- end pay -->
+                <!-- //footer logo -->
+                <!-- footer nav links -->
+                <div class="d-flex align-items-center footer-nav-wthree justify-content-center my-3">
+                    <ul class="footer-link">
+                        <li>
+                            <a href="#home">Home</a>
+                        </li>
+                        <li>
+                            <a href="#about">Giới thiệu</a>
+                        </li>
+                        <li>
+                            <a href="#services">Hệ thống</a>
+                        </li>
+                        <li>
+                            <a href="#gallery">Bộ sưu tập</a>
+                        </li>
+                        <li>
+                            <a href="#facts">Kết nối doanh nghiệp</a>
+                        </li>
+                    </ul>
+                </div>
 
-                    <!-- //footer nav links -->
-                    <!-- move top icon -->
-                    <div class="text-center">
-                        <a href="#home" class="move-top text-center">
-                            <span class="fa fa-angle-double-up"
-                                  aria-hidden="true"></span>
-                        </a>
-                    </div>
-                    <!-- //move top icon -->
-                    <!-- copyright -->
-                    <div class="copy-right text-center">
-                        <p>
-                            @DateTime.Now   HShop_Ecommerce | Design by Nguyễn Tuấn Huy
-                            <a href="mailto:nguyentuanhuy301198@gmail.com" style="font-style:unset"> send mail for NguyenTuanHuy</a>
-                        </p>
-                        <br />
+                <!-- //footer nav links -->
+                <!-- move top icon -->
+                <div class="text-center">
+                    <a href="#home" class="move-top text-center">
+                        <span class="fa fa-angle-double-up"
+                              aria-hidden="true"></span>
+                    </a>
+                </div>
+                <!-- //move top icon -->
+                <!-- copyright -->
+                <div class="copy-right text-center">
+                    <p>
+                        @DateTime.Now   HShop_Ecommerce | Design by Nguyễn Tuấn Huy
+                        <a href="mailto:nguyentuanhuy301198@gmail.com" style="font-style:unset"> send mail for NguyenTuanHuy</a>
+                    </p>
+                    <br />
 
-                    </div>
-                    <div id="btnlogin" @*style="display:none"*@ class="copy-right text-center">
+                </div>
+                <div id="btnlogin" @*style="display:none"*@ class="copy-right text-center">
 
-                        <a href="~/Admin/Account/Login">
-                            <p style="font-style:italic oblique">Vào Trang ADMIN</p>
-                        </a>
-                    </div>
-                    @*@if (Request.Cookies["firstname"] != null)
+                    <a href="~/Admin/Account/Login">
+                        <p style="font-style:italic oblique">Vào Trang ADMIN</p>
+                    </a>
+                </div>
+                @*@if (Request.Cookies["firstname"] != null)
                     {
                         <script>
 
@@ -519,65 +522,68 @@ author URL: http://w3layouts.com
                         </script>
 
                     }*@
-                    <!-- //copyright -->
+                <!-- //copyright -->
 
 
-                </div>
             </div>
-        </footer>
-        <!-- //footer -->
-        <!-- main slider -->
-        <script src="~/js/jquery-3.3.1.min.js"></script>
-        <script src="~/js/owl.carousel.js"></script>
-        <script src="~/js/JavaScript.js"></script>
-        @RenderSection("Upload", required: false)
-        <script>
-            $(document).ready(function () {
-                $('.owl-one').owlCarousel({
-                    loop: true,
-                    margin: 0,
-                    nav: false,
-                    dots: true,
-                    responsiveClass: true,
-                    autoplay: true,
-                    autoplayTimeout: 5000,
-                    autoplaySpeed: 1000,
-                    autoplayHoverPause: false,
-                    responsive: {
-                        0: {
-                            items: 1,
-                            nav: false
-                        },
-                        480: {
-                            items: 1,
-                            nav: false
-                        },
-                        667: {
-                            items: 1,
-                            nav: false
-                        },
-                        1000: {
-                            items: 1,
-                            nav: false
-                        }
+        </div>
+    </footer>
+    <!-- //footer -->
+    <!-- main slider -->
+    @Scripts.Render("~/Scripts/bootstrap.js")
+    @Scripts.Render("~/Scripts/jquery-3.4.1.js")
+    @RenderSection("scripts", required: false)
+
+    <script src="~/js/owl.carousel.js"></script>
+    <script src="~/js/JavaScript.js"></script>
+    @RenderSection("Upload", required: false)
+    <script>
+        $(document).ready(function () {
+            $('.owl-one').owlCarousel({
+                loop: true,
+                margin: 0,
+                nav: false,
+                dots: true,
+                responsiveClass: true,
+                autoplay: true,
+                autoplayTimeout: 5000,
+                autoplaySpeed: 1000,
+                autoplayHoverPause: false,
+                responsive: {
+                    0: {
+                        items: 1,
+                        nav: false
+                    },
+                    480: {
+                        items: 1,
+                        nav: false
+                    },
+                    667: {
+                        items: 1,
+                        nav: false
+                    },
+                    1000: {
+                        items: 1,
+                        nav: false
                     }
-                })
+                }
+            })
+        })
+
+        function Add() {
+            Swal.fire({
+                position: 'top',
+                icon: 'success',
+                title: 'Cảm ơn bạn đã góp ý cho chúng tôi',
+                showConfirmButton: false,
+                timer: 300000
             })
 
-            function Add() {
-                Swal.fire({
-                    position: 'top',
-                    icon: 'success',
-                    title: 'Cảm ơn bạn đã góp ý cho chúng tôi',
-                    showConfirmButton: false,
-                    timer: 300000
-                })
 
 
-
-            }
-        </script>
-        <!-- /main slider -->
+        }
+    </script>
+    <!-- /main slider -->
 
 </body>
 

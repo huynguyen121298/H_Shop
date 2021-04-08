@@ -20,6 +20,10 @@ namespace UI.Service
         {
             return Client.GetAsync(url).Result;
         }
+        public HttpResponseMessage GetResponse2(String url,object model)
+        {
+            return Client.GetAsync(url).Result;
+        }
 
         public HttpResponseMessage PutResponse(String url, object model)
         {

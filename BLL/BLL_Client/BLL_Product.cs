@@ -31,5 +31,28 @@ namespace BLL.BLL_Client
 
             return dTO_Accounts;
         }
+        public List<DTO_Product_Client> GetAllProductByPrice(int? gia, int? gia_)
+        {
+            EntityMapper<Product, DTO_Product_Client> mapObj = new EntityMapper<Product, DTO_Product_Client>();
+            List<Product> products = dAL_Product.GetProductByPrice(gia, gia_);
+            List<DTO_Product_Client> dTO_Products = new List<DTO_Product_Client>();
+            foreach (var item in products)
+            {
+                dTO_Products.Add(mapObj.Translate(item));
+            }
+            return dTO_Products;
+        }
+
+        public List<DTO_Product_Client> GetAllProductByName(string name)
+        {
+            EntityMapper<Product, DTO_Product_Client> mapObj = new EntityMapper<Product, DTO_Product_Client>();
+            List<Product> products = dAL_Product.GetProductByName(name);
+            List<DTO_Product_Client> dTO_Products = new List<DTO_Product_Client>();
+            foreach (var item in products)
+            {
+                dTO_Products.Add(mapObj.Translate(item));
+            }
+            return dTO_Products;
+        }
     }
 }

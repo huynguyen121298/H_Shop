@@ -25,6 +25,7 @@ namespace BLL.BLL_Ad
             }
             return dTO_Products;
         }
+       
         public List<DTO_Product_Item_Type> GetAllProductItem()
         {
             EntityMapper<Product_Item_Type, DTO_Product_Item_Type> mapObj = new EntityMapper<Product_Item_Type, DTO_Product_Item_Type>();
@@ -85,6 +86,18 @@ namespace BLL.BLL_Ad
             EntityMapper<Product_Item_Type, DTO_Product_Item_Type> mapObj = new EntityMapper<Product_Item_Type, DTO_Product_Item_Type>();
             Product_Item_Type account = dAL_Product.GetProductItemById2(id);
             DTO_Product_Item_Type dTO_Accounts = mapObj.Translate(account);
+
+            return dTO_Accounts;
+        }
+        public List<DTO_Product_Item_Type> GetProductItemByPageList()
+        {
+            EntityMapper<Product_Item_Type, DTO_Product_Item_Type> mapObj = new EntityMapper<Product_Item_Type, DTO_Product_Item_Type>();
+            List<Product_Item_Type> account = dAL_Product.GetProductItemById3();
+            List<DTO_Product_Item_Type> dTO_Accounts = new List<DTO_Product_Item_Type>();
+            foreach (var item in account)
+            {
+                dTO_Accounts.Add(mapObj.Translate(item));
+            }
 
             return dTO_Accounts;
         }

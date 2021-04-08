@@ -22,5 +22,20 @@ namespace DAL.DAL_Client
         {
             return db.Products.Where(s => s.Id_SanPham == id).FirstOrDefault();
         }
+        public List<Product> GetProductByPrice(int? gia, int? gia_)
+        {
+
+            return db.Products.Where(s => s.Price <= gia && s.Price >= gia_).ToList();
+        }
+        public List<Product> GetProductByName(string name)
+        {
+
+            return db.Products.Where(s => s.Name.StartsWith(name)).ToList();
+        }
+        public List<Product> GetProductByName2(string name)
+        {
+
+            return db.Products.Where(s => s.Name.Contains(name)).ToList();
+        }
     }
 }

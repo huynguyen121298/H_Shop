@@ -22,11 +22,9 @@ namespace DAL.DAL_Ad
           
             return db.Products.ToList();
             
-           // return db.Products.Include("Items.Quantity").ToList();
-
-
-
+        
         }
+       
 
 
 
@@ -75,6 +73,28 @@ namespace DAL.DAL_Ad
 
                               };
             return infoProduct.FirstOrDefault();
+        }
+        public List<Product_Item_Type> GetProductItemById3()
+        {
+            var infoProduct = from item in db.Items
+                              join product in db.Products on item.Id_SanPham equals product.Id_SanPham
+                                orderby product.Id_SanPham 
+                              select new Product_Item_Type()
+                              {
+                                  Id_SanPham = product.Id_SanPham,
+                                  Name = product.Name,
+                                  Price = product.Price,
+                                  Details = product.Details,
+                                  Photo = product.Photo,
+                                  Id_Item = product.Id_Item,
+                                  Quantity = item.Quantity
+
+
+
+
+
+                              };
+            return infoProduct.ToList();
         }
         public List<Product_Item_Type> GetProductItemById_Client(int id)
         {
@@ -273,6 +293,7 @@ namespace DAL.DAL_Ad
             //    productsByType.Add(products);
             //}
             return db.Products.Where(m => m.Id_Item == id).ToList();
+           
         }
         public List<List<Product>> getproductByType()
         {
