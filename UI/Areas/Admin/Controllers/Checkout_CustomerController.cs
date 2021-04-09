@@ -14,11 +14,11 @@ namespace UI.Areas.Admin.Controllers
         ServiceRepository service = new ServiceRepository();
 
         // GET: Admin/Checkout_Customer
-        public ActionResult Index(string seachby, int? timkiemtim)
+        public ActionResult Index(string seachby)
         {
-            
-           
-           
+
+
+            var timkiemtim = Request.Form["timkiemtim"];
 
             
             if (seachby == "id")

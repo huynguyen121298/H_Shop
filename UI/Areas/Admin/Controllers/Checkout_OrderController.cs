@@ -15,12 +15,12 @@ namespace UI.Areas.Admin.Controllers
         ServiceRepository service = new ServiceRepository();
 
         // GET: Admin/Checkout_Order
-        public ActionResult Index(string seachby, int? timkiemtim)
+        public ActionResult Index(string seachby)
         {
-
+            var timkiemtim1 = Request.Form["timkiemtim1"];
             if (seachby == "id")
             {
-                HttpResponseMessage responseMessage1 = service.GetResponse("api/Checkout_Customer/GetListOrderById/" + timkiemtim);
+                HttpResponseMessage responseMessage1 = service.GetResponse("api/Checkout_Order/GetListOrderById/" + timkiemtim1);
                 responseMessage1.EnsureSuccessStatusCode();
                 List<DTO_Checkout_Order> dtocustomer = responseMessage1.Content.ReadAsAsync<List<DTO_Checkout_Order>>().Result;
                 return View(dtocustomer);

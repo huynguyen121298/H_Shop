@@ -2520,6 +2520,7 @@
     <Content Include="Areas\Admin\Views\Products_Add\Index2.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\View_2.cshtml" />
     <Content Include="Areas\Admin\Views\Checkout_Customer\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\GetAllFeedbacks.cshtml" />
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\CHANGES.html" />
@@ -2907,7 +2908,7 @@
     <Content Include="Views\Product\ThoiTrangNam.cshtml" />
     <Content Include="Views\Product\ThoiTrangNu.cshtml" />
     <Content Include="Views\Shared\Layout.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Layout_Details.cshtml" />
     <Content Include="Views\Shared\_Layoutmenu.cshtml" />
     <Content Include="Views\Shared\_Layout_.cshtml" />
     <Content Include="Views\Customer\ForgotPassword.cshtml" />
@@ -2926,6 +2927,7 @@
     <Content Include="Views\Shared\_Layout_Product.cshtml" />
     <Content Include="Views\Product\Index2.cshtml" />
     <Content Include="Views\Product\Search.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -98,11 +98,11 @@
        
 
         <dt>
-            Giảm giá:  @Html.DisplayFor(model => model.GiamGia) VNĐ
+           Giảm giá: @string.Format("{0:0,0}", Model.GiamGia) VNĐ
         </dt>
 
         <dt>
-            Tổng tiền:  @Html.DisplayFor(model => model.TongTien) VNĐ
+            Tổng tiền: @string.Format("{0:0,0}", Model.TongTien) VNĐ
         </dt>
 
 

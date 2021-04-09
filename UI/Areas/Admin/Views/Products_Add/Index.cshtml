@@ -14,34 +14,12 @@
     <i class="fas fa-fw fa-cog"></i>
     <span>Tùy chọn sản phẩm</span>
 </a>
-@*<div id="collapseTwo1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Xem sản phẩm theo:</h6>
-            <a class="collapse-item" href="~/Admin/Products_Add/Index">Tất cả sản phẩm</a><br />
-            <a class="collapse-item" href="~/Admin/Products_Add/DongHo">Đồng hồ</a>
-            <br>
-            <a class="collapse-item" href="~/Admin/Products_Add/ThoiTrangNam">Thời trang nam</a>
-            <br />
-            <a class="collapse-item" href="~/Admin/Products_Add/ThoiTrangNu">Thời trang nữ</a>
-            <br>
-            <a class="collapse-item" href="~/Admin/Products_Add/MevaBe">Mẹ và bé</a>
-            <br />
-            <a class="collapse-item" href="~/Admin/Products_Add/ThietBiGiaDung">Thiết bị gia dụng</a>
-            <br />
-            <a class="collapse-item" href="~/Admin/Products_Add/MayAnhvaMayQuayPhim">Máy ảnh và Máy Quay Phim</a>
-            <br />
-
-            <a class="collapse-item" href="~/Admin/Products_Add/MayTinhvaLapTop">Máy tính và LapTop</a>
-            <br />
-            <a class="collapse-item" href="~/Admin/Products_Add/TheThaovaDuLich">Thể thao và du lịch</a>
-            <br>
-            <a class="collapse-item" href="~/Admin/Products_Add/SucKhoevaSacDep">Sức khỏe và sắc đẹp</a>
-        </div>
-    </div>*@
+    
 <div id="collapseTwo1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
     <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Xem sản phẩm theo:</h6>
         <a class="collapse-item" href="~/Admin/Products_Add/Index">Tất cả sản phẩm</a><br />
+        <a class="collapse-item" href="~/Admin/Products_Add/GetAllProductByType">Theo thể loại sản phẩm</a><br />
         <a class="collapse-item" href=" @Url.Action("Index2", "Products_Add", new { id = 1 })">Đồng hồ</a>
         <br>
         <a class="collapse-item" href=" @Url.Action("Index2", "Products_Add", new { id =  8})">Thời trang nam</a>
@@ -128,7 +106,8 @@
                                 @Html.DisplayFor(modelItem => item.Name)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Price)
+                                @*@Html.DisplayFor(modelItem => item.Price)*@
+                                @string.Format("{0:0,0}",item.Price) VNĐ
                             </td>
                             <td>
                                 <img src=" @Url.Content(item.Photo)" style="height:100px; width:100px;margin:10px" />

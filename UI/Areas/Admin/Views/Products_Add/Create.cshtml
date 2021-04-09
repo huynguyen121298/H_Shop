@@ -70,7 +70,7 @@
             @*@Html.EditorFor(model => model.Details, new { htmlAttributes = new { @class = "form-control" } })*@
             <!--<input name="details" id="details" class="form-control" style="height:300px" />
 
-            @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
+          
         </div>
     </div>-->
 
@@ -80,15 +80,15 @@
         Chi tiết sản phẩm
         <div class="col-md-10">
             @Html.TextAreaFor(model => model.Details, new { @id = "ckeditor" })
-
+            @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
         </div>
         <script type="text/javascript">
             $(document).ready(function () {
                 CKEDITOR.replace('ckeditor');
-                var TextGrab = CKEDITOR.instances['ckeditor'].getData();
-                TextGrab = $(TextGrab).text(); // html to text        
-                TextGrab = TextGrab.replace(/\r?\n|\r/gm, " "); // remove line breaks   
-                TextGrab = TextGrab.replace(/\s\s+/g, " ").trim(); // remove double spaces
+                CKEDITOR.config.autoParagraph = false;
+                CKEDITOR.config.language = 'vi';
+                CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR
+                CKEDITOR.config.shiftEnterMode = CKEDITOR.ENTER_BR;
             });
             
 

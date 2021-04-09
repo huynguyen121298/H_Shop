@@ -1,6 +1,7 @@
-﻿@using Model.DTO_Model;
+﻿@*@using Model.DTO_Model;*@
+@using Model.DTO.DTO_Client;
 @using PagedList.Mvc;
-@model PagedList.IPagedList<Model.DTO_Model.DTO_Product_Item_Type>
+@model PagedList.IPagedList< Model.DTO.DTO_Client.DTO_Product_Client>
 
 
 
@@ -77,7 +78,7 @@
 
                 <div class="col-lg-8">
                     <div class="row">
-                        @foreach (DTO_Product_Item_Type item in Model)
+                        @foreach (DTO_Product_Client item in Model)
                         {
 
                             <div class="col-md-4">

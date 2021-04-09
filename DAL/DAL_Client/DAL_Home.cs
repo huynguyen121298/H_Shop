@@ -20,6 +20,13 @@ namespace DAL.DAL_Client
         {
             return db.Users_Acc.ToList();
         }
+        public List<Feedback> GetAllFeedbacks()
+        {
+            //bool item = db.Items.Select(t => t.Id_SanPham == 11).SingleOrDefault();
+
+            return db.Feedbacks.ToList();
+
+        }
         public bool InsertCustomer(Users_Acc custom)
         {
             if (!UserNameIsExist(custom.Email) && custom != null)

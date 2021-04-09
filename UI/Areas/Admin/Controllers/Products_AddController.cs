@@ -215,7 +215,7 @@ namespace UI.Areas.Admin.Controllers
         }
 
         // POST: Admin/Products_Add/Edit/5
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ActionResult Edit(int id, FormCollection collection, DTO_Product_Item_Type dTO_Product_Item_Type, HttpPostedFileBase ImageUpload)
         {
             var stt = Request.Form["stt"];

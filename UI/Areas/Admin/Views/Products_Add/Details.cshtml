@@ -12,7 +12,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            Mã Item sản phẩm: @Html.DisplayFor(model => model.Id_SanPham)
+            Mã sản phẩm: @Html.DisplayFor(model => model.Id_SanPham)
         </dt>
 
         <dd>
@@ -28,7 +28,7 @@
         </dd>
 
         <dt>
-            Giá sản phẩm:  @Html.DisplayFor(model => model.Price) VNĐ
+            Giá sản phẩm:   @string.Format("{0:0,0}", Model.Price)  VNĐ
         </dt>
 
         <dd>

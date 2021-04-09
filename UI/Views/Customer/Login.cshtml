@@ -67,12 +67,15 @@
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
 
-                                                <input  class="custom-control-input" id="check3" name="check3" type="checkbox" value="show password" onclick="myFunction()">
-                                                @Html.CheckBoxFor(model => model.RememberMe, new { @style = "text-align:left;display:inline-block;", @class = " pull-left" })<label style="margin-left: 10px; display:inline-block;">Remember me </label>        
+                                                <input class="custom-control-input" id="check3" name="check3" type="checkbox" value="show password" onclick="myFunction()">
+                                                @Html.CheckBoxFor(model => model.RememberMe, new { @style = "text-align:left;display:inline-block;", @class = " pull-left" })<label style="margin-left: 3px; display:inline-block;">Remember me </label>
                                                 <br />
                                                 @*@Html.LabelFor("check3", "Show password")*@
-                                            <label class="custom-control-label " style="margin-left:23px";display:inline-block;" for="check3">Show password</label>
-                                                @*<input type="checkbox" style = "text-align:left;display:inline-block;"class = "pull-left" value="@Model.RememberMe" />*@
+                                                @*<label class="custom-control-label " style="margin-left:23px" ;display:inline-block;" for="check3">Show password</label>*@
+                                                <div class="agile_label">
+                                                    <input id="check3" name="check3" type="checkbox" value="show password" onclick="myFunction()">
+                                                    <label class="check" for="check3">Show password</label>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="warning">

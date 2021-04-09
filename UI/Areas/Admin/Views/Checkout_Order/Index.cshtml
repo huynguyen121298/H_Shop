@@ -26,28 +26,30 @@
 
         <div class="row align-items-center">
 
-            <div class="search">
-                @using (Html.BeginForm("Index", "Checkout_Oder"))
-                {
+            <div>
+                <div>
+                    @using (Html.BeginForm("Index", "Checkout_Order", FormMethod.Post))
+                    {
 
 
-                    @Html.RadioButton("seachBy", "None")<text>Không lọc</text>
-                    @Html.RadioButton("seachBy", "ID")<text>Mã khách hàng</text>
+                        @Html.RadioButton("seachby", "None")<text>Không lọc</text>
+                        @Html.RadioButton("seachby", "id")<text>Mã khách hàng</text>
 
-                    @Html.TextBox("timkiem")
+                        @*@Html.TextBox("timkiemtim")*@
+                        <input type="search" id="timkiemtim1" name="timkiemtim1" />
 
 
-                    <input type="submit" onclick="remove()" id="btn-remove" value="Tìm kiếm" class="btn btn-outline-success" />
-                }
+                        <input type="submit" value="Tìm kiếm" onclick="search()" class="btn btn-outline-success" />
+                    }
 
-                <script>
-                            $('#btn-remove').click(function () {
-                                $('#search')[0].reset();
-                            });
-                    
-                </script>
+                    <script>
+                        $(document).ready(function search() {
+                            //$('#search')[0].reset();
+                            document.getElementById("#searchSp").value = null;
+                        });
+                    </script>
+                </div>
             </div>
-
 
         </div>
 
@@ -131,7 +133,7 @@
                                 @Html.DisplayFor(modelItem => item.SoLuong)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Gia)
+                                @string.Format("{0:0,0}", item.Gia) VNĐ
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.NgayTao)

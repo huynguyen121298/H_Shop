@@ -30,10 +30,10 @@ namespace UI.Controllers
             if (seachBy == "NameProduct")
             {
                 //return View(db.Products.Where(s => s.Name.StartsWith(search)).ToList().ToPagedList(pageNumber, pageSize));
-                HttpResponseMessage responseMessage2 = service.GetResponse("api/product/GetAllProductByName"+search);
+                HttpResponseMessage responseMessage2 = service.GetResponse("api/product/GetAllProductByName/"+search);
                 responseMessage2.EnsureSuccessStatusCode();
 
-                List<DTO_Product_Item_Type> dTO_Accounts2 = responseMessage2.Content.ReadAsAsync<List<DTO_Product_Item_Type>>().Result;
+                List<DTO_Product_Client> dTO_Accounts2 = responseMessage2.Content.ReadAsAsync<List<DTO_Product_Client>>().Result;
                 return View(dTO_Accounts2.ToPagedList(pageNumber,pageSize));
 
             }
@@ -41,30 +41,36 @@ namespace UI.Controllers
 
             if (seachBy == "Price")
             {
-               // //return View(db.Products.Where(s => s.Price <= gia && s.Price >= gia_).ToList().ToPagedList(pageNumber, pageSize));
-               //// HttpResponseMessage responseMessage2 = service.GetResponse("api/product/GetAllProductByPrice/" gia+gia_);
-               // responseMessage.EnsureSuccessStatusCode();
+              
+                HttpResponseMessage responseMessage2 = service.GetResponse("api/product/GetAllProductByPrice/"+ gia_ +"/"+ gia);
+                responseMessage2.EnsureSuccessStatusCode();
 
-               // List<DTO_Product_Item_Type> dTO_Accounts2 = responseMessage2.Content.ReadAsAsync<List<DTO_Product_Item_Type>>().Result;
-               // return View(dTO_Accounts2.ToPagedList(pageNumber, pageSize));
+                List<DTO_Product_Client> dTO_Accounts2 = responseMessage2.Content.ReadAsAsync<List<DTO_Product_Client>>().Result;
+                return View(dTO_Accounts2.ToPagedList(pageNumber, pageSize));
 
             }
-            HttpResponseMessage responseMessage = service.GetResponse("api/product/GetAllProductItemByPageList");
+            //HttpResponseMessage responseMessage = service.GetResponse("api/product/GetAllProductItemByPageList");
+            //responseMessage.EnsureSuccessStatusCode();
+
+            //List<DTO_Product_Client> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Product_Client>>().Result;
+
+
+            //return View(dTO_Accounts.ToPagedList(pageNumber, pageSize));
+
+            HttpResponseMessage responseMessage = service.GetResponse("api/product/GetAllProducts");
             responseMessage.EnsureSuccessStatusCode();
 
-            List<DTO_Product_Item_Type> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Product_Item_Type>>().Result;
+            List<DTO_Product_Client> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Product_Client>>().Result;
 
 
             return View(dTO_Accounts.ToPagedList(pageNumber, pageSize));
 
 
+            //  HttpResponseMessage responseMessage = service.GetResponse("api/product/getallproductitem");
+            //  responseMessage.EnsureSuccessStatusCode();
 
-
-          //  HttpResponseMessage responseMessage = service.GetResponse("api/product/getallproductitem");
-          //  responseMessage.EnsureSuccessStatusCode();
-           
-          //List<DTO_Product_Item_Type> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Product_Item_Type>>().Result;
-          //  return View(dTO_Accounts);
+            //List<DTO_Product_Item_Type> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Product_Item_Type>>().Result;
+            //  return View(dTO_Accounts);
         }
         public ActionResult Index2(int id)
         {

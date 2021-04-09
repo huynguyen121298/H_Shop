@@ -23,6 +23,8 @@ namespace DAL.DAL_Ad
             return db.Accounts.ToList();
             
         }
+        // GET: Admin/Admin_acc
+      
 
         public List<Account_Role> GetAllAccounts2()
         {

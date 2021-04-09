@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout_Details.cshtml";
 }
 @{
     List<DTO_Product_Item_Type> cart = (List<DTO_Product_Item_Type>)Session["cart"];
@@ -210,7 +210,7 @@
                                                 <i class="far fa-star"></i>
                                                 <i class="far fa-star"></i>
                                             </div>
-                                            @using (Html.BeginForm("saveFeedbacks", "Home", FormMethod.Post))
+                                            @using (Html.BeginForm("saveFeedbacks2", "Home", FormMethod.Post))
                                             {
                                                 <div class="row form">
                                                     <div class="col-sm-6">

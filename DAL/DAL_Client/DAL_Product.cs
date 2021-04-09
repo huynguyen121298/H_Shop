@@ -25,7 +25,7 @@ namespace DAL.DAL_Client
         public List<Product> GetProductByPrice(int? gia, int? gia_)
         {
 
-            return db.Products.Where(s => s.Price <= gia && s.Price >= gia_).ToList();
+            return db.Products.Where(s => s.Price <= gia_ && s.Price >= gia).ToList();
         }
         public List<Product> GetProductByName(string name)
         {

@@ -1,5 +1,5 @@
 ﻿@*@using PagedList.Mvc;
-@model PagedList.IPagedList<Model.DTO.DTO_Client.DTO_Product_Client>*@
+    @model PagedList.IPagedList<Model.DTO.DTO_Client.DTO_Product_Client>*@
 
 @using Model.DTO.DTO_Client;
 <!--
@@ -54,7 +54,6 @@ author URL: http://w3layouts.com
     <!-- google fonts -->
     <link href="//fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <!-- //google fonts -->
-  
     @*<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>*@
 
 </head>
@@ -575,12 +574,10 @@ author URL: http://w3layouts.com
     <!-- main slider -->
     <script src="~/js/jquery-3.3.1.min.js" type="text/javascript"></script>
     <script src="~/Scripts/jquery-3.4.1.js" type="text/javascript"></script>
-   
+
     <script src="~/js/owl.carousel.js"></script>
+
    
-    @Scripts.Render("~/Scripts/bootstrap.js")
-    @Scripts.Render("~/Scripts/jquery-3.4.1.js")
-    @RenderSection("scripts", required: false)
     @RenderSection("Upload", required: false)
     @RenderSection("UpProduct", required: false)
     <script>

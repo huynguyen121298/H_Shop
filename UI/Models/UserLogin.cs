@@ -24,8 +24,8 @@ namespace UI.Models
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        [Required]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,15}$")]
+        [Required(ErrorMessage = "Yêu cầu nhập Mật khẩu")]
+        
         [DataType(DataType.Password)]
         public string Password { get; set; }
 

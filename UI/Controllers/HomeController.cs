@@ -49,6 +49,30 @@ namespace UI.Controllers
 
 
         }
+        [HttpPost]
+        public ActionResult saveFeedbacks2(FormCollection fc, DTO_Feedback fb)
+        {
+
+            try
+            {
+
+                fb.Name = fc["Name"];
+                fb.Email = fc["Email"];
+                fb.Details = fc["details"];
+                fb.SDT = (fc["SDT"]);
+                fb.Content = fc["content"];
+                ServiceRepository serviceObj = new ServiceRepository();
+                HttpResponseMessage response = serviceObj.PostResponse("api/Feedback/Create/", fb);
+                response.EnsureSuccessStatusCode();
+                return View("~/Product/Details");
+            }
+            catch
+            {
+                return View("~/Views/Shared/Error_");
+            }
+
+
+        }
 
 
 

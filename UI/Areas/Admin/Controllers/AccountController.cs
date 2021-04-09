@@ -122,7 +122,8 @@ namespace UI.Areas.Admin.Controllers
                     //userSession.Email = model.UserName;
                     //Session[Constants.USER_SESSION] = null;
                     //Session[Constants.USER_SESSION] = u;
-
+                     ModelState.Clear();
+                    ViewData["ErrorMessage"]= "Đăng ký thành công";
                     return View();
                 }
                 else

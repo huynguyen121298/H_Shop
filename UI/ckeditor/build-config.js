@@ -24,6 +24,7 @@
  *    Changing this file will not change your CKEditor configuration.
  */
 
+
 var CKBUILDER_CONFIG = {
 	skin: 'moono-lisa',
 	preset: 'standard',
@@ -167,4 +168,5 @@ var CKBUILDER_CONFIG = {
 		'zh' : 1,
 		'zh-cn' : 1
 	}
+
 };

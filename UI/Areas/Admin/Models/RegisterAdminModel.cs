@@ -10,12 +10,13 @@ namespace UI.Areas.Admin.Models
     public class RegisterAdminModel
     {
         [Key, Column(Order = 1)]
+        [Required(ErrorMessage = "Yêu cầu nhập id")]
         //[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int idUser { get; set; }
-        [Required(ErrorMessage = "Yêu cầu nhập id")]
+        [Required(ErrorMessage = "Yêu cầu nhập FisrtName")]
         [StringLength(50, MinimumLength = 3)]
         public string FirstName { get; set; }
-        [Required(ErrorMessage = "Yêu cầu nhập FisrtName")]
+        [Required(ErrorMessage = "Yêu cầu nhập LastName")]
         [StringLength(50, MinimumLength = 3)]
         public string LastName { get; set; }
 

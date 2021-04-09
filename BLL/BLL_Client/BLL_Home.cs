@@ -26,6 +26,17 @@ namespace BLL.BLL_Client
             }
             return (List<DTO_Users_Acc>)customers;
         }
+        public List<DTO_Feedback> GetAllFeedbacks()
+        {
+            EntityMapper<Feedback ,DTO_Feedback> mapObj = new EntityMapper<Feedback, DTO_Feedback>();
+            List<Feedback> customList = customDal.GetAllFeedbacks();
+            List<DTO_Feedback> customers = new List<DTO_Feedback>();
+            foreach (var item in customList)
+            {
+                customers.Add(mapObj.Translate(item));
+            }
+            return customers;
+        }
         public bool InsertCustomer(DTO_Users_Acc cusInsert)
         {
             EntityMapper<DTO_Users_Acc, Users_Acc> mapObj = new EntityMapper<DTO_Users_Acc, Users_Acc>();

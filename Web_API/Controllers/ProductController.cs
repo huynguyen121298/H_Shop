@@ -29,12 +29,12 @@ namespace Web_API.Controllers
         {
             return Json<List<DTO_Product_Client>>(bLL_Product.GetAllProducts());
         }
-        //[HttpGet]
-        //[Route("GetAllProductByPrice/{gia:int,gia_:int}")]
-        //public JsonResult<List<DTO_Product_Client>> GetAllProductByPrice(int? gia )
-        //{
-        //    return Json<List<DTO_Product_Client>>(bLL_Product.GetAllProductByPrice(gia));
-        //}
+        [HttpGet]
+        [Route("GetAllProductByPrice/{giaMin:int}/{giaMax:int}")]
+        public JsonResult<List<DTO_Product_Client>> GetAllProductByPrice(int giaMin,int giaMax)
+        {
+            return Json<List<DTO_Product_Client>>(bLL_Product.GetAllProductByPrice(giaMin, giaMax));
+        }
         [HttpGet]
         [Route("GetAllProductByName/{name}")]
         public JsonResult<List<DTO_Product_Client>> GetAllProductByName(string name)

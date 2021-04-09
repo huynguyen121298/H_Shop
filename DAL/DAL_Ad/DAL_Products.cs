@@ -297,20 +297,22 @@ namespace DAL.DAL_Ad
         }
         public List<List<Product>> getproductByType()
         {
-            //    List<Item_Type> item_Types = new List<Item_Type>();
-            //    List<Object> productsByType = new List<Object>();
-            //    item_Types = db.Item_Type.ToList();
-            //    foreach (Item_Type item in item_Types)
-            //    {
-            //        Object obj_name = new object;
-            //        obj_name.Type_id = item.Id_Item;
-            //        obj_name.Name = item.Name;
-            //        List<Product> products = db.Products.Where(m => m.Id_Item == item.Id_Item).ToList();
-            //        obj_name.products = products;
-            //        productsByType.Add(products);
-            //    }
-            //return productsByType;
-            return null;
+            List<Item_Type> item_Types = new List<Item_Type>();
+            List<List<Product>> productsByType = new List<List<Product>>();
+            item_Types = db.Item_Type.ToList();
+            foreach (Item_Type item in item_Types)
+            {
+                //    Product obj_name = new Product();
+                //    obj_name.Id_Item = item.Id_Item;
+                //    obj_name.Name = item.Type_Product;
+                //    List<Product> products = db.Products.Where(m => m.Id_Item == item.Id_Item).ToList();
+                //    obj_name.products = products;
+                //    productsByType.Add(products);
+                   List<Product> products = db.Products.Where(m => m.Id_Item == item.Id_Item).ToList();
+                    productsByType.Add(products);
+            }
+            return productsByType.ToList();
+            
 
 
        }

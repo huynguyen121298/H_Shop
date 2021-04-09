@@ -47,7 +47,7 @@ namespace DAL.DAL_Ad
         }
         public List<Checkout_Oder> GetListAccountById(int id)
         {
-            return db.Checkout_Oder.Where(s => s.ID == id).ToList();
+            return db.Checkout_Oder.Where(s => s.Id_KH == id).ToList();
         }
         // GET: Admin/Admin_acc/Details/5
 

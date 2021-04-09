@@ -200,7 +200,7 @@ namespace UI.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không tồn tại.");
+                ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không đúng.");
             }
                 return this.View();
             
@@ -337,9 +337,10 @@ namespace UI.Controllers
                 HttpResponseMessage response = serviceObj.GetResponse(url + "GetCustomerByEmail?mail=" + model.Email);
                 response.EnsureSuccessStatusCode();
                 DTO_Users_Acc result = response.Content.ReadAsAsync< DTO_Users_Acc>().Result;
-                string FullName = result.FirstName + result.LastName;
+               
                 if (result != null)
                 {
+                    string FullName = result.FirstName + result.LastName;
                     ResetPasswordModel resetModel = new ResetPasswordModel();
                     resetModel.ResetCode = resetCode;
                     resetModel.idUser = result.idUser;
