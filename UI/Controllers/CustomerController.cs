@@ -474,6 +474,7 @@ namespace UI.Controllers
 
         //start function login use FB,GG..
 
+        #region 
         public ActionResult LoginFacebook()
         {
             var fb = new FacebookClient();
@@ -576,7 +577,7 @@ namespace UI.Controllers
             memberAccount.FirstName = accountSocials.Email;
             memberAccount.LastName = accountSocials.FullName;
             var resultInsert = InsertByGoogle(memberAccount);
-
+            
             UserLogin u = new UserLogin
             {
                 idUser = resultInsert,
@@ -632,4 +633,6 @@ namespace UI.Controllers
 
 
     }
+
 }
+#endregion 
