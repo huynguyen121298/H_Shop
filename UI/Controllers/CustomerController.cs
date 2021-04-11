@@ -263,7 +263,7 @@ namespace UI.Controllers
             }
             else
             {
-                ViewData["ErrorMessage"] = "Vui lòng kiểm tra lại mã xác thực";
+                ViewData["ErrorMessage"] = "Vui lòng kiểm tra mã xác thực";
             }
 
             return View(model);
