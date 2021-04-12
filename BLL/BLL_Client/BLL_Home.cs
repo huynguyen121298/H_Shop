@@ -61,6 +61,18 @@ namespace BLL.BLL_Client
             Users_Acc customObj = mapObj.Translate(cusUpdate);
             return customDal.UpdateCustomer(customObj);
         }
+        public bool UpdateCustomer2(DTO_Users_Acc cusUpdate)
+        {
+            EntityMapper<DTO_Users_Acc, Users_Acc> mapObj = new EntityMapper<DTO_Users_Acc, Users_Acc>();
+            Users_Acc customObj = mapObj.Translate(cusUpdate);
+            return customDal.UpdateCustomer2(customObj);
+        }
+        public bool UpdateCustomer3(DTO_Users_Acc cusUpdate)
+        {
+            EntityMapper<DTO_Users_Acc, Users_Acc> mapObj = new EntityMapper<DTO_Users_Acc, Users_Acc>();
+            Users_Acc customObj = mapObj.Translate(cusUpdate);
+            return customDal.UpdateCustomer3(customObj);
+        }
         public bool DeleteCustomer(int id)
         {
             return customDal.DeleteCustomer(id);

@@ -90,7 +90,7 @@
 
                                             <div class="btn-group btn-group-sm">
                                                 <a class="btn" href="@Url.Action("Remove_", "Cart", new { id = item.Id_SanPham })">Xóa khỏi sản phẩm yêu thích </a>
-                                                <a onclick="AddCart()" class="btn" href="@Url.Action("Buy", "Cart", new { id = item.Id_SanPham })"><i class="fa fa-shopping-bag"></i>Xác nhận mua</a>
+                                                <a onclick="AddCart()" class="btn" href="@Url.Action("Buy", "Product", new { id = item.Id_SanPham })"><i class="fa fa-shopping-bag"></i>Xác nhận mua</a>
 
                                             </div>
                                             <script>

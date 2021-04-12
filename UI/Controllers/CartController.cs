@@ -190,7 +190,7 @@ namespace UI.Controllers
                     Quantity = 1
                 });
                 Session["cart_"] = li;
-
+                return Json(new { buy = li });
 
 
 
@@ -220,17 +220,17 @@ namespace UI.Controllers
                         Id_Item = proItem.Id_Item,
                         Quantity = 1
                     });
-
+                    return Json(new { buy = li });
                 }
 
 
                 Session["cart_"] = li;
-
+                ViewBag.IdPorduct = Id;
+                return Json(new { buy = li });
             }
 
 
 
-            return RedirectToAction("Index", "Product");
             //return View();
         }
         private int isExist_(int Id)
@@ -248,6 +248,22 @@ namespace UI.Controllers
             cart.RemoveAt(index);
             Session["cart_"] = cart;
             return RedirectToAction("YeuThich");
+        }
+        public int isExist(int Id)
+        {
+            List<DTO_Product_Item_Type> cart = (List<DTO_Product_Item_Type>)Session["cart"];
+            for (int i = 0; i < cart.Count; i++)
+                if (cart[i].Id_SanPham.Equals(Id))
+                    return i;
+            return -1;
+        }
+        public ActionResult Remove(int Id)
+        {
+            List<DTO_Product_Item_Type> cart = (List<DTO_Product_Item_Type>)Session["cart"];
+            int index = isExist(Id);
+            cart.RemoveAt(index);
+            Session["cart"] = cart;
+            return RedirectToAction("Index");
         }
 
         //public ActionResult YeuThich()
@@ -343,15 +359,7 @@ namespace UI.Controllers
             return RedirectToAction("Details", "Product");
             //return View();
         }
-        private int isExist(int Id)
-        {
-            List<DTO_Product_Item_Type> cart = (List<DTO_Product_Item_Type>)Session["cart"];
-
-            for (int i = 0; i < cart.Count; i++)
-                if (cart[i].Id_SanPham.Equals(Id))
-                    return i;
-            return -1;
-        }
+       
 
 
     }

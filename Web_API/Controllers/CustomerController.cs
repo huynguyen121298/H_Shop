@@ -60,6 +60,35 @@ namespace Web_API.Controllers
                 throw;
             }
         }
+        [HttpPut]
+        [Route("UpdateCustomer2")]
+        public bool UpdateCustomer2(DTO_Users_Acc model)
+        {
+            try
+            {
+                return cusBll.UpdateCustomer2(model);
+            }
+            catch (Exception)
+            {
+                log.Error("Cannot response result");
+                throw;
+            }
+        }
+        [HttpPut]
+        [Route("UpdateCustomer3")]
+        public bool UpdateCustomer3(DTO_Users_Acc model)
+        {
+            try
+            {
+                return cusBll.UpdateCustomer3(model);
+            }
+            catch (Exception)
+            {
+                log.Error("Cannot response result");
+                throw;
+            }
+        }
+
         [HttpPost]
         [Route("InsertForFacebook")]
         public long InsertForFacebook(DTO_Users_Acc model)

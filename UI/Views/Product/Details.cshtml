@@ -82,18 +82,18 @@
                                         </div>
                                         <div>
                                             <h4 class="product-price-range">Tổng giá sản phẩm</h4>
-                                            <p><span id="total-price" style="color:red"> @(item.Price * item.Quantity)</span> VNĐ</p>
+                                            <p><span id="total-price_@item.Id_SanPham" style="color:red"> @string.Format("{0:0,0}",(item.Price * item.Quantity))</span> VNĐ</p>
                                         </div>
                                         <div class="quantity">
                                             <h4>Số lượng:</h4>
                                             <br />
 
                                             @*<button class="btn-minus"><i class="fa fa-minus"></i></button>*@
-                                            <a href="#" class="btn-minus" id="giam" onclick="giamSoLuong(@item.Id_SanPham)"><i class="fa fa-minus"></i> Giảm số lượng </a>
+                                            <a  class="btn btn-minus" id="giam" onclick="giamSoLuong(@item.Id_SanPham)"><i class="fa fa-minus"></i> Giảm số lượng </a>
 
-                                            <input type="number" min="0" name="quantity" id="quantity" value=" @item.Quantity ">
+                                            <input disabled type="text" min="0" name="quantity" id="quantity_@item.Id_SanPham"  value=" @item.Quantity " onchange="if (this.value <= 0) {this.value = '1';}">
 
-                                            <a href=" #" class="btn-plus" id="tang" onclick="tangSoLuong(@item.Id_SanPham)"><i class="fa fa-plus"></i> Tăng số lượng </a>
+                                            <a  class="btn btn-plus" id="tang" onclick="tangSoLuong(@item.Id_SanPham)"><i class="fa fa-plus"></i> Tăng số lượng </a>
 
 
 
@@ -268,36 +268,55 @@
                                    
                                 //});
                                 function tangSoLuong(id) {
+                                    var id_temp = id
                                     $.ajax({
                                         url: '/Product/Tang',
                                         data: { Id: id },
                                         dataType: 'json',
                                         type: 'POST',
                                         success: function (res) {
-                                            console.log("Res is: " + res)
-                                            console.log(res)
-                                            console.log(res.soLuong)
-                                            console.log("Quantity is: " + res.soLuong[0]["Quantity"])
-                                            console.log("Price is: " + res.soLuong[0]["Price"])
-                                            $("#quantity").val(res.soLuong[0]["Quantity"])
-                                            $("#total-price").html(res.soLuong[0]["Price"])
+                                            console.log("Id is: " + id_temp);
+                                            console.log(res.soLuong);
+                                            var dom_quantity = "#quantity_" + id_temp
+                                            var dom_price = "#total-price_" + id_temp
+                                            //var changed = res.soLuong[i]["Price"]
+                                            //String(cha).replace(/(.)(?=(\d{3})+$)/g, '$1,')
+                                            for (let i = 0; i < res.soLuong.length; i++) {
+                                                if (res.soLuong[i]["Id_SanPham"] == id_temp) {
+                                                    $(dom_quantity).val(res.soLuong[i]["Quantity"])
+                                                    $(dom_price).html(res.soLuong[i]["Price"])
+                                                    break;
+                                                }
+                                            }
                                         }
+                                    
                                     });
                                 }
                                 function giamSoLuong(id) {
+                                    var id_temp= id
                                     $.ajax({
                                         url: '/Product/Giam',
                                         data: { Id: id },
                                         dataType: 'json',
                                         type: 'POST',
                                         success: function (res) {
-                                            console.log("Res is: " + res)
-                                            console.log(res)
-                                            console.log(res.soLuong)
-                                            console.log("Quantity is: " + res.soLuong[0]["Quantity"])
-                                            console.log("Price is: " + res.soLuong[0]["Price"])
-                                            $("#quantity").val(res.soLuong[0]["Quantity"])
-                                            $("#total-price").html(res.soLuong[0]["Price"])
+                                            console.log("Id is: " + id_temp);
+                                            console.log(res.soLuong);
+                                            var dom_quantity = "#quantity_" + id_temp
+                                            var dom_price = "#total-price_" + id_temp
+                                            for (let i = 0; i < res.soLuong.length; i++) {
+                                                if (res.soLuong[i]["Id_SanPham"] == id_temp) {
+                                                    $(dom_quantity).val(res.soLuong[i]["Quantity"])
+                                                    $(dom_price).html(res.soLuong[i]["Price"])
+                                                    break;
+                                                }
+                                            }
+                                            //console.log("Res is: " + res)
+                                            //console.log(res)
+                                            //console.log(res.soLuong)
+                                            //console.log("Quantity is: " + res.soLuong[0]["Quantity"])
+                                            //console.log("Price is: " + res.soLuong[0]["Price"])
+                                          
                                         }
                                     });
                                 }

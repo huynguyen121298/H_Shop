@@ -8,12 +8,23 @@ using System.Web;
 using System.Web.Mvc;
 using UI.Service;
 using PagedList;
+using Model.DTO.DTO_Ad;
 
 namespace UI.Controllers
 {
     public class ProductController : Controller
     {
         ServiceRepository service = new ServiceRepository();
+
+        public ActionResult TypeProduct()
+        {
+            HttpResponseMessage responseMessage3 = service.GetResponse("api/Products_Ad/GetAllProductByType");
+            responseMessage3.EnsureSuccessStatusCode();
+            List<List<DTO_Product>> dTO_Accounts2 = responseMessage3.Content.ReadAsAsync<List<List<DTO_Product>>>().Result;
+            var view = dTO_Accounts2.ToPagedList(1, 50);
+            return View(view);
+
+        }
         // GET: Product
         public ActionResult Index(string seachBy, string search, int? page, int? gia, int? gia_)
         {
@@ -36,6 +47,10 @@ namespace UI.Controllers
                 List<DTO_Product_Client> dTO_Accounts2 = responseMessage2.Content.ReadAsAsync<List<DTO_Product_Client>>().Result;
                 return View(dTO_Accounts2.ToPagedList(pageNumber,pageSize));
 
+            }
+            if (seachBy == "TypeProduct")
+            {
+                return View("TypeProduct");
             }
 
 
@@ -72,18 +87,53 @@ namespace UI.Controllers
             //List<DTO_Product_Item_Type> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Product_Item_Type>>().Result;
             //  return View(dTO_Accounts);
         }
-        public ActionResult Index2(int id)
+        public ActionResult Index2(int id, string seachBy, string search, int? page, int? gia, int? gia_)
         {
 
-            HttpResponseMessage responseMessage = service.GetResponse("api/product/GetAllProductByIdItemClient/"+id);
+           
+
+            if (page == null) page = 1;
+
+
+
+            int pageSize = 10;
+
+            int pageNumber = (page ?? 1);
+
+            if (seachBy == "NameProduct")
+            {
+                //return View(db.Products.Where(s => s.Name.StartsWith(search)).ToList().ToPagedList(pageNumber, pageSize));
+                HttpResponseMessage responseMessage2 = service.GetResponse("api/product/GetAllProductByName/" + search);
+                responseMessage2.EnsureSuccessStatusCode();
+
+                List<DTO_Product_Client> dTO_Accounts2 = responseMessage2.Content.ReadAsAsync<List<DTO_Product_Client>>().Result;
+                return View(dTO_Accounts2.ToPagedList(pageNumber, pageSize));
+
+            }
+
+
+            if (seachBy == "Price")
+            {
+
+                HttpResponseMessage responseMessage2 = service.GetResponse("api/product/GetAllProductByPrice/" + gia_ + "/" + gia);
+                responseMessage2.EnsureSuccessStatusCode();
+
+                List<DTO_Product_Client> dTO_Accounts2 = responseMessage2.Content.ReadAsAsync<List<DTO_Product_Client>>().Result;
+                return View(dTO_Accounts2.ToPagedList(pageNumber, pageSize));
+
+            }
+           
+
+            HttpResponseMessage responseMessage = service.GetResponse("api/product/GetAllProductByIdItemClient/" + id);
             responseMessage.EnsureSuccessStatusCode();
-            List<DTO_Product_Item_Type> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Product_Item_Type>>().Result;
-            if(dTO_Accounts == null)
+            List<DTO_Product_Client> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Product_Client>>().Result;
+            if (dTO_Accounts == null)
             {
                 return Content("Chưa có sản phẩm bạn đang muốn tìm kiếm");
             }
-            var view = dTO_Accounts.ToPagedList(1,10);
+            var view = dTO_Accounts.ToPagedList(1, 10);
             return View(view);
+
         }
 
         // GET: Product/Details/5
@@ -249,7 +299,7 @@ namespace UI.Controllers
             int index = isExist(Id);
             cart.RemoveAt(index);
             Session["cart"] = cart;
-            return RedirectToAction("Index");
+            return RedirectToAction("Details");
         }
         public ActionResult Buy(int Id)
         {
@@ -345,6 +395,7 @@ namespace UI.Controllers
                     //Quantity = item.Quantity
                 });
                 Session["cart"] = li;
+                return Json(new { buy = li });
 
 
 
@@ -377,13 +428,14 @@ namespace UI.Controllers
                         Id_Item = proItem.Id_Item,
                         Quantity = 1
                     });
-
+                    return Json(new { buy = li });
                 }
 
 
                 Session["cart"] = li;
+                return Json(new { buy = li });
             }
-            return RedirectToAction("Index", "Product");
+            
             //return View();
         }
         public ActionResult Giam(int Id, DTO_Product_Item_Type item1)
@@ -406,6 +458,11 @@ namespace UI.Controllers
                     Id_Item = proItem.Id_Item,
                     Quantity = 1
                 });
+                foreach (var item in li)
+                {
+                    if (item.Quantity < 0)
+                        item.Quantity = 1;
+                }
                 Session["cart"] = li;
                 return Json(new { soLuong = li });
 
@@ -424,8 +481,12 @@ namespace UI.Controllers
                 int index = isExist(Id);
                 if (index != -1)
                 {
-                    li[index].Quantity--;
-                    li[index].Price = proItem.Price * li[index].Quantity;
+                    if (li[index].Quantity - 1 > 0)
+                    {
+                        li[index].Quantity--;
+                        li[index].Price = proItem.Price * li[index].Quantity;
+                    }
+                    
                 }
                 else
                 {
@@ -442,7 +503,6 @@ namespace UI.Controllers
                     return Json(new { soLuong = li });
 
                 }
-
 
                 Session["cart"] = li;
                 return Json(new { soLuong = li });

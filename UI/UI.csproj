@@ -2897,7 +2897,7 @@
     <Content Include="Views\Home\Login_user.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Product\Details.cshtml" />
-    <Content Include="Views\Product\DongHo.cshtml" />
+    <Content Include="Views\Product\TypeProduct.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\MayAnhvaMayQuayPhim.cshtml" />
     <Content Include="Views\Product\MayTinhvaLapTop.cshtml" />
@@ -2928,6 +2928,8 @@
     <Content Include="Views\Product\Index2.cshtml" />
     <Content Include="Views\Product\Search.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Layout_Product2.cshtml" />
+    <Content Include="Views\Customer\ResetPassword2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

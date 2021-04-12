@@ -69,7 +69,7 @@
                                                     <p>@item.Name</p>
                                                 </div>
                                             </td>
-                                            <td>@item.Price</td>
+                                            <td>@string.Format("{0:0,0}",item.Price)</td>
                                             <td>
 
 
@@ -78,10 +78,10 @@
 
                                             </td>
                                             <td>
-                                                @(item.Price * item.Quantity)
-                                            </td>
+                                                @string.Format("{0:0,0}", (item.Price * item.Quantity))
+                                            </td >
                                             @*<td><button><i class="fa fa-trash"></i></button></td>*@
-                                            <td><a onclick="Remove()" id="btn_remove" href="@Url.Action("Remove", "Cart", new { id = item.Id_SanPham })"><i class="fa fa-trash">Xóa</i></a></td>
+<td><a onclick="Remove()" id="btn_remove" href="@Url.Action("Remove", "Cart", new { id = item.Id_SanPham })"><i class="fa fa-trash">Xóa</i></a></td>
 
                                         </tr>
 
@@ -111,7 +111,8 @@
                                             Tổng Hóa đơn<span>
                                                 @{
                                                     List<DTO_Product_Item_Type> cart = (List<DTO_Product_Item_Type>)Session["cart"];
-                                                    var total = cart.Sum(item => item.Price * item.Quantity);
+                                                    var total = string.Format("{0:0,0}", cart.Sum(item => item.Price * item.Quantity));
+                                                   
                                                 }
                                                 @total VNĐ
 

@@ -213,6 +213,11 @@ namespace UI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Signup([Bind(Include = "FirstName,LastName,Email,Password,ConfirmPassword")] RegisterModel model, string AuthenticationCode)
         {
+            var id = Request.Form["AuthenticationCode"];
+            if(id== null)
+            {
+                ViewData["ErrorMessage5"] = "Mã xác thực không được để trống";
+            }
             var authenticationEmail = (AuthenticationEmail)Session[Constants.AUTHENTICATIONEMAIL_SESSION];
             if (ModelState.IsValid & authenticationEmail != null)
             {
@@ -263,7 +268,7 @@ namespace UI.Controllers
             }
             else
             {
-                ViewData["ErrorMessage"] = "Vui lòng kiểm tra mã xác thực";
+               // ViewData["ErrorMessage"] = "Vui lòng kiểm tra mã xác thực";
             }
 
             return View(model);
@@ -375,7 +380,26 @@ namespace UI.Controllers
                 smtp.Send(mm);
             }
         }
-       
+        public ActionResult ResetPassword2(string id, string mail)
+        {
+           
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ResetPassword2(ResetPasswordModel model)
+        {
+            DTO_Users_Acc resultReset = GetCustomerByEmail(model.Mail);
+            resultReset.Password = model.NewPassword;
+            HttpResponseMessage responseUpdate = serviceObj.PutResponse(url + "UpdateCustomer3", model);
+            responseUpdate.EnsureSuccessStatusCode();
+            bool result = responseUpdate.Content.ReadAsAsync<bool>().Result;
+            if (result)
+                return RedirectToAction("ProfileUser");
+            ViewBag.Warning = "Có lỗi xảy ra trong quá trình đặt lại mật khẩu.";
+            return this.View();
+        }
+
         public ActionResult ResetPassword(string id, string mail)
         {
             if (string.IsNullOrWhiteSpace(id) || string.IsNullOrEmpty(mail))
@@ -395,7 +419,7 @@ namespace UI.Controllers
         {
             DTO_Users_Acc resultReset = GetCustomerByEmail(model.Mail);
             resultReset.Password = model.NewPassword;
-            HttpResponseMessage responseUpdate = serviceObj.PutResponse(url + "UpdateCustomer", resultReset);
+            HttpResponseMessage responseUpdate = serviceObj.PutResponse(url + "UpdateCustomer2", resultReset);
             responseUpdate.EnsureSuccessStatusCode();
             bool result = responseUpdate.Content.ReadAsAsync<bool>().Result;
             if (result)

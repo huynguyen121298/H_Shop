@@ -117,7 +117,55 @@ namespace DAL.DAL_Client
             
                    
                     userAccount.idUser = custom.idUser;
-                    //userAccount.Password = Encryptor.MD5Hash(custom.Password);
+                   // userAccount.Password = Encryptor.MD5Hash(custom.Password);
+                    userAccount.LastName = custom.LastName;
+                    userAccount.FirstName = custom.FirstName;
+                    userAccount.Email = custom.Email;
+
+                    db.SaveChanges();
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        public bool UpdateCustomer2(Users_Acc custom)
+        {
+            try
+            {
+                var userAccount = GetCustomerByID(custom.idUser);
+                if (userAccount != null)
+                {
+
+
+                    userAccount.idUser = custom.idUser;
+                    userAccount.Password = Encryptor.MD5Hash(custom.Password);
+                    userAccount.LastName = custom.LastName;
+                    userAccount.FirstName = custom.FirstName;
+                    userAccount.Email = custom.Email;
+
+                    db.SaveChanges();
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        public bool UpdateCustomer3(Users_Acc custom)
+        {
+            try
+            {
+                var userAccount = GetCustomerByPass(custom.Password);
+                if (userAccount != null)
+                {
+
+
+                    userAccount.idUser = custom.idUser;
+                    userAccount.Password = Encryptor.MD5Hash(custom.Password);
                     userAccount.LastName = custom.LastName;
                     userAccount.FirstName = custom.FirstName;
                     userAccount.Email = custom.Email;
@@ -137,6 +185,10 @@ namespace DAL.DAL_Client
         public Users_Acc GetCustomerByID(int id)
         {
             return db.Users_Acc.Where(t => t.idUser == id).FirstOrDefault();
+        }
+        public Users_Acc GetCustomerByPass(string id)
+        {
+            return db.Users_Acc.Where(t => t.Password == id).FirstOrDefault();
         }
         //public bool ChangeStatusCustomer(int userID)
         //{
