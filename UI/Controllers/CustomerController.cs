@@ -214,7 +214,7 @@ namespace UI.Controllers
         public ActionResult Signup([Bind(Include = "FirstName,LastName,Email,Password,ConfirmPassword")] RegisterModel model, string AuthenticationCode)
         {
             var id = Request.Form["AuthenticationCode"];
-            if(id== null)
+            if(id== "")
             {
                 ViewData["ErrorMessage5"] = "Mã xác thực không được để trống";
             }
