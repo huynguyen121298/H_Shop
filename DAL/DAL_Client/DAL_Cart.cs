@@ -36,5 +36,47 @@ namespace DAL.DAL_Client
                 return false;
             }
         }
+        public int InsertBill(Checkout_Customer ck, List<Checkout_Oder> cO)
+        {
+            //bool status;
+
+            using (var transaction = db.Database.BeginTransaction())
+            {
+                db.Checkout_Customer.Add(ck);
+                db.SaveChanges();
+                foreach(var item in cO)
+                {
+                    item.Id_KH = ck.Id_KH;
+                    db.Checkout_Oder.Add(item);
+                }
+                
+
+
+
+
+                try
+                {
+                    int result = db.SaveChanges();
+                    transaction.Commit();
+                    return result;
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    return -2;
+                }
+            }
+        }
+
+            public double GetGiamGia(string zipcode) {
+            var list_temp = db.CodeDiscounts.ToList();
+            var temp = db.CodeDiscounts.Where(s => s.Zipcode==zipcode).FirstOrDefault();
+            if(temp != null)
+            {
+                return (double)temp.Discount; // vidu: 0.3 0.4
+            }
+            return 0;
+
+         }
     }
 }

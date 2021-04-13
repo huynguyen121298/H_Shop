@@ -111,8 +111,8 @@
                                         </div>
 
                                         @*<a id="btnGoogle" class="btn btn-google btn-user btn-block">
-                <i class="fab fa-google fa-fw"></i> Login with Google
-            </a>*@
+                                                <i class="fab fa-google fa-fw"></i> Login with Google
+                                            </a>*@
                                         @*<button class="btn btn-danger btn-classic" id="btnGoogle">Đăng nhập bằng Google</button>*@
 
 
@@ -209,7 +209,7 @@
         //});
 
         function onSignIn(googleUser) {
-        //    // Useful data for your client-side scripts:
+            //    // Useful data for your client-side scripts:
             //const googleUser = gapi.auth2.getAuthInstance().currentUser.get();
             var profile = googleUser.getBasicProfile();
             console.log("ID: " + profile.getId()); // Don't send this directly to your server!
@@ -245,6 +245,27 @@
             });
 
         }
+    </script>
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '{your-app-id}',
+                cookie: true,
+                xfbml: true,
+                version: '{api-version}'
+            });
+
+            FB.AppEvents.logPageView();
+
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
     </script>
 </body>
 

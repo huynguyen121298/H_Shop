@@ -13,11 +13,11 @@ namespace UI.Models
         [Required(ErrorMessage = "Yêu cầu nhập id")]
         //[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int idUser { get; set; }
-        [Required(ErrorMessage = "Yêu cầu nhập Fisrt Name")]
-        [StringLength(50, MinimumLength = 3)]
+        [Required(ErrorMessage = "Yêu cầu nhập tên")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Độ dài của tên tối thiểu là 3 chữ")]
         public string FirstName { get; set; }
-        [Required(ErrorMessage = "Yêu cầu nhập Last Name")]
-        [StringLength(50, MinimumLength = 3)]
+        [Required(ErrorMessage = "Yêu cầu nhập họ")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Độ dài của họ tối thiểu là 3 chữ")]
         public string LastName { get; set; }
        
         [Required(ErrorMessage = "Yêu cầu nhập email")]
@@ -26,8 +26,8 @@ namespace UI.Models
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Yêu cầu nhập Mật khẩu")]
-       
+        [Required(ErrorMessage = "Yêu cầu nhập mật khẩu")]
+        [StringLength(50, MinimumLength = 6,ErrorMessage = "Độ dài mật khẩu tối thiểu là 6 chữ số")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 

@@ -4,6 +4,7 @@ using Model.DTO.DTO_Client;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -231,10 +232,11 @@ namespace UI.Controllers
                         return View(model);
                     }
 
-                    DTO_Users_Acc c = new DTO_Users_Acc
+                    DTO_Users_Acc c = new DTO_Users_Acc //___Huy__________huy
                     {
-                        FirstName = model.FirstName,
-                        LastName = model.LastName,
+                        //FirstName = model.FirstName.Trim(),
+                        FirstName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(model.FirstName.Trim().ToLower()),
+                        LastName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(model.LastName.Trim().ToLower()),
                         Password = model.Password,
                         Email = model.Email,
                        

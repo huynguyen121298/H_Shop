@@ -93,50 +93,55 @@ namespace UI.Controllers
             //}
             return RedirectToAction("Index", "Cart");
         }
-        public ActionResult saveOrder1(FormCollection fc, DTO_Checkout_Customer check,DTO_Checkout_Order check1)
+        public ActionResult saveOrder1(FormCollection fc, DTO_CheckoutCustomer_Order check)
          {
             try
             {
+                var price = Request.Form["gia1"];
                 List<DTO_Product_Item_Type> cart = (List<DTO_Product_Item_Type>)Session["cart"];
                 //DTO_Checkout_Customer check = new DTO_Checkout_Customer();
-                check.Id_KH = Int32.Parse(fc["Id_KH"]);
+                //check.Id_KH = Int32.Parse(fc["Id_KH"]);
 
                 check.NgayTao = DateTime.Now;
                 check.FirstName = fc["FirstName"];
                 check.LastName = fc["LastName"];
                 check.Email = fc["Email"];
+                check.Zipcode = fc["zip"];
                 check.DiaChi = fc["diaChi"];
-                check.TongTien = Int32.Parse(fc["gia1"]);
-                check.GiamGia = Int32.Parse(fc["discount1"]);
+                check.TongTien = Int32.Parse(price);
+                //check.GiamGia = Int32.Parse(fc["discount1"]);
                 check.City = fc["city"];
                 check.SDT = Int32.Parse(fc["sdt"]);
                 check.TrangThai = "Đang chờ";
-                HttpResponseMessage responseUser = service.PostResponse("api/Cart/InsertCKCustomer/", check);
 
-                responseUser.EnsureSuccessStatusCode();
-
+                check.dTO_Checkout_Orders = new List<DTO_Checkout_Order>();
+                
                 foreach (DTO_Product_Item_Type item in cart)
                 {
+                    DTO_Checkout_Order dTO_Checkout_Order = new DTO_Checkout_Order();
                     var total = (item.Quantity * item.Price);
-                   // DTO_Checkout_Order check1 = new DTO_Checkout_Order();
-                    check1.Id_KH = Int32.Parse(fc["Id_KH"]);
+                    // DTO_Checkout_Order check1 = new DTO_Checkout_Order();
+                    //check1.Id_KH = Int32.Parse(fc["Id_KH"]);
 
 
 
 
-                    check1.Id_SanPham = item.Id_SanPham;
-                    check1.TenSP = item.Name;
-                    check1.SoLuong = (int)item.Quantity;
-                    check1.Gia = total;
-                    check1.NgayTao = DateTime.Now;
-                    check1.TrangThai = "Đang chờ";
+                    dTO_Checkout_Order.Id_SanPham = item.Id_SanPham;
+                    dTO_Checkout_Order.TenSP = item.Name;
+                    dTO_Checkout_Order.SoLuong = (int)item.Quantity;
+                    dTO_Checkout_Order.Gia = total;
+                    dTO_Checkout_Order.NgayTao = DateTime.Now;
+                    dTO_Checkout_Order.TrangThai = "Đang chờ";
 
-                    HttpResponseMessage responseUser1 = service.PostResponse("api/Cart/InsertCKOrder/", check1);
+                    check.dTO_Checkout_Orders.Add(dTO_Checkout_Order);
 
-                    responseUser1.EnsureSuccessStatusCode();
+                    
 
                 }
-               // db.SaveChanges();
+                HttpResponseMessage responseUser1 = service.PostResponse("api/Cart/InsertBill/", check);
+
+                responseUser1.EnsureSuccessStatusCode();
+                // db.SaveChanges();
                 Session.Clear();
                 
                 return View("Thankyou");

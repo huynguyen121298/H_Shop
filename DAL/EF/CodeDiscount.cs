@@ -12,29 +12,19 @@ namespace DAL.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class Checkout_Customer
+    public partial class CodeDiscount
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Checkout_Customer()
+        public CodeDiscount()
         {
-            this.Checkout_Oder = new HashSet<Checkout_Oder>();
+            this.Checkout_Customer = new HashSet<Checkout_Customer>();
         }
     
-        public int Id_KH { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public int SDT { get; set; }
-        public string DiaChi { get; set; }
-        public string City { get; set; }
         public string Zipcode { get; set; }
-        public Nullable<System.DateTime> NgayTao { get; set; }
-        public Nullable<double> GiamGia { get; set; }
-        public Nullable<double> TongTien { get; set; }
-        public string TrangThai { get; set; }
+        public Nullable<double> Discount { get; set; }
+        public string Content { get; set; }
     
-        public virtual CodeDiscount CodeDiscount { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Checkout_Oder> Checkout_Oder { get; set; }
+        public virtual ICollection<Checkout_Customer> Checkout_Customer { get; set; }
     }
 }

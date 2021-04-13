@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using UI.Areas.Admin.Models;
 using UI.Service;
+using System.Globalization;
 
 namespace UI.Areas.Admin.Controllers
 {
@@ -80,8 +81,8 @@ namespace UI.Areas.Admin.Controllers
 
                     DTO_Account c = new DTO_Account
                     {
-                        FirstName = model.FirstName,
-                        LastName = model.LastName,
+                        FirstName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(model.FirstName.Trim().ToLower()),
+                        LastName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(model.LastName.Trim().ToLower()),
                         Password = model.Password,
                         Email = model.Email,
                         RoleId=model.RoleId

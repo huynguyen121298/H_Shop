@@ -36,7 +36,7 @@ namespace Model.DTO.DTO_Ad
         [StringLength(50)]
         public string City { get; set; }
 
-        public int? Zipcode { get; set; }
+        public string Zipcode { get; set; }
 
         public DateTime? NgayTao { get; set; }
 

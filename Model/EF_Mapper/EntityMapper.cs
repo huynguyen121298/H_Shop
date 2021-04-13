@@ -20,6 +20,12 @@ namespace Model.EF_Mapper
             Mapper.CreateMap<Account, DTO_Account>();
             Mapper.CreateMap<DTO_Account, Account>();
 
+            Mapper.CreateMap<CodeDiscount, DTO_CodeDiscount>();
+            Mapper.CreateMap<DTO_CodeDiscount, CodeDiscount>();
+
+            Mapper.CreateMap<CheckoutCustomer_Order, DTO_CheckoutCustomer_Order>();
+            Mapper.CreateMap<DTO_CheckoutCustomer_Order, CheckoutCustomer_Order>();
+
             Mapper.CreateMap<Users_Acc, DTO_Users_Acc>();
             Mapper.CreateMap<DTO_Users_Acc, Users_Acc>();
 

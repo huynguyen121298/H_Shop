@@ -30,6 +30,7 @@ namespace DAL.EF
         public virtual DbSet<Checkout_Customer> Checkout_Customer { get; set; }
         public virtual DbSet<Checkout_Oder> Checkout_Oder { get; set; }
         public virtual DbSet<Checkout1> Checkout1 { get; set; }
+        public virtual DbSet<CodeDiscount> CodeDiscounts { get; set; }
         public virtual DbSet<DongHo> DongHoes { get; set; }
         public virtual DbSet<Feedback> Feedbacks { get; set; }
         public virtual DbSet<Item> Items { get; set; }
@@ -40,6 +41,7 @@ namespace DAL.EF
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<SucKhoevaSacDep> SucKhoevaSacDeps { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TheThaovaDuLich> TheThaovaDuLiches { get; set; }
         public virtual DbSet<ThietBiGiaDung> ThietBiGiaDungs { get; set; }
         public virtual DbSet<ThoiTrangNam> ThoiTrangNams { get; set; }
