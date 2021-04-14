@@ -68,7 +68,7 @@ namespace DAL.DAL_Client
             }
         }
 
-            public double GetGiamGia(string zipcode) {
+    public double GetGiamGia(string zipcode) {
             var list_temp = db.CodeDiscounts.ToList();
             var temp = db.CodeDiscounts.Where(s => s.Zipcode==zipcode).FirstOrDefault();
             if(temp != null)

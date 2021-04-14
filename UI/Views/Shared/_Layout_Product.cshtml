@@ -37,6 +37,45 @@ author URL: http://w3layouts.com
             line-height: 40px;
             margin-left: -5px;
         }
+        body {
+    padding-top: 50px;
+}
+.dropdown.dropdown-lg .dropdown-menu {
+    margin-top: -1px;
+    padding: 6px 20px;
+}
+.input-group-btn .btn-group {
+    display: flex !important;
+}
+.btn-group .btn {
+    border-radius: 0;
+    margin-left: -1px;
+}
+.btn-group .btn:last-child {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+.btn-group .form-horizontal .btn[type="submit"] {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.form-horizontal .form-group {
+    margin-left: 0;
+    margin-right: 0;
+}
+.form-group .form-control:last-child {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+
+    .dropdown.dropdown-lg {
+        position: static !important;
+    }
+    .dropdown.dropdown-lg .dropdown-menu {
+        min-width: 500px;
+    }
+
     </style>
 
     <!-- css files -->
@@ -199,13 +238,13 @@ author URL: http://w3layouts.com
 
                             </a>
                             @*<button value="3" id="sttbuy"></button>*@
-                            <span  style="color:red" id="sttbuy" >(@Html.Action("BagCart_", "Product"))</span>
+                            <span style="color:red" id="sttbuy">(@Html.Action("BagCart_", "Product"))</span>
                             @*<input type="number" id="sttbuy" value="0" />*@
                             @*<span id="sttbuy"  style="color:red"></span>*@
 
                             @*<input type="number" min="0" name="sttbuy" id="sttbuy" value=" 0 ">*@
                         </li>
-                        <li><a href="~/Cart/Index">Giỏ hàng <span  style="color:red" id="total-product" class="fa fa-shopping-cart" aria-hidden="true">  (@Html.Action("BagCart", "Product"))</span> sản phẩm</a></li>
+                        <li><a href="~/Cart/Index">Giỏ hàng <span style="color:red" id="total-product" class="fa fa-shopping-cart" aria-hidden="true">  (@Html.Action("BagCart", "Product"))</span> sản phẩm</a></li>
                         @*<li><a href="~/Cart/Index">Giỏ hàng <span id="total-product" class="fa fa-shopping-cart" aria-hidden="true"> 0 </span>sản phẩm</a></li>*@
 
 
@@ -262,51 +301,94 @@ author URL: http://w3layouts.com
 
 
     </section>
-   
- 
-            @using (Html.BeginForm("Index", "Product"))
-            {
-                <div id="hello" class="topnav">
-                    <table id="chao" class="table table-bordered table-active ">
 
-                        <tr>
-                            <td>
-                                @Html.RadioButton("seachBy", "NameProduct") <text> Theo tên</text>
-                            </td>
-                            <td>
-                                @Html.TextBox("search")
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                @Html.RadioButton("seachBy", "Price") <text> Theo giá</text>
-                            </td>
-                            <td>
-                                @Html.TextBox("gia_")  <text> đến</text>  @Html.TextBox("gia")
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                @Html.RadioButton("seachBy", "TypeProduct") <text> Theo từng loại</text>
-                            </td>
-                           
-                        </tr>
-                        <tr>
-                            <td>
-                                @Html.RadioButton("seachBy", "None")<text>Không lọc</text>
-                            </td>
-                            <td>
-                                <input type="submit" onclick="remove()" id="btn-remove" value="Tìm kiếm" class="btn btn-outline-success center" />
 
-                            </td>
-                        </tr>
-                    </table>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="input-group" id="adv-search">
+                    <input type="text" class="form-control" placeholder="Search for snippets" />
+                    <div class="input-group-btn">
+                        <div class="btn-group" role="group">
+                            <div class="dropdown dropdown-lg">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                                <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                    <form class="form-horizontal" role="form">
+                                        <div class="form-group">
+                                            <label for="filter">Filter by</label>
+                                            <select class="form-control">
+                                                <option value="0" selected>All Snippets</option>
+                                                <option value="1">Featured</option>
+                                                <option value="2">Most popular</option>
+                                                <option value="3">Top rated</option>
+                                                <option value="4">Most commented</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="contain">Author</label>
+                                            <input class="form-control" type="text" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="contain">Contains the words</label>
+                                            <input class="form-control" type="text" />
+                                        </div>
+                                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                        </div>
+                    </div>
                 </div>
+            </div>
+        </div>
+    </div>
+   
+
+
+    @*@using (Html.BeginForm("Index", "Product"))
+    {
+        <div id="hello" class="topnav">
+            <table id="chao" class="table table-bordered table-active ">
+
+                <tr>
+                    <td>
+                        @Html.RadioButton("seachBy", "NameProduct") <text> Theo tên</text>
+                    </td>
+                    <td>
+                        @Html.TextBox("search")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.RadioButton("seachBy", "Price") <text> Theo giá</text>
+                    </td>
+                    <td>
+                        @Html.TextBox("gia_")  <text> đến</text>  @Html.TextBox("gia")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.RadioButton("seachBy", "TypeProduct") <text> Theo từng loại</text>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        @Html.RadioButton("seachBy", "None")<text>Không lọc</text>
+                    </td>
+                    <td>
+                        <input type="submit" onclick="remove()" id="btn-remove" value="Tìm kiếm" class="btn btn-outline-success center" />
+
+                    </td>
+                </tr>
+            </table>
+        </div>
 
 
 
-            }
-       
+    }*@
+
 
 
 

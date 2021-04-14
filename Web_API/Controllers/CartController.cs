@@ -30,5 +30,10 @@ namespace Web_API.Controllers
         {
             return bLL_Cart.InsertCheckoutOrder(dTO_Account);
         }
+        [Route("GetGiamGia/{zipcode}")]
+        public double GetGiamGia(string zipcode)
+        {
+            return bLL_Cart.GetGiamGia(zipcode);
+        }
     }
 }

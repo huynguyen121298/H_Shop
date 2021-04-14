@@ -1,7 +1,9 @@
 ﻿using Model.DTO.DTO_Ad;
+using Model.DTO.DTO_Client;
 using Model.DTO_Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Web;
@@ -97,54 +99,131 @@ namespace UI.Controllers
          {
             try
             {
-                var price = Request.Form["gia1"];
-                List<DTO_Product_Item_Type> cart = (List<DTO_Product_Item_Type>)Session["cart"];
-                //DTO_Checkout_Customer check = new DTO_Checkout_Customer();
-                //check.Id_KH = Int32.Parse(fc["Id_KH"]);
-
-                check.NgayTao = DateTime.Now;
-                check.FirstName = fc["FirstName"];
-                check.LastName = fc["LastName"];
-                check.Email = fc["Email"];
-                check.Zipcode = fc["zip"];
-                check.DiaChi = fc["diaChi"];
-                check.TongTien = Int32.Parse(price);
-                //check.GiamGia = Int32.Parse(fc["discount1"]);
-                check.City = fc["city"];
-                check.SDT = Int32.Parse(fc["sdt"]);
-                check.TrangThai = "Đang chờ";
-
-                check.dTO_Checkout_Orders = new List<DTO_Checkout_Order>();
-                
-                foreach (DTO_Product_Item_Type item in cart)
+                var checkZip = check.Zipcode = fc["zip"];
+                if (checkZip != "")
                 {
-                    DTO_Checkout_Order dTO_Checkout_Order = new DTO_Checkout_Order();
-                    var total = (item.Quantity * item.Price);
-                    // DTO_Checkout_Order check1 = new DTO_Checkout_Order();
-                    //check1.Id_KH = Int32.Parse(fc["Id_KH"]);
+                    HttpResponseMessage responseUser = service.GetResponse("api/Cart/GetGiamGia/" + check.Zipcode);
+
+                    responseUser.EnsureSuccessStatusCode();
+                    Double giamgia = responseUser.Content.ReadAsAsync<Double>().Result;
+                    if (giamgia != 0)
+                    {
+                        var price = Request.Form["gia1"];
+                        var price1 = Request.Form["discount1"];
+                        List<DTO_Product_Item_Type> cart = (List<DTO_Product_Item_Type>)Session["cart"];
+                        //DTO_Checkout_Customer check = new DTO_Checkout_Customer();
+                        //check.Id_KH = Int32.Parse(fc["Id_KH"]);
+
+                        check.NgayTao = DateTime.Now;
+                        check.FirstName = fc["FirstName"];
+                        check.LastName = fc["LastName"];
+                        check.Email = fc["Email"];
+                        check.Zipcode = fc["zip"];
+                        check.DiaChi = fc["diaChi"];
+                        check.TongTien = Int32.Parse(price);
+                        check.GiamGia = Int32.Parse(price1);
+                        check.City = fc["city"];
+                        check.SDT = Int32.Parse(fc["sdt"]);
+                        check.TrangThai = "Đang chờ";
+
+                        check.dTO_Checkout_Orders = new List<DTO_Checkout_Order>();
+
+                        foreach (DTO_Product_Item_Type item in cart)
+                        {
+                            DTO_Checkout_Order dTO_Checkout_Order = new DTO_Checkout_Order();
+                            var total = (item.Quantity * item.Price);
+                            // DTO_Checkout_Order check1 = new DTO_Checkout_Order();
+                            //check1.Id_KH = Int32.Parse(fc["Id_KH"]);
 
 
 
 
-                    dTO_Checkout_Order.Id_SanPham = item.Id_SanPham;
-                    dTO_Checkout_Order.TenSP = item.Name;
-                    dTO_Checkout_Order.SoLuong = (int)item.Quantity;
-                    dTO_Checkout_Order.Gia = total;
-                    dTO_Checkout_Order.NgayTao = DateTime.Now;
-                    dTO_Checkout_Order.TrangThai = "Đang chờ";
+                            dTO_Checkout_Order.Id_SanPham = item.Id_SanPham;
+                            dTO_Checkout_Order.TenSP = item.Name;
+                            dTO_Checkout_Order.SoLuong = (int)item.Quantity;
+                            dTO_Checkout_Order.Gia = total;
+                            dTO_Checkout_Order.NgayTao = DateTime.Now;
+                            dTO_Checkout_Order.TrangThai = "Đang chờ";
 
-                    check.dTO_Checkout_Orders.Add(dTO_Checkout_Order);
+                            check.dTO_Checkout_Orders.Add(dTO_Checkout_Order);
 
-                    
+
+
+                        }
+                        HttpResponseMessage responseUser1 = service.PostResponse("api/Cart/InsertBill/", check);
+
+                        responseUser1.EnsureSuccessStatusCode();
+                        Session.Clear();
+                        return View("Thankyou");
+                    }
+                    else
+                    {
+                        ViewData["Message"] = ("Mã code không hợp lệ");
+                        return View("Checkout");
+                    }
+
 
                 }
-                HttpResponseMessage responseUser1 = service.PostResponse("api/Cart/InsertBill/", check);
+                else
+                {
+                    checkZip = null;
+                    var price = Request.Form["gia1"];
+                    
+                    List<DTO_Product_Item_Type> cart = (List<DTO_Product_Item_Type>)Session["cart"];
+                    //DTO_Checkout_Customer check = new DTO_Checkout_Customer();
+                    //check.Id_KH = Int32.Parse(fc["Id_KH"]);
 
-                responseUser1.EnsureSuccessStatusCode();
-                // db.SaveChanges();
-                Session.Clear();
-                
-                return View("Thankyou");
+                    check.NgayTao = DateTime.Now;
+                    check.FirstName = fc["FirstName"];
+                    check.LastName = fc["LastName"];
+                    check.Email = fc["Email"];
+                    check.Zipcode = checkZip;
+                    check.DiaChi = fc["diaChi"];
+                    check.TongTien = Int32.Parse(price);
+                    //check.GiamGia = Int32.Parse(fc["discount1"]);
+                    check.City = fc["city"];
+                    check.SDT = Int32.Parse(fc["sdt"]);
+                    check.TrangThai = "Đang chờ";
+
+                    check.dTO_Checkout_Orders = new List<DTO_Checkout_Order>();
+
+                    foreach (DTO_Product_Item_Type item in cart)
+                    {
+                        DTO_Checkout_Order dTO_Checkout_Order = new DTO_Checkout_Order();
+                        var total = (item.Quantity * item.Price);
+                        // DTO_Checkout_Order check1 = new DTO_Checkout_Order();
+                        //check1.Id_KH = Int32.Parse(fc["Id_KH"]);
+
+
+
+
+                        dTO_Checkout_Order.Id_SanPham = item.Id_SanPham;
+                        dTO_Checkout_Order.TenSP = item.Name;
+                        dTO_Checkout_Order.SoLuong = (int)item.Quantity;
+                        dTO_Checkout_Order.Gia = total;
+                        dTO_Checkout_Order.NgayTao = DateTime.Now;
+                        dTO_Checkout_Order.TrangThai = "Đang chờ";
+
+                        check.dTO_Checkout_Orders.Add(dTO_Checkout_Order);
+
+
+                    }
+
+
+
+
+                    HttpResponseMessage responseUser1 = service.PostResponse("api/Cart/InsertBill/", check);
+
+                    responseUser1.EnsureSuccessStatusCode();
+                    Session.Clear();
+                    return View("Thankyou");
+
+
+
+
+
+
+                }
             }
             catch
             {
@@ -156,6 +235,55 @@ namespace UI.Controllers
 
 
 
+        }
+        public ActionResult saveOrder2(string priceCode)
+        {
+            try
+            {
+
+              
+                HttpResponseMessage responseUser = service.GetResponse("api/Cart/GetGiamGia/" + priceCode);
+
+                responseUser.EnsureSuccessStatusCode();
+                Double giamgia = responseUser.Content.ReadAsAsync<Double>().Result;
+
+
+
+
+                //return Json(new
+                //{
+                //    view = RenderRazorViewToString(ControllerContext, "Checkout", check),
+                //    isValid = false,
+                //    description = "Error!",
+                //    JsonRequestBehavior.AllowGet,
+                //    checkout = giamgia
+                //});
+                string messsage = ("Mã code " + priceCode.ToString() + " hợp lệ");
+                ViewBag.Message = messsage;
+                return Json(new { checkout = giamgia }); 
+            }
+            catch
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+
+
+
+
+
+        }
+        public static string RenderRazorViewToString(ControllerContext controllerContext, string viewName, object model)
+        {
+            controllerContext.Controller.ViewData.Model = model;
+            using (var sw = new StringWriter())
+            {
+                var ViewResult = ViewEngines.Engines.FindPartialView(controllerContext, viewName);
+                var ViewContext = new ViewContext(controllerContext, ViewResult.View, controllerContext.Controller.ViewData, controllerContext.Controller.TempData, sw);
+                ViewResult.View.Render(ViewContext, sw);
+                ViewResult.ViewEngine.ReleaseView(controllerContext, ViewResult.View);
+                return sw.GetStringBuilder().ToString();
+            }
         }
 
         public ActionResult YeuThich()
