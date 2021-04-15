@@ -54,5 +54,10 @@ namespace BLL.BLL_Client
             }
             return dTO_Products;
         }
+        public int GetSoLuong(int id)
+        {
+
+            return dAL_Product.GetSoLuong(id);
+        }
     }
 }

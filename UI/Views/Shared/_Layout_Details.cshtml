@@ -196,9 +196,15 @@ author URL: http://w3layouts.com
                                 <i class="fa fa-heart"></i>
 
                             </a>
-                            <span><span>(@Html.Action("BagCart_", "Product"))</span></span>
+                            @*<button value="3" id="sttbuy"></button>*@
+                            <span style="color:red" id="sttbuy">(@Html.Action("BagCart_", "Product"))</span>
+                            @*<input type="number" id="sttbuy" value="0" />*@
+                            @*<span id="sttbuy"  style="color:red"></span>*@
+
+                            @*<input type="number" min="0" name="sttbuy" id="sttbuy" value=" 0 ">*@
                         </li>
-                        <li><a href="~/Cart/Index"><span class="fa fa-shopping-cart" aria-hidden="true"> Giỏ hàng (@Html.Action("BagCart", "Product"))sản phẩm</span></a></li>
+                        <li><a href="~/Cart/Index">Giỏ hàng <span style="color:red" id="total-product" class="fa fa-shopping-cart" aria-hidden="true">  (@Html.Action("BagCart", "Product"))</span> sản phẩm</a></li>
+                        @*<li><a href="~/Cart/Index">Giỏ hàng <span id="total-product" class="fa fa-shopping-cart" aria-hidden="true"> 0 </span>sản phẩm</a></li>*@
 
 
 

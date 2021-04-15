@@ -303,91 +303,72 @@ author URL: http://w3layouts.com
     </section>
 
 
+
+    @using (Html.BeginForm("Index", "Product"))
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="input-group" id="adv-search">
+                        <input type="text" class="form-control" name="searchName" placeholder="Nhập tìm kiếm sản phẩm theo tên..." />
+                        <div class="input-group-btn">
+                            <div class="btn-group" role="group">
+
+                                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true">Tìm kiếm</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="input-group" id="adv-search">
-                    <input type="text" class="form-control" placeholder="Search for snippets" />
+                    <input type="text" class="form-control" style="display:none" name="searchName" placeholder="Nhập tìm kiếm..." />
                     <div class="input-group-btn">
                         <div class="btn-group" role="group">
                             <div class="dropdown dropdown-lg">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                                <button type="button" class="btn btn-default dropdown-toggle" style="margin-left:680px" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span>Lựa chọn theo giá sản phẩm</button>
                                 <div class="dropdown-menu dropdown-menu-right" role="menu">
-                                    <form class="form-horizontal" role="form">
+                                    <form class="form-horizontal" role="form" method="post" action="@Url.Action("Index", "Product")">
                                         <div class="form-group">
-                                            <label for="filter">Filter by</label>
-                                            <select class="form-control">
-                                                <option value="0" selected>All Snippets</option>
-                                                <option value="1">Featured</option>
-                                                <option value="2">Most popular</option>
-                                                <option value="3">Top rated</option>
-                                                <option value="4">Most commented</option>
+                                            <label for="filter">Sản phẩm</label>
+                                            <select name="searchPrice" class="form-control">
+                                                <option value="0" selected>Theo giá</option>
+                                                <option value="1">0-500.000</option>
+                                                <option value="2">500.000-1.000.0000</option>
+                                                <option value="3">1.000.0000-2.000.000</option>
+                                                <option value="4">> 2.000.000</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="contain">Author</label>
-                                            <input class="form-control" type="text" />
-                                        </div>
+                                            <label for="contain">Giá từ</label>
+                                            <input name="priceGiaMin" class="form-control" type="text" />
+                                        </div>đến
                                         <div class="form-group">
-                                            <label for="contain">Contains the words</label>
-                                            <input class="form-control" type="text" />
+                                           
+                                            <input name="priceGiaMax" class="form-control" type="text" />
                                         </div>
-                                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                        @*<a href=" @Url.Action("Index", "Product")" type="submit" class="btn btn-primary">
+            <span class="glyphicon glyphicon-search" aria-hidden="true">Chọn</span>
+        </a>*@
+                                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true">Chọn</span></button>
                                     </form>
+
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-   
-
-
-    @*@using (Html.BeginForm("Index", "Product"))
-    {
-        <div id="hello" class="topnav">
-            <table id="chao" class="table table-bordered table-active ">
-
-                <tr>
-                    <td>
-                        @Html.RadioButton("seachBy", "NameProduct") <text> Theo tên</text>
-                    </td>
-                    <td>
-                        @Html.TextBox("search")
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.RadioButton("seachBy", "Price") <text> Theo giá</text>
-                    </td>
-                    <td>
-                        @Html.TextBox("gia_")  <text> đến</text>  @Html.TextBox("gia")
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.RadioButton("seachBy", "TypeProduct") <text> Theo từng loại</text>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>
-                        @Html.RadioButton("seachBy", "None")<text>Không lọc</text>
-                    </td>
-                    <td>
-                        <input type="submit" onclick="remove()" id="btn-remove" value="Tìm kiếm" class="btn btn-outline-success center" />
-
-                    </td>
-                </tr>
-            </table>
-        </div>
+    
 
 
 
-    }*@
 
 
 

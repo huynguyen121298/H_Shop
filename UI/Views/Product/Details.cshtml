@@ -103,7 +103,7 @@
 
 
                                         </div>
-                                        <div class="p-size">
+                                        @*<div class="p-size">
                                             <h4>Size:</h4>
                                             <div class="btn-group btn-group-sm">
                                                 <button type="button" class="btn">S</button>
@@ -119,7 +119,7 @@
                                                 <button type="button" class="btn">Black</button>
                                                 <button type="button" class="btn">Blue</button>
                                             </div>
-                                        </div>
+                                        </div>*@
 
                                         @*<div class="p-color">
 
@@ -257,16 +257,8 @@
 
                         @section Upload {
                             <script>
-                                //$('#tang').click(function (event) {
-                                //    event.preventDefault();
-                                //    $.ajax({
-                                //        url: '/Product/Tang',
-                                //        type: 'POST',
-                                //        data: {  },
-                                //        success: function () { alert('thanh cong') }
-                                //    });
-                                   
-                                //});
+                               
+
                                 function tangSoLuong(id) {
                                     var id_temp = id
                                     $.ajax({
@@ -284,6 +276,7 @@
                                             for (let i = 0; i < res.soLuong.length; i++) {
                                                 if (res.soLuong[i]["Id_SanPham"] == id_temp) {
                                                     $(dom_quantity).val(res.soLuong[i]["Quantity"])
+                                                   
                                                     $(dom_price).html(res.soLuong[i]["Price"])
                                                     break;
                                                 }

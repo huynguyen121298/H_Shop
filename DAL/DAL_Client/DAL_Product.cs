@@ -37,5 +37,17 @@ namespace DAL.DAL_Client
 
             return db.Products.Where(s => s.Name.Contains(name)).ToList();
         }
+        public int GetSoLuong(int id)
+        {
+            
+            var temp = db.Items.Where(s => s.Id_SanPham == id).FirstOrDefault();
+            if (temp != null)
+            {
+                return (int)temp.Quantity; // vidu: 0.3 0.4
+            }
+            return 0;
+
+        }
     }
 }
+

@@ -72,19 +72,11 @@ namespace Web_API.Controllers
         {
             return Json<DTO_Product_Item_Type>(BLL_Products.GetProductItemById(Id));
         }
-        // POST: api/Product
-        public void Post([FromBody]string value)
+        [Route("GetSoLuong/{Id:int}")]
+        public int GetSoLuong(int Id)
         {
+            return bLL_Product.GetSoLuong(Id);
         }
 
-        // PUT: api/Product/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Product/5
-        public void Delete(int id)
-        {
-        }
     }
 }
