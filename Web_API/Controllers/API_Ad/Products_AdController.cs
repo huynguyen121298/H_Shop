@@ -96,5 +96,10 @@ namespace Web_API.Controllers
         {
             return BLL_Products.DeleteAccount(id);
         }
+        [Route("UpdateQuantityItem")]
+        public bool UpdateQuantityItem(DTO_Item item)
+        {
+            return BLL_Products.UpdateQuantityItem(item);
+        }
     }
 }

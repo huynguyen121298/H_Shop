@@ -184,22 +184,33 @@ namespace DAL.DAL_Ad
             //}
             //return status;
         }
-        //public bool InsertItem(Item item)
-        //{
-        //    bool status;
-        //    try
-        //    {
-              
-        //        db.Items.Add(item);
-        //        db.SaveChanges();
-        //        status = true;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        status = false;
-        //    }
-        //    return status;
-        //}
+        public bool UpdateQuantityItem(int id,int quantity)
+        {
+            var itemNow = db.Items.Where(s => s.Id_SanPham == id).FirstOrDefault();
+           
+            //var quantityNow;
+            if (itemNow != null)
+            {
+               var quantityNow= itemNow.Quantity; // vidu: 0.3 0.4
+                var quantityPay = quantityNow - quantity;
+                //if(itemNow.Quantity - quantity > 0)
+                if (quantityNow - quantityPay > 0)
+                {
+                    //Item item = new Item();
+                    itemNow.Quantity = quantityPay;
+                    //item.Id_SanPham = id;
+                    db.SaveChanges();
+                    return true; 
+                }
+               
+            }
+            return false;
+          
+           
+           
+
+          
+        }
         public int UpdateProduct(Product productItem, Item item)
         {
             using (var transaction = db.Database.BeginTransaction())

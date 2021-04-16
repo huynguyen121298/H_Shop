@@ -179,9 +179,13 @@
                 dataType: 'json',
                 type: 'POST',
                 success: function (res) {
+                    if (res.buy == 0) {
+                        alert("Sản phầm này đã hết hàng");
+                    }
                     console.log("Id is: " + id_temp);
                     console.log(res.buy);
                     for (let i = 0; i < res.buy.length; i++) {
+
                         if (res.buy[i]["Id_SanPham"] == id_temp) {
                             alert("Sản phẩm " + res.buy[i]["Name"] + " đã được thêm vào giỏ hàng");
                             break;
@@ -199,6 +203,7 @@
                     console.log("Total of product in cart is: " + res.buy.length)
                     $("#total-product").text(res.buy.length);
                 }
+
             });
         }
 

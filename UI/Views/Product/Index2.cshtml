@@ -28,179 +28,127 @@
             </ul>
         </div>
     </div>
-    @*<div class="container">
-            <div class="header d-lg-flex">
-
-
-                <div class="row align-items-center">
-                    <div class="col-md-3">
-                        <div class="logo">
-                            <a href="index.html">
-                                <img src="~/images/logo.png" alt="Logo">
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="search">
-                        @using (Html.BeginForm("Index", "Product"))
-                        {
-                            <b>Lọc sản phẩm theo:</b> @Html.RadioButton("seachBy", "NameProduct") <text> Tên sản phẩm</text>
-
-                            @Html.("seachBy", "None")<text>Không lọc</text><br />
-
-                            @Html.TextBox("search")<input type="submit" value="Tìm kiếm" />
-                        }
-                        <script>
-                            //clear value tìm kiếm
-                        </script>
-                    </div>
-
-
-                </div>
-
-
-
-            </div>
-        </div>*@
-
-
-    @*<div class="row">
-            <input id="txtInput" />
-            <button id="btnSearch" class="btn btn-primary">Tìm kiểm sản phẩm</button>
-        </div>*@
-    <!-- Breadcrumb End -->
-    <!-- Product List Start -->
-    <div class="product-view">
-        <div class="container-fluid">
-            <div class="row">
-
-                <div class="col-lg-8">
+    @{
+        if (Model.Count != 0)
+        {
+            <div class="product-view">
+                <div class="container-fluid">
                     <div class="row">
-                        @foreach (DTO_Product_Client item in Model)
-                        {
 
-                            <div class="col-md-4">
-                                @*<div class="product-title">
-                                        @Html.DisplayNameFor(model => model.Item.Id_SanPham)
-                                    </div>*@
-                                <div class="product-item">
-                                    <div class="product-title">
-                                        @Html.DisplayFor(modelItem => item.Name)
-                                        <div class="ratting">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
+                        <div class="col-lg-8">
+                            <div class="row">
+                                @foreach (DTO_Product_Client item in Model)
+                                {
+
+                                    <div class="col-md-4">
+                                        @*<div class="product-title">
+                                                @Html.DisplayNameFor(model => model.Item.Id_SanPham)
+                                            </div>*@
+                                        <div class="product-item">
+                                            <div class="product-title">
+                                                @Html.DisplayFor(modelItem => item.Name)
+                                                <div class="ratting">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="product-image">
+                                                <a href="product-detail.html">
+                                                    <img src="@Url.Content(item.Photo)" />
+                                                </a>
+                                                <div class="product-action">
+                                                    @*<a href=" @Url.Action("Buy_Favorite", "Product", new { id = item.Id_SanPham })" onclick="Buy()"><i class="fa fa-cart-plus"></i></a>*@
+                                                    <a class="btn" onclick="Buy_Cart(@item.Id_SanPham)"><i class="fa fa-cart-plus"></i></a>
+                                                    @*<a href=" @Url.Action("Details_", "Cart", new { id = item.Id_SanPham })"><i class="fa fa-heart"></i></a>*@
+                                                    <a class="btn" onclick="Buy_Favorite(@item.Id_SanPham)"><i class="fa fa-heart"></i></a>
+                                                    <a class="btn" href=" @Url.Action("Details1", "Product", new { id = item.Id_SanPham })">
+                                                        <i class="fa fa-search"></i>
+                                                    </a>
+
+                                                </div>
+                                            </div>
+                                            <div class="product-price">
+                                                <h3>@string.Format("{0:0,0}", item.Price)<span> VNĐ </span></h3>
+
+                                            </div>
+                                            <div class="product-price">
+                                                <a onclick="AddCart()" class="btn" href=" @Url.Action("Buy", "Product", new { id = item.Id_SanPham })"><i class="fa fa-shopping-cart"></i>Mua hàng</a>
+                                                @*<a id="btn_mua" onclick="AddCart()" class="btn" href=" @Url.Action("Details", "Cart", new { id = item.Id_SanPham })"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>*@
+
+
+
+                                            </div>
+
                                         </div>
                                     </div>
+                                }
 
-
-
-                                    <div class="product-image">
-                                        <a href="product-detail.html">
-                                            <img src="@Url.Content(item.Photo)" />
-                                        </a>
-                                        <div class="product-action">
-                                            @*<a href=" @Url.Action("Buy_Favorite", "Product", new { id = item.Id_SanPham })" onclick="Buy()"><i class="fa fa-cart-plus"></i></a>*@
-                                            <a class="btn" onclick="Buy_Cart(@item.Id_SanPham)"><i class="fa fa-cart-plus"></i></a>
-                                            @*<a href=" @Url.Action("Details_", "Cart", new { id = item.Id_SanPham })"><i class="fa fa-heart"></i></a>*@
-                                            <a class="btn" onclick="Buy_Favorite(@item.Id_SanPham)"><i class="fa fa-heart"></i></a>
-                                            <a class="btn" href=" @Url.Action("Details1", "Product", new { id = item.Id_SanPham })">
-                                                <i class="fa fa-search"></i>
-                                            </a>
-
-                                        </div>
-                                    </div>
-                                    <div class="product-price">
-                                        <h3>@string.Format("{0:0,0}", item.Price)<span> VNĐ </span></h3>
-
-                                    </div>
-                                    <div class="product-price">
-                                        <a onclick="AddCart()" class="btn" href=" @Url.Action("Buy", "Product", new { id = item.Id_SanPham })"><i class="fa fa-shopping-cart"></i>Mua hàng</a>
-                                        @*<a id="btn_mua" onclick="AddCart()" class="btn" href=" @Url.Action("Details", "Cart", new { id = item.Id_SanPham })"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>*@
-
-
-
-                                    </div>
-
-                                </div>
                             </div>
-                        }
 
-                    </div>
-
-                </div>
-
-                <!-- Side Bar Start -->
-                <div class="col-lg-4 sidebar">
-
-
-
-
-
-
-                    <div class="sidebar-widget tag">
-                        <h2 class="title">Sản phẩm tìm kiếm nhiều</h2>
-                        <a href="#">Áo thun nữ</a>
-                        <a href="#">Hoa quả</a>
-                        <a href="#">Balo</a>
-                        <a href="#">Túi xách nữ</a>
-                        <a href="#">Ví da nam</a>
-                        <a href="#">Giày Gucci</a>
-                        <a href="#">Dép quai ngang</a>
-                        <a href="#">Iphone 12 Pro Max</a>
-                        <a href="#">Macbook</a>
-                        <a href="#">Samsung Note 10</a>
-                        <a href="#">Tivi 97"</a>
-                        <a href="#">Ghế mátxa</a>
-                    </div>
-                    <div id="showThongBao" class="modal" tabindex="-1" role="dialog">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Thông báo</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Thêm sản phẩm thành công</p>
-                                </div>
-                                @*<div class="modal-footer">
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    </div>*@
-                            </div>
                         </div>
+
+                        <!-- Side Bar Start -->
+                        <div class="col-lg-4 sidebar">
+
+
+
+
+
+
+                            <div class="sidebar-widget tag">
+                                <h2 class="title">Sản phẩm tìm kiếm nhiều</h2>
+                                <a href="#">Áo thun nữ</a>
+                                <a href="#">Hoa quả</a>
+                                <a href="#">Balo</a>
+                                <a href="#">Túi xách nữ</a>
+                                <a href="#">Ví da nam</a>
+                                <a href="#">Giày Gucci</a>
+                                <a href="#">Dép quai ngang</a>
+                                <a href="#">Iphone 12 Pro Max</a>
+                                <a href="#">Macbook</a>
+                                <a href="#">Samsung Note 10</a>
+                                <a href="#">Tivi 97"</a>
+                                <a href="#">Ghế mátxa</a>
+                            </div>
+                            <div id="showThongBao" class="modal" tabindex="-1" role="dialog">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Thông báo</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Thêm sản phẩm thành công</p>
+                                        </div>
+                                        @*<div class="modal-footer">
+                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            </div>*@
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- Side Bar End -->
                     </div>
-
                 </div>
-                <!-- Side Bar End -->
             </div>
-        </div>
-    </div>
-    @*<script type="text/javascript">
-            $('#btn_mua').click(function (event, url, postedData, callback) {
-                event.preventDefault();
-                var href = $(this).attr('href');
-                var name = $(this).attr('name');
-                $.ajax({
-                    url: href,
-                    type: 'POST',
-                    data: {},
-                    success: function () {
-                        console.log("OK");
-                    }
+        }
+        else
+        {
+            <img src="~/images/imageCartNo.png" style="width:600px;height:300px" />
+        }
+    }
 
 
-                });
-
-
-
-
-
-        </script>*@
 
     <script>
         function Buy_Favorite(id) {
@@ -235,9 +183,13 @@
                 dataType: 'json',
                 type: 'POST',
                 success: function (res) {
+                    if (res.buy == 0) {
+                        alert("Sản phầm này đã hết hàng");
+                    }
                     console.log("Id is: " + id_temp);
                     console.log(res.buy);
                     for (let i = 0; i < res.buy.length; i++) {
+
                         if (res.buy[i]["Id_SanPham"] == id_temp) {
                             alert("Sản phẩm " + res.buy[i]["Name"] + " đã được thêm vào giỏ hàng");
                             break;
@@ -255,6 +207,7 @@
                     console.log("Total of product in cart is: " + res.buy.length)
                     $("#total-product").text(res.buy.length);
                 }
+
             });
         }
         function AddCart() {

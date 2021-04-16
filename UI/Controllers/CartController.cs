@@ -51,52 +51,40 @@ namespace UI.Controllers
         }
         public ActionResult Buy_()
         {
-            //if (Session["cart"] == null)
-            //{
-            //    List<Item> li = new List<Item>();
-            //    var product = db.Products.Find(Id);
+            bool flag = true;
+            List<string> messages = new List<string>();
+            List<DTO_Product_Item_Type> cart = (List<DTO_Product_Item_Type>)Session["cart"];
+            foreach(var item in cart)
+            {
+                //int quantityBuy = Convert.ToInt32(Request.Form["quantity"]);
 
-            //    li.Add(new Item()
-            //    {
-            //        Product = product,
-            //        Quantity = 1
-            //    });
-            //    Session["cart"] = li;
+                HttpResponseMessage response = service.GetResponse("api/Product/GetSoLuong/" + item.Id_SanPham);
 
-
-
-
-
-
-            //}
-            //else
-            //{
-            //    List<Item> li = (List<Item>)Session["cart"];
-            //    var product = db.Products.Find(Id);
-
-            //    int index = isExist(Id);
-            //    if (index != -1)
-            //    {
-            //        li[index].Quantity++;
-            //    }
-            //    else
-            //    {
-            //        li.Add(new Item()
-            //        {
-            //            Product = product,
-            //            Quantity = 1
-            //        });
-
-            //    }
+                response.EnsureSuccessStatusCode();
+                int quantity = response.Content.ReadAsAsync<int>().Result;
+                int quantityAfterBuy = quantity - (int)item.Quantity;
+                if (quantityAfterBuy < 0)
+                {
+                    flag = false;
+                    string message = (item.Name + " đã vượt quá số lượng đang có");
+                    messages.Add(message);
+                }
+            }
+            ViewData["messages"] = messages;
+            if (flag)
+                return RedirectToAction("Index", "Cart");
+            return View("~/Views/Product/Details.cshtml");
 
 
-            //    Session["cart"] = li;
 
-            //}
-            return RedirectToAction("Index", "Cart");
+
         }
         public ActionResult saveOrder1(FormCollection fc, DTO_CheckoutCustomer_Order check)
-         {
+        {
+          
+
+
+
             try
             {
                 var checkZip = check.Zipcode = fc["zip"];
@@ -120,7 +108,7 @@ namespace UI.Controllers
                         check.Email = fc["Email"];
                         check.Zipcode = fc["zip"];
                         check.DiaChi = fc["diaChi"];
-                        check.TongTien = Int32.Parse(price);
+                        check.TongTien = Convert.ToInt32(price);
                         check.GiamGia = Int32.Parse(price1);
                         check.City = fc["city"];
                         check.SDT = Int32.Parse(fc["sdt"]);
@@ -146,6 +134,8 @@ namespace UI.Controllers
                             dTO_Checkout_Order.TrangThai = "Đang chờ";
 
                             check.dTO_Checkout_Orders.Add(dTO_Checkout_Order);
+
+                           
 
 
 
@@ -301,6 +291,10 @@ namespace UI.Controllers
 
             return View();
 
+        }
+        public ActionResult HetHang()
+        {
+            return View();
         }
         public ActionResult Details_(int Id)
         {

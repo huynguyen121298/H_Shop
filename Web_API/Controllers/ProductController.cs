@@ -77,6 +77,7 @@ namespace Web_API.Controllers
         {
             return bLL_Product.GetSoLuong(Id);
         }
+      
 
     }
 }

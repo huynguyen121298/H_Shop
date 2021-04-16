@@ -99,7 +99,7 @@
     <div class="product-view">
         <div class="container-fluid">
             <div class="row">
-
+                <p>@ViewData["MessQuantity"]</p>
                 <div class="col-lg-8">
                     <div class="row">
                         @foreach (DTO_Product_Client item in Model)
@@ -107,11 +107,12 @@
 
                             <div class="col-md-4">
                                 @*<div class="product-title">
-                                        @Html.DisplayNameFor(model => model.Item.Id_SanPham)
-                                    </div>*@
+                            @Html.DisplayNameFor(model => model.Item.Id_SanPham)
+                        </div>*@
                                 <div class="product-item">
                                     <div class="product-title">
                                         @Html.DisplayFor(modelItem => item.Name)
+
                                         <div class="ratting">
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
@@ -129,9 +130,9 @@
                                         </a>
                                         <div class="product-action">
                                             @*<a href=" @Url.Action("Buy_Favorite", "Product", new { id = item.Id_SanPham })" onclick="Buy()"><i class="fa fa-cart-plus"></i></a>*@
-                                            <a class="btn"  onclick="Buy_Cart(@item.Id_SanPham)"><i class="fa fa-cart-plus"></i></a>
+                                            <a class="btn" onclick="Buy_Cart(@item.Id_SanPham)"><i class="fa fa-cart-plus"></i></a>
                                             @*<a href=" @Url.Action("Details_", "Cart", new { id = item.Id_SanPham })"><i class="fa fa-heart"></i></a>*@
-                                            <a  class="btn" onclick="Buy_Favorite(@item.Id_SanPham)" ><i class="fa fa-heart"></i></a>
+                                            <a class="btn" onclick="Buy_Favorite(@item.Id_SanPham)"><i class="fa fa-heart"></i></a>
                                             <a class="btn" href=" @Url.Action("Details1", "Product", new { id = item.Id_SanPham })">
                                                 <i class="fa fa-search"></i>
                                             </a>
@@ -139,7 +140,7 @@
                                         </div>
                                     </div>
                                     <div class="product-price">
-                                        <h3>@string.Format("{0:0,0}",  item.Price)<span> VNĐ </span></h3>
+                                        <h3>@string.Format("{0:0,0}", item.Price)<span> VNĐ </span></h3>
 
                                     </div>
                                     <div class="product-price">
@@ -181,7 +182,7 @@
                         <a href="#">Tivi 97"</a>
                         <a href="#">Ghế mátxa</a>
                     </div>
-                    <div id="showThongBao" class="modal" tabindex="-1" role="dialog">
+                    <!--<div id="showThongBao" class="modal" tabindex="-1" role="dialog">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -192,14 +193,14 @@
                                 </div>
                                 <div class="modal-body">
                                     <p>Thêm sản phẩm thành công</p>
-                                </div>
+                                </div>-->
                                 @*<div class="modal-footer">
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    </div>*@
-                            </div>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>*@
+                            <!--</div>
                         </div>
-                    </div>
+                    </div>-->
 
                 </div>
                 <!-- Side Bar End -->
@@ -245,18 +246,18 @@
 
 
         });
-        function AddCart() {
-            Swal.fire({
-                position: 'top',
-                icon: 'success',
-                title: 'Thêm sản phẩm thành công',
-                showConfirmButton: false,
-                timer: 300000
-            })
+        //function AddCart() {
+        //    Swal.fire({
+        //        position: 'top',
+        //        icon: 'success',
+        //        title: 'Thêm sản phẩm thành công',
+        //        showConfirmButton: false,
+        //        timer: 300000
+        //    })
 
 
 
-        }
+        //}
     function Buy_Favorite(id) {
         var id_temp = id;
             $.ajax({
@@ -265,13 +266,23 @@
                 data: { Id: id },
                 dataType: 'json',
                 type: 'POST',
+                error: function () {
+                   
+                            alert("Sản phẩm  đã hết hàng");
+                   
+                },
                 success: function (res) {
                     for (let i = 0; i < res.buy.length; i++) {
                         if (res.buy[i]["Id_SanPham"] == id_temp) {
                             alert("Sản phẩm " + res.buy[i]["Name"] + " đã được thêm vào sản phẩm yêu thích");
+                            
                             break;
-                        }
+                        } 
+                        
+                        
                     }
+                    
+                    
 
 
                     console.log("List of rest: " + res)
@@ -279,6 +290,7 @@
                     $("#sttbuy").text(res.buy.length)
                     //$("#sttbuy").html(res.buy[0]["Quantity"])
                 }
+               
             });
         }
     function Buy_Cart(id) {
@@ -289,9 +301,13 @@
                 dataType: 'json',
                 type: 'POST',
                 success: function (res) {
+                    if (res.buy == 0) {
+                        alert("Sản phầm này đã hết hàng");
+                    }
                     console.log("Id is: " + id_temp);
                     console.log(res.buy);
                     for (let i = 0; i < res.buy.length; i++) {
+                       
                         if (res.buy[i]["Id_SanPham"] == id_temp) {
                             alert("Sản phẩm " + res.buy[i]["Name"] + " đã được thêm vào giỏ hàng");
                             break;
@@ -309,6 +325,7 @@
                     console.log("Total of product in cart is: " + res.buy.length)
                     $("#total-product").text(res.buy.length);
                 }
+               
             });
         }
 

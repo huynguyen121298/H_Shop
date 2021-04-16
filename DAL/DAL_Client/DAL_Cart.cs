@@ -1,4 +1,5 @@
-﻿using DAL.EF;
+﻿using DAL.DAL_Ad;
+using DAL.EF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace DAL.DAL_Client
     public class DAL_Cart
     {
         OnlineShopEntities db = new OnlineShopEntities();
+        DAL_Products dAL_Products = new DAL_Products();
         public bool InsertCheckoutCustomer(Checkout_Customer ck)
         {
             try
@@ -38,7 +40,9 @@ namespace DAL.DAL_Client
         }
         public int InsertBill(Checkout_Customer ck, List<Checkout_Oder> cO)
         {
-            //bool status;
+        //    CodeDiscount codeDiscount = db.CodeDiscounts.Find(ck.Zipcode);
+
+        //    db.CodeDiscounts.Remove(codeDiscount);
 
             using (var transaction = db.Database.BeginTransaction())
             {
@@ -46,8 +50,10 @@ namespace DAL.DAL_Client
                 db.SaveChanges();
                 foreach(var item in cO)
                 {
+                    int quantity = (int)item.SoLuong;
                     item.Id_KH = ck.Id_KH;
                     db.Checkout_Oder.Add(item);
+                    dAL_Products.UpdateQuantityItem(item.Id_SanPham, quantity);
                 }
                 
 
@@ -69,7 +75,7 @@ namespace DAL.DAL_Client
         }
 
     public double GetGiamGia(string zipcode) {
-            var list_temp = db.CodeDiscounts.ToList();
+          
             var temp = db.CodeDiscounts.Where(s => s.Zipcode==zipcode).FirstOrDefault();
             if(temp != null)
             {

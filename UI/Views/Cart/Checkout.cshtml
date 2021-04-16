@@ -38,33 +38,33 @@
                             <div class="row">
                                 @*div class="col-md-6">
 
-            <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.Name)">
-        </div>
-        <div class="col-md-6">
+                                        <input class="form-control" type="text" value=" @Html.DisplayFor(model => model.Name)">
+                                    </div>
+                                    <div class="col-md-6">
 
-            <input class="form-control" type="text" value="@Html.DisplayFor(model => model.Id_SanPham)">
-        </div>*@
+                                        <input class="form-control" type="text" value="@Html.DisplayFor(model => model.Id_SanPham)">
+                                    </div>*@
 
-                              
+
                                 <div class="col-md-6">
 
-                                    <input class="form-control" type="text" value="" placeholder="Nhập tên" name="FirstName"required oninvalid="this.setCustomValidity('Vui lòng nhập tên')"oninput="this.setCustomValidity('')">
+                                    <input class="form-control" type="text" value="" placeholder="Nhập tên" name="FirstName" required oninvalid="this.setCustomValidity('Vui lòng nhập tên')" oninput="this.setCustomValidity('')">
                                 </div>
                                 <div class="col-md-6">
 
-                                    <input class="form-control" type="text" placeholder="Nhập Họ" name="LastName"required oninvalid="this.setCustomValidity('Vui lòng nhập họ')"oninput="this.setCustomValidity('')">
+                                    <input class="form-control" type="text" placeholder="Nhập Họ" name="LastName" required oninvalid="this.setCustomValidity('Vui lòng nhập họ')" oninput="this.setCustomValidity('')">
                                 </div>
                                 <div class="col-md-6">
 
-                                    <input class="form-control" type="email" placeholder="Nhập Email" name="Email"required oninvalid="this.setCustomValidity('Vui lòng nhập địa chỉ email')"oninput="this.setCustomValidity('')">
+                                    <input class="form-control" type="email" placeholder="Nhập Email" name="Email" required oninvalid="this.setCustomValidity('Vui lòng nhập địa chỉ email')" oninput="this.setCustomValidity('')">
                                 </div>
                                 <div class="col-md-6">
 
-                                    <input class="form-control" type="tel" placeholder="Nhập số điện thoại" name="sdt"required oninvalid="this.setCustomValidity('Vui lòng nhập số điện thoại')"oninput="this.setCustomValidity('')">
+                                    <input class="form-control" type="tel" placeholder="Nhập số điện thoại" name="sdt" required oninvalid="this.setCustomValidity('Vui lòng nhập số điện thoại')" oninput="this.setCustomValidity('')">
                                 </div>
                                 <div class="col-md-12">
 
-                                    <input class="form-control" type="text" placeholder="Nhập địa chỉ" name="diaChi"required oninvalid="this.setCustomValidity('Vui lòng nhập địa chi')"oninput="this.setCustomValidity('')">
+                                    <input class="form-control" type="text" placeholder="Nhập địa chỉ" name="diaChi" required oninvalid="this.setCustomValidity('Vui lòng nhập địa chi')" oninput="this.setCustomValidity('')">
                                 </div>
                                 <div class="col-md-6">
                                     <label>Tỉnh/Thành phố</label>
@@ -87,7 +87,7 @@
                                 <div class="col-md-6">
 
                                     <input class="form-control" type="text" placeholder="ZIP Code" onchange="DiscountPrice()" name="zip" id="pricecode">
-                                  
+
                                 </div>
 
 
@@ -114,12 +114,12 @@
                                 <p>
                                     Thanh Toán<span>
 
-                                       @string.Format("{0:0,0}",total)
+                                        @string.Format("{0:0,0}", total)
                                         VNĐ
                                     </span>
                                 </p>
                                 <p>
-                                    Giảm giá <input type="text" readonly style=" width:45px; height:30px" id="discount" name="discount1" />% 
+                                    Giảm giá <input type="text" readonly style=" width:45px; height:30px" id="discount" name="discount1" />%
 
 
                                 </p>
@@ -134,7 +134,7 @@
                                             }
                                             @total -*@
 
-                                        <input readonly  id="gia1" width:10px; name="gia1" type="text" value="@string.Format("{0:0,0}",total) " />
+                                        <input readonly id="gia1" width:10px; name="gia1" type="text" value="@total " />
 
                                     </span>
 
@@ -155,11 +155,12 @@
 
         @*<input class="form-control" type="text" placeholder="ZIP Code" name="zip" id="pricecode">*@
         @*<input type="submit" value="Kiểm tra code" class="btn btn-outline-success" id="check" onclick="DiscountPrice()" />*@
-        <p>@ViewData["Message"]</p> 
+        <p style="color:red;font-style:italic" id="message1">@ViewData["Message"]</p>
     </div>
 </div>
 <script>
 
+   
     function Discount() {
 
         var dis = $('#discount').val();
@@ -205,6 +206,14 @@
 
     };
 </script>
-<script>
-    
-</script>
+@section Upload {
+    <script>
+        $(function () {
+            function show_popup() {
+                $("#message1").hide();
+               
+            };
+            window.setTimeout(show_popup, 5000); // 5 seconds
+        });
+    </script>
+    }

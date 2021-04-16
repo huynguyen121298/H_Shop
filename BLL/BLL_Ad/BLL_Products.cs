@@ -25,7 +25,7 @@ namespace BLL.BLL_Ad
             }
             return dTO_Products;
         }
-       
+
         public List<DTO_Product_Item_Type> GetAllProductItem()
         {
             EntityMapper<Product_Item_Type, DTO_Product_Item_Type> mapObj = new EntityMapper<Product_Item_Type, DTO_Product_Item_Type>();
@@ -45,7 +45,7 @@ namespace BLL.BLL_Ad
             foreach (var item in products)
             {
                 List<DTO_Product> dTO_Products1 = new List<DTO_Product>();
-                foreach(var item1 in item)
+                foreach (var item1 in item)
                 {
                     dTO_Products1.Add(mapObj.Translate(item1));
                 }
@@ -64,7 +64,7 @@ namespace BLL.BLL_Ad
         public List<DTO_Product> GetProductById_Item(int id)
         {
             EntityMapper<Product, DTO_Product> mapObj = new EntityMapper<Product, DTO_Product>();
-           List<Product> products = dAL_Product.getproductById_Item(id);
+            List<Product> products = dAL_Product.getproductById_Item(id);
             List<DTO_Product> dTO_Accounts = new List<DTO_Product>();
             foreach (var item in products)
             {
@@ -106,7 +106,7 @@ namespace BLL.BLL_Ad
             EntityMapper<Product_Item_Type, DTO_Product_Item_Type> mapObj = new EntityMapper<Product_Item_Type, DTO_Product_Item_Type>();
             List<Product_Item_Type> account = dAL_Product.GetProductItemById_Client(id);
             List<DTO_Product_Item_Type> dTO_Accounts = new List<DTO_Product_Item_Type>();
-            foreach(var item in account)
+            foreach (var item in account)
             {
                 dTO_Accounts.Add(mapObj.Translate(item));
             }
@@ -126,7 +126,7 @@ namespace BLL.BLL_Ad
         //}
         public int CreateProduct(DTO_Product_Item_Type dTO_Account)
         {
-            EntityMapper<DTO_Product_Item_Type, Product_Item_Type> mapObj = new EntityMapper< DTO_Product_Item_Type, Product_Item_Type> ();
+            EntityMapper<DTO_Product_Item_Type, Product_Item_Type> mapObj = new EntityMapper<DTO_Product_Item_Type, Product_Item_Type>();
             Product_Item_Type product_Item_Type = new Product_Item_Type();
             product_Item_Type = mapObj.Translate(dTO_Account);
             Product products = new Product();
@@ -141,13 +141,13 @@ namespace BLL.BLL_Ad
             //item.Id_SanPham = product_Item_Type.Id_SanPham;
             item.Quantity = product_Item_Type.Quantity;
 
-          
-               
-            
 
-          
-               
-            
+
+
+
+
+
+
 
 
 
@@ -155,17 +155,17 @@ namespace BLL.BLL_Ad
             //Product account = mapObj.Translate(dTO_Account.);
             //EntityMapper<DTO_Item, Item> mapObj1 = new EntityMapper<DTO_Item, Item>();
             //Item account1 = mapObj1.Translate(item);
-            
-           
-            return dAL_Product.InsertProduct(products,item);
+
+
+            return dAL_Product.InsertProduct(products, item);
         }
         //public bool CreateItem( DTO_Item item)
         //{
-         
+
         //    EntityMapper<DTO_Item, Item> mapObj1 = new EntityMapper<DTO_Item, Item>();
-           
+
         //    Item account1 = mapObj1.Translate(item);
-            
+
         //    return dAL_Product.InsertItem( account1);
         //}
         public bool DeleteAccount(int id)
@@ -216,6 +216,15 @@ namespace BLL.BLL_Ad
 
             return dAL_Product.UpdateProduct(products, item);
         }
+        public bool UpdateQuantityItem(DTO_Item dTO_item)
+        {
+            EntityMapper<DTO_Item,Item> mapObj = new EntityMapper<DTO_Item, Item>();
+            Item item = new Item();
+            item = mapObj.Translate(dTO_item);
+            int id = item.Id_SanPham;
+            int quantity = (int)item.Quantity;
 
+            return dAL_Product.UpdateQuantityItem(id, quantity);
+        }
     }
 }

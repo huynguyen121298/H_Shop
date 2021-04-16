@@ -51,187 +51,197 @@
     </div>
     <!-- Breadcrumb End -->
     <!-- Product Detail Start -->
-    <div class="product-detail">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="product-detail-top">
+    @{
+        if (cart.Count != 0)
+        {
+            <div class="product-detail">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="product-detail-top">
 
 
-                        @foreach (DTO_Product_Item_Type item in (List<DTO_Product_Item_Type>)Session["cart_"])
-                        {
-                            <div class="row align-items-center">
-                                <div class="col-md-5">
-                                    <div class="product-slider-single normal-slider">
-                                        <img src="@Url.Content(item.Photo)" />
-
-                                    </div>
-                                    <div class="product-slider-single-nav normal-slider">
-                                        <div class="slider-nav-img"> <img src="@Url.Content(item.Photo)" /></div>
-
-                                    </div>
-                                </div>
-                                <div class="col-md-7">
-                                    <div class="product-content">
-                                        @item.Name
-                                        <div class="ratting">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <div>
-                                            <h4 class="product-price-range"> giá sản phẩm</h4>
-                                            <p><span style="color:red"> @item.Price </span> VNĐ</p>
-                                        </div>
-
-                                        <div class="p-color">
-
-                                            <div class="btn-group btn-group-sm">
-                                                <a class="btn" href="@Url.Action("Remove_", "Cart", new { id = item.Id_SanPham })">Xóa khỏi sản phẩm yêu thích </a>
-                                                <a onclick="AddCart()" class="btn" href="@Url.Action("Buy", "Product", new { id = item.Id_SanPham })"><i class="fa fa-shopping-bag"></i>Xác nhận mua</a>
+                                @foreach (DTO_Product_Item_Type item in (List<DTO_Product_Item_Type>)Session["cart_"])
+                                {
+                                    <div class="row align-items-center">
+                                        <div class="col-md-5">
+                                            <div class="product-slider-single normal-slider">
+                                                <img src="@Url.Content(item.Photo)" />
 
                                             </div>
-                                            <script>
+                                            <div class="product-slider-single-nav normal-slider">
+                                                <div class="slider-nav-img"> <img src="@Url.Content(item.Photo)" /></div>
 
-                                                function AddCart() {
-                                                    Swal.fire({
-                                                        position: 'top',
-                                                        icon: 'success',
-                                                        title: 'Thêm sản phẩm thành công',
-                                                        showConfirmButton: false,
-                                                        timer: 300000
-                                                    })
-
-
-
-                                                }
-
-
-                                            </script>
-
+                                            </div>
                                         </div>
-                                        <div class="row product-detail-bottom">
-                                            <div class="col-lg-12">
-                                                <ul class="nav nav-pills nav-justified">
-                                                    <li class="nav-item">
-                                                        <a class="nav-link active" data-toggle="pill" href="#description">Chi tiết sản phẩm</a>
-                                                    </li>
+                                        <div class="col-md-7">
+                                            <div class="product-content">
+                                                @item.Name
+                                                <div class="ratting">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
+                                                <div>
+                                                    <h4 class="product-price-range"> giá sản phẩm</h4>
+                                                    <p><span style="color:red"> @string.Format("{0:0,0}", item.Price) </span> VNĐ</p>
+                                                </div>
+
+                                                <div class="p-color">
+
+                                                    <div class="btn-group btn-group-sm">
+                                                        <a class="btn" href="@Url.Action("Remove_", "Cart", new { id = item.Id_SanPham })">Xóa khỏi sản phẩm yêu thích </a>
+                                                        <a onclick="AddCart()" class="btn" href="@Url.Action("Buy", "Product", new { id = item.Id_SanPham })"><i class="fa fa-shopping-bag"></i>Xác nhận mua</a>
+
+                                                    </div>
+                                                    <script>
+
+                                                        function AddCart() {
+                                                            Swal.fire({
+                                                                position: 'top',
+                                                                icon: 'success',
+                                                                title: 'Thêm sản phẩm thành công',
+                                                                showConfirmButton: false,
+                                                                timer: 300000
+                                                            })
 
 
-                                                </ul>
 
-                                                <div class="tab-content">
-                                                    <div id="description" class="container tab-pane active">
+                                                        }
 
-                                                        <p>
 
-                                                            @item.Details
+                                                    </script>
 
-                                                        </p>
+                                                </div>
+                                                <div class="row product-detail-bottom">
+                                                    <div class="col-lg-12">
+                                                        <ul class="nav nav-pills nav-justified">
+                                                            <li class="nav-item">
+                                                                <a class="nav-link active" data-toggle="pill" href="#description">Chi tiết sản phẩm</a>
+                                                            </li>
+
+
+                                                        </ul>
+
+                                                        <div class="tab-content">
+                                                            <div id="description" class="container tab-pane active">
+
+                                                                <p>
+
+                                                                    @item.Details
+
+                                                                </p>
+                                                            </div>
+
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+
+                                <div class="row product-detail-bottom">
+                                    <div class="col-lg-12">
+
+
+                                        <div class="tab-content">
+
+
+                                            <div id="reviews" class="container tab-pane fade">
+                                                <div class="reviews-submitted">
+                                                    <div class="reviewer"> Để lại đánh giá của bạn - <span>@DateTime.Today</span></div>
+                                                    <div class="ratting">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
                                                     </div>
 
-
                                                 </div>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        }
-
-
-                        <div class="row product-detail-bottom">
-                            <div class="col-lg-12">
-                              
-
-                                <div class="tab-content">
-                                  
-
-                                    <div id="reviews" class="container tab-pane fade">
-                                        <div class="reviews-submitted">
-                                            <div class="reviewer"> Để lại đánh giá của bạn - <span>@DateTime.Today</span></div>
-                                            <div class="ratting">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-
-                                        </div>
-                                        <div class="reviews-submit">
-                                            <h4>Để lại phản hồi của bạn</h4>
-                                            <div class="ratting">
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-                                            <div class="row form">
-                                                <div class="col-sm-6">
-                                                    <input type="text" placeholder="Name">
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <input type="email" placeholder="Email">
-                                                </div>
-                                                <div class="col-sm-12">
-                                                    <textarea placeholder="Nhập nội dung"></textarea>
-                                                </div>
-                                                <div class="col-sm-12">
-                                                    <button>Gửi</button>
+                                                <div class="reviews-submit">
+                                                    <h4>Để lại phản hồi của bạn</h4>
+                                                    <div class="ratting">
+                                                        <i class="far fa-star"></i>
+                                                        <i class="far fa-star"></i>
+                                                        <i class="far fa-star"></i>
+                                                        <i class="far fa-star"></i>
+                                                        <i class="far fa-star"></i>
+                                                    </div>
+                                                    <div class="row form">
+                                                        <div class="col-sm-6">
+                                                            <input type="text" placeholder="Name">
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <input type="email" placeholder="Email">
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <textarea placeholder="Nhập nội dung"></textarea>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <button>Gửi</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="sidebar-widget tag">
+                                    <h2 class="title">Sản phẩm tìm kiếm nhiều</h2>
+                                    <a href="#">Áo thun nữ</a>
+                                    <a href="#">Hoa quả</a>
+                                    <a href="#">Balo</a>
+                                    <a href="#">Túi xách nữ</a>
+                                    <a href="#">Ví da nam</a>
+                                    <a href="#">Giày Gucci</a>
+                                    <a href="#">Dép quai ngang</a>
+                                    <a href="#">Iphone 12 Pro Max</a>
+                                    <a href="#">Macbook</a>
+                                    <a href="#">Samsung Note 10</a>
+                                    <a href="#">Tivi 97"</a>
+                                    <a href="#">Ghế mátxa</a>
+                                </div>
+
+                                @section Upload {
+                                    <script>
+                                        $('#tang').click(function (event) {
+                                            event.preventDefault();
+                                            $.ajax({
+                                                url: '/Product/Tang',
+                                                type: 'POST',
+                                                data: { increment: true },
+                                                success: function () { alert('Request has returned') }
+                                            });
+                                            return +val + 1;
+                                        });
+
+                                    </script>
+                                }
                             </div>
+
+                            <!-- Side Bar Start -->
+                            <!-- Side Bar End -->
                         </div>
-
-                        <div class="sidebar-widget tag">
-                            <h2 class="title">Sản phẩm tìm kiếm nhiều</h2>
-                            <a href="#">Áo thun nữ</a>
-                            <a href="#">Hoa quả</a>
-                            <a href="#">Balo</a>
-                            <a href="#">Túi xách nữ</a>
-                            <a href="#">Ví da nam</a>
-                            <a href="#">Giày Gucci</a>
-                            <a href="#">Dép quai ngang</a>
-                            <a href="#">Iphone 12 Pro Max</a>
-                            <a href="#">Macbook</a>
-                            <a href="#">Samsung Note 10</a>
-                            <a href="#">Tivi 97"</a>
-                            <a href="#">Ghế mátxa</a>
-                        </div>
-
-                        @section Upload {
-                            <script>
-                                $('#tang').click(function (event) {
-                                    event.preventDefault();
-                                    $.ajax({
-                                        url: '/Product/Tang',
-                                        type: 'POST',
-                                        data: { increment: true },
-                                        success: function () { alert('Request has returned') }
-                                    });
-                                    return +val + 1;
-                                });
-
-                            </script>
-                        }
                     </div>
-
-                    <!-- Side Bar Start -->
-                    <!-- Side Bar End -->
                 </div>
-            </div>
-        </div>
 
-    </div>
+            </div>
+        }
+        else
+        {
+            <img src="~/images/imageCartNo.png" style="width:600px;height:300px" />
+        }
+    }
+
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
