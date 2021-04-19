@@ -107,11 +107,11 @@
                 <div class="col-md-12">
                     <form class="form-horizontal" role="form" method="post" action="@Url.Action("Index", "Product")">
                         <div class="input-group" id="adv-search">
-                            <input type="text" class="form-control" name="searchName" placeholder="Nhập tìm kiếm sản phẩm theo tên..." />
+                            <input type="text" class="form-control" name="searchName" placeholder="Nhập tìm kiếm sản phẩm theo tên..." />&nbsp;
                             <div class="input-group-btn">
                                 <div class="btn-group" role="group">
 
-                                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true">Tìm kiếm</span></button>
+                                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true">Tìm kiếm</span></button>&nbsp;
                                 </div>
                             </div>
                             <div class="dropdown dropdown-lg">
@@ -120,7 +120,7 @@
 
                                     <div class="form-group">
                                         <label for="filter">Giá Sản phẩm</label>
-                         
+
                                         <ul>
                                             <li>
                                                 <a class="btn" href="@Url.Action("Index", "Product", new { gia_="0",gia="500000" })">0-500.000 </a>

@@ -121,7 +121,7 @@ author URL: http://w3layouts.com
                 <div class="col-md-12">
                     <form class="form-horizontal" role="form" method="post" action="@Url.Action("Index", "Product")">
                         <div class="input-group" id="adv-search">
-                            <input type="text" class="form-control" name="searchName" placeholder="Nhập tìm kiếm sản phẩm theo tên..." />
+                            <input type="text" class="form-control" name="searchName" placeholder="Nhập tìm kiếm sản phẩm theo tên..." />&nbsp;
                             <div class="input-group-btn">
                                 <div class="btn-group" role="group">
 
@@ -129,54 +129,54 @@ author URL: http://w3layouts.com
                                 </div>
                             </div>
                             @*<div class="dropdown dropdown-lg">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span>Lựa chọn sản phẩm theo</button>
-                                <div class="dropdown-menu " role="menu">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span>Lựa chọn sản phẩm theo</button>
+            <div class="dropdown-menu " role="menu">
 
-                                    <div class="form-group">
-                                        <label for="filter">Giá Sản phẩm</label>
+                <div class="form-group">
+                    <label for="filter">Giá Sản phẩm</label>
 
-                                        <ul>
-                                            <li>
-                                                <a class="btn" href="@Url.Action("Index", "Product", new { gia_="0",gia="500000" })">0-500.000 </a>
-                                                <a class="btn" href="@Url.Action("Index", "Product", new { gia_="500000",gia="1000000" })">500.000-1.000.000 </a>
-                                                <a class="btn" href="@Url.Action("Index", "Product", new { gia_="1000000",gia="2000000" })">1.000000-2.000.000 </a>
-                                                <a class="btn" href="@Url.Action("Index", "Product", new { gia_="2000000",gia="10000000" })">Lớn hơn 2 triệu </a>
-
-
-                                            </li>
-                                        </ul>
-
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="contain">Giá từ</label>
-                                        <input name="priceGiaMin" class="form-control" type="text" />
-                                    </div>đến
-                                    <div class="form-group">
-
-                                        <input name="priceGiaMax" class="form-control" type="text" />
-                                    </div>
-
-                                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true">Chọn</span></button>
+                    <ul>
+                        <li>
+                            <a class="btn" href="@Url.Action("Index", "Product", new { gia_="0",gia="500000" })">0-500.000 </a>
+                            <a class="btn" href="@Url.Action("Index", "Product", new { gia_="500000",gia="1000000" })">500.000-1.000.000 </a>
+                            <a class="btn" href="@Url.Action("Index", "Product", new { gia_="1000000",gia="2000000" })">1.000000-2.000.000 </a>
+                            <a class="btn" href="@Url.Action("Index", "Product", new { gia_="2000000",gia="10000000" })">Lớn hơn 2 triệu </a>
 
 
-                                    <div class="sidebar-widget tag">
-                                        <h2 class="title">Sản phẩm tìm kiếm nhiều</h2>
-                                        <a href="#">Áo thun nữ</a>
-                                        <a href="#">Hoa quả</a>
-                                        <a href="#">Balo</a>
-                                        <a href="#">Túi xách nữ</a>
-                                        <a href="#">Ví da nam</a>
-                                        <a href="#">Giày Gucci</a>
-                                        <a href="#">Dép quai ngang</a>
-                                        <a href="#">Iphone 12 Pro Max</a>
-                                        <a href="#">Macbook</a>
-                                        <a href="#">Samsung Note 10</a>
-                                        <a href="#">Tivi 97"</a>
-                                        <a href="#">Ghế mátxa</a>
-                                    </div>
+                        </li>
+                    </ul>
 
-                                </div>
-                            </div>*@
+                </div>
+                <div class="form-group">
+                    <label for="contain">Giá từ</label>
+                    <input name="priceGiaMin" class="form-control" type="text" />
+                </div>đến
+                <div class="form-group">
+
+                    <input name="priceGiaMax" class="form-control" type="text" />
+                </div>
+
+                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true">Chọn</span></button>
+
+
+                <div class="sidebar-widget tag">
+                    <h2 class="title">Sản phẩm tìm kiếm nhiều</h2>
+                    <a href="#">Áo thun nữ</a>
+                    <a href="#">Hoa quả</a>
+                    <a href="#">Balo</a>
+                    <a href="#">Túi xách nữ</a>
+                    <a href="#">Ví da nam</a>
+                    <a href="#">Giày Gucci</a>
+                    <a href="#">Dép quai ngang</a>
+                    <a href="#">Iphone 12 Pro Max</a>
+                    <a href="#">Macbook</a>
+                    <a href="#">Samsung Note 10</a>
+                    <a href="#">Tivi 97"</a>
+                    <a href="#">Ghế mátxa</a>
+                </div>
+
+            </div>
+        </div>*@
 
                         </div>
                     </form>
