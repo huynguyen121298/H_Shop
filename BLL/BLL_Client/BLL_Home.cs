@@ -69,6 +69,7 @@ namespace BLL.BLL_Client
         }
         public bool UpdateCustomer3(DTO_Users_Acc cusUpdate)
         {
+           
             EntityMapper<DTO_Users_Acc, Users_Acc> mapObj = new EntityMapper<DTO_Users_Acc, Users_Acc>();
             Users_Acc customObj = mapObj.Translate(cusUpdate);
             return customDal.UpdateCustomer3(customObj);
@@ -77,6 +78,11 @@ namespace BLL.BLL_Client
         {
             return customDal.DeleteCustomer(id);
         }
+        // public bool PasswordIsExist(string userName)
+        //{
+
+        //    return customDal.PasswordIsExist(userName);
+        //}
         #endregion
 
         #region Get by information
@@ -100,6 +106,10 @@ namespace BLL.BLL_Client
             Users_Acc custom = customDal.GetCustomerByEmail(mail);
             DTO_Users_Acc result = mapObj.Translate(custom);
             return result;
+        }
+        public string GetCustomerByPassword(string email)
+        {
+            return customDal.PasswordIsExist(email);
         }
         #endregion
         public DTO_Users_Acc LoginCustomer(string user, string pass)

@@ -202,6 +202,19 @@ namespace Web_API.Controllers
                 throw;
             }
         }
+        [Route("GetCustomerByPassword")]
+        public string GetCustomerByPassword(string email)
+        {
+            try
+            {
+                return cusBll.GetCustomerByPassword(email);
+            }
+            catch (Exception)
+            {
+                log.Error("Cannot response result.");
+                throw;
+            }
+        }
         [HttpGet]
         [Route("GetLoginResultByUsernamePassword")]
         public DTO_Users_Acc GetLoginResultByUsernamePassword(string user, string pass)

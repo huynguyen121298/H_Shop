@@ -282,6 +282,13 @@ namespace UI.Controllers
             DTO_Users_Acc result = response.Content.ReadAsAsync<DTO_Users_Acc>().Result;
             return result;
         }
+        public string GetCustomerByPassword(string email)
+        {
+            HttpResponseMessage response = serviceObj.GetResponse(url + "GetCustomerByPassword?email=" + email);
+            response.EnsureSuccessStatusCode();
+            string result = response.Content.ReadAsAsync<string>().Result;
+            return result;
+        }
         private Uri RedirectUri
         {
             get
@@ -389,17 +396,36 @@ namespace UI.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ResetPassword2(ResetPasswordModel model)
+        public ActionResult ResetPassword2(ResetPasswordModel2 model,int id, string mail)
         {
-            DTO_Users_Acc resultReset = GetCustomerByEmail(model.Mail);
-            resultReset.Password = model.NewPassword;
-            HttpResponseMessage responseUpdate = serviceObj.PutResponse(url + "UpdateCustomer3", model);
-            responseUpdate.EnsureSuccessStatusCode();
-            bool result = responseUpdate.Content.ReadAsAsync<bool>().Result;
-            if (result)
-                return RedirectToAction("ProfileUser");
-            ViewBag.Warning = "Có lỗi xảy ra trong quá trình đặt lại mật khẩu.";
-            return this.View();
+            DTO_Users_Acc resultReset = GetCustomerByEmail(mail);
+            string resultPass = GetCustomerByPassword(model.oldPassword);
+            if (resultPass != "")
+            {
+                resultReset.Password = model.NewPassword;
+                resultReset.Email = model.Mail;
+                resultReset.idUser = id;
+
+                HttpResponseMessage responseUpdate = serviceObj.PutResponse(url + "UpdateCustomer3", resultReset);
+                responseUpdate.EnsureSuccessStatusCode();
+                bool result = responseUpdate.Content.ReadAsAsync<bool>().Result;
+                if (result == true)
+                    return RedirectToAction("ProfileUser");
+                else
+                {
+                    ViewBag.Warning = "Có lỗi xảy ra trong quá trình đặt lại mật khẩu.";
+                    return this.View();
+                }
+
+
+            }
+            else
+            {
+                ViewBag.Warning = "sai pass";
+                return this.View();
+            }
+           
+            
         }
 
         public ActionResult ResetPassword(string id, string mail)

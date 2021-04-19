@@ -166,6 +166,7 @@
     <Compile Include="Models\MailHelper.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\ResetPasswordModel.cs" />
+    <Compile Include="Models\ResetPasswordModel2.cs" />
     <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security_\DeatAuthorizeAttribute.cs" />

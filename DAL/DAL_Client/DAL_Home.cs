@@ -54,6 +54,17 @@ namespace DAL.DAL_Client
                 return true;
             return false;
         }
+        public string PasswordIsExist(string email)
+        {
+            string pass = Encryptor.MD5Hash(email);
+            var account = db.Users_Acc.Where(t => t.Password == pass).SingleOrDefault();
+
+
+            if (account != null)
+                return Encryptor.MD5Hash(account.Password).ToString();
+            return "";
+            
+        }
         public bool AccountIsExist(string userName, string password)
         {
             string encryptPassword = Encryptor.MD5Hash(password);
@@ -112,8 +123,10 @@ namespace DAL.DAL_Client
             try
             {
                 var userAccount = GetCustomerByID(custom.idUser);
+                
                 if (userAccount != null)
                 {
+                    
             
                    
                     userAccount.idUser = custom.idUser;
@@ -159,20 +172,25 @@ namespace DAL.DAL_Client
         {
             try
             {
-                var userAccount = GetCustomerByPass(custom.Password);
-                if (userAccount != null)
+                var userAccount = GetCustomerByID(custom.idUser);
+              
+                if (userAccount!=null)
                 {
-
-
                     userAccount.idUser = custom.idUser;
                     userAccount.Password = Encryptor.MD5Hash(custom.Password);
-                    userAccount.LastName = custom.LastName;
-                    userAccount.FirstName = custom.FirstName;
-                    userAccount.Email = custom.Email;
+                    
 
                     db.SaveChanges();
+                    return true;
                 }
-                return true;
+                return false;
+
+
+
+
+
+
+
             }
             catch (Exception)
             {
