@@ -68,47 +68,15 @@ author URL: http://w3layouts.com
                             <span class="fa fa-stumbleupon" aria-hidden="true"></span>
                         </a>
                     </h1>
-                    <div class="social social-invisible mt-3">
-                        <ul>
-                            <li class="mr-sm-3 mr-2 icons">
-                                <a href="#"><span class="fa fa-facebook" aria-hidden="true"></span></a>
-                            </li>
-                            <li class="mr-sm-3 mr-2 icons">
-                                <a href="#"><span class="fa fa-instagram" aria-hidden="true"></span></a>
-                            </li>
-                            <li class="mr-sm-3 mr-2 icons"><a href="#"><span class="fa fa-twitter" aria-hidden="true"></span></a></li>
 
-
-
-
-                        </ul>
-
-                    </div>
-                    <div class="social social-invisible mt-3">
-                        <ul>
-                            <li class="mr-sm-3 mr-2 icons">
-                                <a href="#"><span class="fa fa-facebook" aria-hidden="true"></span></a>
-                            </li>
-                            <li class="mr-sm-3 mr-2 icons">
-                                <a href="#"><span class="fa fa-instagram" aria-hidden="true"></span></a>
-                            </li>
-                            <li class="mr-sm-3 mr-2 icons"><a href="#"><span class="fa fa-twitter" aria-hidden="true"></span></a></li>
-
-                            <li class="icons"><a href="#"><span class="fa fa-pinterest" aria-hidden="true"></span></a></li>
-
-
-
-                        </ul>
-
-                    </div>
                 </div>
                 <div class="nav_w3ls mt-3">
                     <nav>
                         <label for="drop" class="toggle mt-lg-0 mt-1"><span class="fa fa-bars" aria-hidden="true"> </span></label>
                         <input type="checkbox" id="drop" />
                         <ul class="menu">
-                            <li class="mr-lg-3 mr-2 active"><a href="~/Home/Index">Trang Chủ</a></li>
-                            <li class="mr-lg-3 mr-2"><a href="#about1">Giới thiệu </a></li>
+                            @*<li class="mr-lg-3 mr-2 active"><a href="~/Home/Index">Trang Chủ</a></li>*@
+                            <li class="mr-lg-3 mr-2"><a href="~/Home/Index">Giới thiệu </a></li>
                             <li class="mr-lg-3 mr-2 p-0">
 
 
@@ -133,12 +101,75 @@ author URL: http://w3layouts.com
 
                             <li class="mr-lg-3 mr-2"><a href="#gallery">Bộ sưu tập</a></li>
                             <li class="mr-lg-3 mr-2"><a href="#contact">Kết nối vs chúng tôi</a></li>
+
+
+
+
+                        </ul>
+                    </nav>
+                </div>
+                <div class="social mt-3 ml-auto">
+                    <!--<ul class="menu">-->
+                    <!--</ul>-->
+                    <nav>
+
+                        <ul class="menu">
+
+
+
+
+
+
+                            <li><a href="~/Cart/Index">Giỏ hàng <span style="color:red" id="total-product" class="fa fa-shopping-cart" aria-hidden="true">  @Html.Action("BagCart", "Product")/</span></a></li>
+
+                            <li class="mr-3 icons">
+                                <a href="~/Cart/YeuThich">
+                                    Yêu thích
+                                    <i class="fa fa-heart"></i>
+                                </a>
+                                <span style="color:red" id="sttbuy">@Html.Action("BagCart_", "Product")</span>
+
+                            </li>
+
+
+
+
+                        </ul>
+
+                    </nav>
+
+
+
+                </div>
+                <div class="social mt-3 ml-auto">
+                    <!--<ul class="menu">-->
+                    <!--</ul>-->
+                    <nav>
+                        <label for="drop" class="toggle mt-lg-0 mt-1"><span class="fa fa-bars" aria-hidden="true"> </span></label>
+                        <input type="checkbox" id="drop" />
+                        <ul class="menu">
+
+
+
                             <li class="mr-lg-3 mr-2 p-0" id="huy">
                                 <a href="#">Tài Khoản <span class="fa fa-angle-down" aria-hidden="true"></span></a>
                                 <ul class="inner-dropdown">
 
-                                    <li><a href="~/Customer/Login">Đăng nhập</a></li>
-                                    <li><a href="~/Customer/Signup">Đăng ký</a></li>
+                                    <li>
+                                        <a href="~/Customer/Login" class="btn btn-google btn-user btn-block"><i class="fa fa-share-square" aria-hidden="true"></i>  Đăng nhập</a>
+                                        <a href="~/Customer/LoginFacebook" class="btn btn-facebook btn-user btn-block">
+                                            <i class="fab fa-facebook-f fa-fw"></i>Login facebook
+                                        </a>
+                                    </li>
+
+
+
+
+                                    <li>
+                                        <a href="~/Customer/Signup" class="btn btn-success btn-user btn-block"><i class="fa fa-ruble-sign" aria-hidden="true"></i>Đăng ký</a>
+
+                                    </li>
+
                                 </ul>
 
 
@@ -154,63 +185,30 @@ author URL: http://w3layouts.com
 
 
 
+
                                     </script>
                                     <p class="fa fa-angle-down" style="color:cadetblue">
                                         Xin chào: @Request.Cookies["firstname"].Value
                                     </p>
                                 }
                                 <ul class="inner-dropdown  ">
-                                    <li><a href="#">Trang cá nhân</a></li>
+                                    <li><a href="~/Customer/ProfileUser">Trang cá nhân</a></li>
                                     <li><a href="#">Cài đặt</a></li>
-                                    <li>@Html.ActionLink("Thoát", "Logout", "Home") </li>
+                                    <li>@Html.ActionLink("Thoát", "Logout", "Customer") </li>
                                 </ul>
                             </li>
-                            @*<li class="mr-lg-3 mr-2">
-                                    <input type="button" id="btn1" value="Ẩn" />
-                                    <input type="button" id="btn2" value="Hiển Thị" />
-                                    <script language="javascript">
 
-                                        document.getElementById("btn1").onclick = function () {
-                                            document.getElementById("huy").style.display = 'none';
-                                        };
 
-                                        document.getElementById("btn2").onclick = function () {
-                                            document.getElementById("huy").style.display = 'block';
-                                        };
 
-                                    </script>
-                                </li>*@
 
                         </ul>
+
                     </nav>
-                </div>
-                <div class="social mt-3 ml-auto">
-                    <ul class="menu">
-                        <li class="mr-3 icons"><a href="#"><span class="fa fa-facebook" aria-hidden="true"></span></a></li>
-                        <li class="mr-3 icons"><a href="#"><span class="fa fa-instagram" aria-hidden="true"></span></a></li>
-                        <li class="mr-3 icons"><a href="#"><span class="fa fa-twitter" aria-hidden="true"></span></a></li>
 
 
-                        <li class="mr-3 icons">
-                            <a href="~/Cart/YeuThich" class="btn wishlist">
-                                <i class="fa fa-heart"></i>
-
-                            </a>
-                            @*<button value="3" id="sttbuy"></button>*@
-                            <span style="color:red" id="sttbuy">(@Html.Action("BagCart_", "Product"))</span>
-                            @*<input type="number" id="sttbuy" value="0" />*@
-                            @*<span id="sttbuy"  style="color:red"></span>*@
-
-                            @*<input type="number" min="0" name="sttbuy" id="sttbuy" value=" 0 ">*@
-                        </li>
-                        <li><a href="~/Cart/Index">Giỏ hàng <span style="color:red" id="total-product" class="fa fa-shopping-cart" aria-hidden="true">  (@Html.Action("BagCart", "Product"))</span> sản phẩm</a></li>
-                        @*<li><a href="~/Cart/Index">Giỏ hàng <span id="total-product" class="fa fa-shopping-cart" aria-hidden="true"> 0 </span>sản phẩm</a></li>*@
-
-
-
-                    </ul>
 
                 </div>
+
 
             </div>
 

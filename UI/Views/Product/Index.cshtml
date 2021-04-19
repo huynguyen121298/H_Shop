@@ -100,12 +100,12 @@
         <div class="container-fluid">
             <div class="row">
                 <p>@ViewData["MessQuantity"]</p>
-                <div class="col-lg-8">
+                <div class="col-lg-12">
                     <div class="row">
                         @foreach (DTO_Product_Client item in Model)
                         {
 
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 @*<div class="product-title">
                             @Html.DisplayNameFor(model => model.Item.Id_SanPham)
                         </div>*@
@@ -167,21 +167,6 @@
 
 
 
-                    <div class="sidebar-widget tag">
-                        <h2 class="title">Sản phẩm tìm kiếm nhiều</h2>
-                        <a href="#">Áo thun nữ</a>
-                        <a href="#">Hoa quả</a>
-                        <a href="#">Balo</a>
-                        <a href="#">Túi xách nữ</a>
-                        <a href="#">Ví da nam</a>
-                        <a href="#">Giày Gucci</a>
-                        <a href="#">Dép quai ngang</a>
-                        <a href="#">Iphone 12 Pro Max</a>
-                        <a href="#">Macbook</a>
-                        <a href="#">Samsung Note 10</a>
-                        <a href="#">Tivi 97"</a>
-                        <a href="#">Ghế mátxa</a>
-                    </div>
                     <!--<div id="showThongBao" class="modal" tabindex="-1" role="dialog">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">

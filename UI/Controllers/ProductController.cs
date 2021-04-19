@@ -33,6 +33,13 @@ namespace UI.Controllers
             var searchPrice = Request.Form["searchPrice"];
             var priceGiaMin = Request.Form["priceGiaMin"];
             var priceGiaMax = Request.Form["priceGiaMax"];
+            var max500 = Request.Form["max500"];
+            var max1tr = Request.Form["max1tr"];
+            var max2tr = Request.Form["max2tr"];
+            var max = Request.Form["max"];
+
+
+
 
             if (page == null) page = 1;
             int pageSize = 10;
@@ -50,32 +57,27 @@ namespace UI.Controllers
 
             }
           
-            if (searchPrice !=null && searchPrice !="" && searchPrice!="0")
-            {
-                if (searchPrice == "1")
-                {
-                    gia_ = 0; gia = 500000;
-                }
-                if (searchPrice == "2")
-                {
-                    gia_ = 500000; gia = 1000000;
-                }
-                if (searchPrice == "3")
-                {
-                    gia_ = 1000000; gia = 2000000;
-                }
-                if (searchPrice == "4")
-                {
-                    gia_ = 2000000; gia = 1000000000;
-                }
+            //if (searchPrice !=null && searchPrice !="" && searchPrice!="0")
+            //{
+            //    //if (max500 )
+            //    //{
+            //    //    gia_ = 0; gia = 500000;
+            //    //}
+            //    if (searchPrice == "2")
+            //    {
+            //        gia_ = 500000; gia = 1000000;
+            //    }
+            //    if (searchPrice == "3")
+            //    {
+            //        gia_ = 1000000; gia = 2000000;
+            //    }
+            //    if (searchPrice == "4")
+            //    {
+            //        gia_ = 2000000; gia = 1000000000;
+            //    }
 
-                HttpResponseMessage responseMessage2 = service.GetResponse("api/product/GetAllProductByPrice/"+ gia_ +"/"+ gia);
-                responseMessage2.EnsureSuccessStatusCode();
 
-                List<DTO_Product_Client> dTO_Accounts2 = responseMessage2.Content.ReadAsAsync<List<DTO_Product_Client>>().Result;
-                return View(dTO_Accounts2.ToPagedList(pageNumber, pageSize));
-
-            }
+            //}
            
             if(priceGiaMin!=null && priceGiaMax!=null && priceGiaMin!="" && priceGiaMax != "")
             {
@@ -85,14 +87,56 @@ namespace UI.Controllers
                 List<DTO_Product_Client> dTO_Accounts2 = responseMessage2.Content.ReadAsAsync<List<DTO_Product_Client>>().Result;
                 return View(dTO_Accounts2.ToPagedList(pageNumber, pageSize));
             }
+            try
+            {
+
+                HttpResponseMessage responseMessage2 = service.GetResponse("api/product/GetAllProductByPrice/" + gia_ + "/" + gia);
+                responseMessage2.EnsureSuccessStatusCode();
+
+                List<DTO_Product_Client> dTO_Accounts2 = responseMessage2.Content.ReadAsAsync<List<DTO_Product_Client>>().Result;
+                return View(dTO_Accounts2.ToPagedList(pageNumber, pageSize));
+            }
+            catch
+            {
+                HttpResponseMessage responseMessage = service.GetResponse("api/product/GetAllProducts");
+                responseMessage.EnsureSuccessStatusCode();
+                List<DTO_Product_Client> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Product_Client>>().Result;
+                return View(dTO_Accounts.ToPagedList(pageNumber, pageSize));
+
+            }
+
+
+
+
+        }
+        public ActionResult Search(  int? page, int? gia, int? gia_)
+        {
+
+        
+
+
+
+            if (page == null) page = 1;
+            int pageSize = 10;
+
+            int pageNumber = (page ?? 1);
+
           
-            HttpResponseMessage responseMessage = service.GetResponse("api/product/GetAllProducts");
-            responseMessage.EnsureSuccessStatusCode();
-            List<DTO_Product_Client> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Product_Client>>().Result;
-            return View(dTO_Accounts.ToPagedList(pageNumber, pageSize));
+
+          
+         
+                HttpResponseMessage responseMessage2 = service.GetResponse("api/product/GetAllProductByPrice/" + gia_ + "/" + gia);
+                responseMessage2.EnsureSuccessStatusCode();
+
+                List<DTO_Product_Client> dTO_Accounts2 = responseMessage2.Content.ReadAsAsync<List<DTO_Product_Client>>().Result;
+                return View(dTO_Accounts2.ToPagedList(pageNumber, pageSize));
+
+            
+
+          
+           
 
 
-       
         }
         public ActionResult Index2(int id, string seachBy, string search, int? page, int? gia, int? gia_)
         {
