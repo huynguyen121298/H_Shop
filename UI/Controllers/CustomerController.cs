@@ -421,7 +421,7 @@ namespace UI.Controllers
             }
             else
             {
-                ViewBag.Warning = "sai pass";
+                ViewBag.Warning = "Mật khẩu cũ nhập không đúng";
                 return this.View();
             }
            

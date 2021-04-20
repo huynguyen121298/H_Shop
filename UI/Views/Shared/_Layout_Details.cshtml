@@ -83,7 +83,8 @@ author URL: http://w3layouts.com
                                 <a href="#">Sản phẩm <span class="fa fa-angle-down" aria-hidden="true"></span></a>
                                 <input type="checkbox" id="drop-2" />
                                 <ul class="inner-dropdown  ">
-                                    <li><a href=" ~/Product/TypeProduct"> Tất cả sản phẩm</a></li>
+                                    <li><a href=" ~/Product/TypeProduct">Tất cả theo phân loại</a></li>
+                                    <li><a href=" ~/Product/Index">Tất cả sản phẩm</a></li>
                                     <li><a href="@Url.Action("Index2", "Product", new { id = 8 })"> Thời trang nam</a></li>
 
                                     <li><a href=" @Url.Action("Index2", "Product", new { id = 9 })"> Thời trang nữ</a></li>
@@ -151,13 +152,13 @@ author URL: http://w3layouts.com
 
 
 
-                            <li class="mr-lg-3 mr-2 p-0" id="huy">
+                            <li  class="mr-lg-3 mr-2 p-0" id="huy">
                                 <a href="#">Tài Khoản <span class="fa fa-angle-down" aria-hidden="true"></span></a>
-                                <ul class="inner-dropdown">
+                                <ul style="background: rgba(76, 175, 80, 0.3)" class="inner-dropdown">
 
                                     <li>
-                                        <a href="~/Customer/Login" class="btn btn-google btn-user btn-block"><i class="fa fa-share-square" aria-hidden="true"></i>  Đăng nhập</a>
-                                        <a href="~/Customer/LoginFacebook" class="btn btn-facebook btn-user btn-block">
+                                        <a style="background-color:red" href="~/Customer/Login" class="btn btn-google btn-user btn-block"><i class="fa fa-share-square" aria-hidden="true"></i>  Đăng nhập</a>
+                                        <a style="background-color:dodgerblue" href="~/Customer/LoginFacebook" class="btn btn-facebook btn-user btn-block">
                                             <i class="fab fa-facebook-f fa-fw"></i>Login facebook
                                         </a>
                                     </li>
@@ -166,7 +167,7 @@ author URL: http://w3layouts.com
 
 
                                     <li>
-                                        <a href="~/Customer/Signup" class="btn btn-success btn-user btn-block"><i class="fa fa-ruble-sign" aria-hidden="true"></i>Đăng ký</a>
+                                        <a style="background-color:forestgreen" href="~/Customer/Signup" class="btn btn-success btn-user btn-block"><i class="fa fa-ruble-sign" aria-hidden="true"></i>Đăng ký</a>
 
                                     </li>
 
@@ -174,7 +175,7 @@ author URL: http://w3layouts.com
 
 
                             </li>
-                            <li class="mr-lg-3 mr-2 p-0">
+                            <li  class="mr-lg-3 mr-2 p-0">
                                 @if (Request.Cookies["firstname"] != null)
                                 {
                                     <script>
@@ -191,11 +192,15 @@ author URL: http://w3layouts.com
                                         Xin chào: @Request.Cookies["firstname"].Value
                                     </p>
                                 }
-                                <ul class="inner-dropdown  ">
-                                    <li><a href="~/Customer/ProfileUser">Trang cá nhân</a></li>
-                                    <li><a href="#">Cài đặt</a></li>
-                                    <li>@Html.ActionLink("Thoát", "Logout", "Customer") </li>
-                                </ul>
+                            <ul  style="background: rgba(76, 175, 80, 0.5)" class="inner-dropdown  ">
+                                <li><a class="btn btn-facebook btn-user btn-block" style="background-color:dodgerblue" href="~/Customer/ProfileUser">Trang cá nhân</a></li>
+
+                                <li><a class="btn btn-success btn-user btn-block" style="background-color:forestgreen" href="#">Cài đặt</a></li>
+                                <li>
+
+                                    <a class="btn btn-google btn-user btn-block " style="background-color:red" href="@Url.Action("Logout","Customer")"> Thoát </a>
+                                </li>
+                            </ul>
                             </li>
 
 

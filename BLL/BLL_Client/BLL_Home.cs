@@ -8,6 +8,7 @@ using DAL.DAL_Client;
 using DAL.EF;
 using Model;
 using Model.DTO.DTO_Client;
+using Model.DTO.DTO_Ad;
 
 namespace BLL.BLL_Client
 {
@@ -25,6 +26,17 @@ namespace BLL.BLL_Client
                 customers.Add(mapObj.Translate(item));
             }
             return (List<DTO_Users_Acc>)customers;
+        }
+        public List<DTO_Item_Type> GetAllItemType()
+        {
+            EntityMapper<Item_Type, DTO_Item_Type> mapObj = new EntityMapper<Item_Type, DTO_Item_Type>();
+            List<Item_Type> customList = customDal.GetAllItemType();
+            List<DTO_Item_Type> customers = new List<DTO_Item_Type>();
+            foreach (var item in customList)
+            {
+                customers.Add(mapObj.Translate(item));
+            }
+            return customers;
         }
         public List<DTO_Feedback> GetAllFeedbacks()
         {

@@ -1,4 +1,5 @@
 ﻿using log4net;
+using Model.DTO.DTO_Ad;
 using Model.DTO.DTO_Client;
 using System;
 using System.Collections.Generic;
@@ -16,12 +17,26 @@ namespace UI.Controllers
 {
     public class HomeController : Controller
     {
-        
+        ServiceRepository service = new ServiceRepository();
+
         //private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public string userName;
         public ActionResult Index()
         {
-            return View();
+            HttpResponseMessage responseUser = service.GetResponse("api/Home/GetAllItemType" );
+
+            responseUser.EnsureSuccessStatusCode();
+            List<DTO_Item_Type> result = responseUser.Content.ReadAsAsync<List<DTO_Item_Type>>().Result;
+            //List<DTO_Item_Type> dTO_Item_Types = new List<DTO_Item_Type>();
+            //DTO_Item_Type dTO_Item_Type = new DTO_Item_Type() { Id_Item = 1, Type_Product = "Type 001" };
+            //DTO_Item_Type dTO_Item_Type2 = new DTO_Item_Type() { Id_Item = 2, Type_Product = "Type 002" };
+            //DTO_Item_Type dTO_Item_Type3 = new DTO_Item_Type() { Id_Item = 3, Type_Product = "Type 003" };
+            //DTO_Item_Type dTO_Item_Type4 = new DTO_Item_Type() { Id_Item = 4, Type_Product = "Type 004" };
+            //dTO_Item_Types.Add(dTO_Item_Type);
+            //dTO_Item_Types.Add(dTO_Item_Type2);
+            //dTO_Item_Types.Add(dTO_Item_Type3);
+            //dTO_Item_Types.Add(dTO_Item_Type4);
+            return View(result);
         }
 
         

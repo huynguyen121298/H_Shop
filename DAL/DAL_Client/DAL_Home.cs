@@ -20,6 +20,10 @@ namespace DAL.DAL_Client
         {
             return db.Users_Acc.ToList();
         }
+        public List<Item_Type> GetAllItemType()
+        {
+            return db.Item_Type.ToList();
+        }
         public List<Feedback> GetAllFeedbacks()
         {
             //bool item = db.Items.Select(t => t.Id_SanPham == 11).SingleOrDefault();

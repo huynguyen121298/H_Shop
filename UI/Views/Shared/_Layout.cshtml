@@ -1,7 +1,8 @@
 ﻿@*@using PagedList.Mvc;
     @model PagedList.IPagedList<Model.DTO.DTO_Client.DTO_Product_Client>*@
-
+@model IEnumerable<Model.DTO.DTO_Ad.DTO_Item_Type>
 @using Model.DTO.DTO_Client;
+@using Model.DTO.DTO_Ad;
 <!--
 author: W3layouts
 author URL: http://w3layouts.com
@@ -129,54 +130,54 @@ author URL: http://w3layouts.com
                                 </div>
                             </div>
                             @*<div class="dropdown dropdown-lg">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span>Lựa chọn sản phẩm theo</button>
-            <div class="dropdown-menu " role="menu">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span>Lựa chọn sản phẩm theo</button>
+                                    <div class="dropdown-menu " role="menu">
 
-                <div class="form-group">
-                    <label for="filter">Giá Sản phẩm</label>
+                                        <div class="form-group">
+                                            <label for="filter">Giá Sản phẩm</label>
 
-                    <ul>
-                        <li>
-                            <a class="btn" href="@Url.Action("Index", "Product", new { gia_="0",gia="500000" })">0-500.000 </a>
-                            <a class="btn" href="@Url.Action("Index", "Product", new { gia_="500000",gia="1000000" })">500.000-1.000.000 </a>
-                            <a class="btn" href="@Url.Action("Index", "Product", new { gia_="1000000",gia="2000000" })">1.000000-2.000.000 </a>
-                            <a class="btn" href="@Url.Action("Index", "Product", new { gia_="2000000",gia="10000000" })">Lớn hơn 2 triệu </a>
-
-
-                        </li>
-                    </ul>
-
-                </div>
-                <div class="form-group">
-                    <label for="contain">Giá từ</label>
-                    <input name="priceGiaMin" class="form-control" type="text" />
-                </div>đến
-                <div class="form-group">
-
-                    <input name="priceGiaMax" class="form-control" type="text" />
-                </div>
-
-                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true">Chọn</span></button>
+                                            <ul>
+                                                <li>
+                                                    <a class="btn" href="@Url.Action("Index", "Product", new { gia_="0",gia="500000" })">0-500.000 </a>
+                                                    <a class="btn" href="@Url.Action("Index", "Product", new { gia_="500000",gia="1000000" })">500.000-1.000.000 </a>
+                                                    <a class="btn" href="@Url.Action("Index", "Product", new { gia_="1000000",gia="2000000" })">1.000000-2.000.000 </a>
+                                                    <a class="btn" href="@Url.Action("Index", "Product", new { gia_="2000000",gia="10000000" })">Lớn hơn 2 triệu </a>
 
 
-                <div class="sidebar-widget tag">
-                    <h2 class="title">Sản phẩm tìm kiếm nhiều</h2>
-                    <a href="#">Áo thun nữ</a>
-                    <a href="#">Hoa quả</a>
-                    <a href="#">Balo</a>
-                    <a href="#">Túi xách nữ</a>
-                    <a href="#">Ví da nam</a>
-                    <a href="#">Giày Gucci</a>
-                    <a href="#">Dép quai ngang</a>
-                    <a href="#">Iphone 12 Pro Max</a>
-                    <a href="#">Macbook</a>
-                    <a href="#">Samsung Note 10</a>
-                    <a href="#">Tivi 97"</a>
-                    <a href="#">Ghế mátxa</a>
-                </div>
+                                                </li>
+                                            </ul>
 
-            </div>
-        </div>*@
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="contain">Giá từ</label>
+                                            <input name="priceGiaMin" class="form-control" type="text" />
+                                        </div>đến
+                                        <div class="form-group">
+
+                                            <input name="priceGiaMax" class="form-control" type="text" />
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true">Chọn</span></button>
+
+
+                                        <div class="sidebar-widget tag">
+                                            <h2 class="title">Sản phẩm tìm kiếm nhiều</h2>
+                                            <a href="#">Áo thun nữ</a>
+                                            <a href="#">Hoa quả</a>
+                                            <a href="#">Balo</a>
+                                            <a href="#">Túi xách nữ</a>
+                                            <a href="#">Ví da nam</a>
+                                            <a href="#">Giày Gucci</a>
+                                            <a href="#">Dép quai ngang</a>
+                                            <a href="#">Iphone 12 Pro Max</a>
+                                            <a href="#">Macbook</a>
+                                            <a href="#">Samsung Note 10</a>
+                                            <a href="#">Tivi 97"</a>
+                                            <a href="#">Ghế mátxa</a>
+                                        </div>
+
+                                    </div>
+                                </div>*@
 
                         </div>
                     </form>
@@ -210,8 +211,9 @@ author URL: http://w3layouts.com
                                 <a href="#">Sản phẩm <span class="fa fa-angle-down" aria-hidden="true"></span></a>
                                 <input type="checkbox" id="drop-2" />
                                 <ul class="inner-dropdown  ">
-                                    <li><a href=" ~/Product/TypeProduct"> Tất cả sản phẩm</a></li>
-                                    <li><a href="@Url.Action("Index2", "Product", new { id = 8 })"> Thời trang nam</a></li>
+                                    <li><a href=" ~/Product/TypeProduct">Tất cả theo phân loại</a></li>
+                                    <li><a href=" ~/Product/Index">Tất cả sản phẩm</a></li>
+                                     <li><a href="@Url.Action("Index2", "Product", new { id = 8 })"> Thời trang nam</a></li>
 
                                     <li><a href=" @Url.Action("Index2", "Product", new { id = 9 })"> Thời trang nữ</a></li>
                                     <li><a href=" @Url.Action("Index2", "Product", new { id = 3 })">Máy tính và Laptop</a></li>
@@ -221,6 +223,23 @@ author URL: http://w3layouts.com
                                     <li><a href=" @Url.Action("Index2", "Product", new { id = 6 })">Thể thao và du lịch</a></li>
                                     <li><a href=" @Url.Action("Index2", "Product", new { id = 4 })"> Mẹ và bé</a></li>
                                     <li><a href=" @Url.Action("Index2", "Product", new { id = 5 })">Sức khỏe và sắc đẹp</a></li>
+
+                                    
+                                    @*@foreach (DTO_Item_Type item in Model)
+                                    {
+
+
+
+
+
+
+                                       <li><a href="@Url.Action("Index2", "Product", new { id =item.Id_Item }) "><p style="color:black">@item.Type_Product</p> </a></li> 
+
+
+
+
+
+                                    }*@
 
 
                                 </ul>
@@ -240,7 +259,7 @@ author URL: http://w3layouts.com
                     <!--</ul>-->
                     <nav>
 
-                        <ul class="menu">
+                        <ul  class="menu">
 
 
 
@@ -274,13 +293,13 @@ author URL: http://w3layouts.com
                     <nav>
                         <label for="drop" class="toggle mt-lg-0 mt-1"><span class="fa fa-bars" aria-hidden="true"> </span></label>
                         <input type="checkbox" id="drop" />
-                        <ul class="menu">
+                        <ul  class="menu">
 
 
 
-                            <li class="mr-lg-3 mr-2 p-0" id="huy">
+                            <li  class="mr-lg-3 mr-2 p-0" id="huy">
                                 <a href="#">Tài Khoản <span class="fa fa-angle-down" aria-hidden="true"></span></a>
-                                <ul class="inner-dropdown">
+                                <ul style="background: rgba(76, 175, 80, 0.3)" class="inner-dropdown">
 
                                     <li>
                                         <a href="~/Customer/Login" class="btn btn-google btn-user btn-block"><i class="fa fa-share-square" aria-hidden="true"></i>  Đăng nhập</a>
@@ -314,14 +333,18 @@ author URL: http://w3layouts.com
 
 
                                     </script>
-                                    <p class="fa fa-angle-down" style="color:cadetblue">
+                                    <p class="fa fa-angle-down" style="color:white">
                                         Xin chào: @Request.Cookies["firstname"].Value
                                     </p>
                                 }
-                                <ul class="inner-dropdown  ">
-                                    <li><a href="~/Customer/ProfileUser">Trang cá nhân</a></li>
-                                    <li><a href="#">Cài đặt</a></li>
-                                    <li>@Html.ActionLink("Thoát", "Logout", "Customer") </li>
+                                <ul  style="background: rgba(76, 175, 80, 0.5)" class="inner-dropdown  ">
+                                    <li><a class="btn btn-facebook btn-user btn-block" href="~/Customer/ProfileUser">Trang cá nhân</a></li>
+
+                                    <li><a class="btn btn-success btn-user btn-block" href="#">Cài đặt</a></li>
+                                    <li>
+
+                                        <a class="btn btn-google btn-user btn-block " href="@Url.Action("Logout","Customer")"> Thoát </a>
+                                    </li>
                                 </ul>
                             </li>
 
