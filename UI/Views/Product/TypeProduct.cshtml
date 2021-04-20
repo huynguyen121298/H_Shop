@@ -39,55 +39,61 @@
                     <div class="row">
                         @foreach (List<DTO_Product> item1 in @Model)
                         {
+                            <div style="height:102px" class="product-title">
+                                may lanh
+                               
+                            </div>
+                            <br />
                             List<DTO_Product> dTO_Products1 = new List<DTO_Product>();
                             foreach (DTO_Product item in item1)
                             {
-                            <div class="col-md-2">
-                                @*<div class="product-title">
-                                        @Html.DisplayNameFor(model => model.Item.Id_SanPham)
-                                    </div>*@
-                                <div class="product-item">
-                                    <div style="height:102px" class="product-title">
-                                        <span style="color:darkgoldenrod">@Html.DisplayFor(modelItem => item.Name)</span>
-                                        <div class="ratting">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
+                                <div class="col-md-2">
+                                    @*<div class="product-title">
+                        @Html.DisplayNameFor(model => model.Item.Id_SanPham)
+                    </div>*@
+                                    <div class="product-item">
+                                        <div style="height:102px" class="product-title">
+                                            <span style="color:darkgoldenrod">@Html.DisplayFor(modelItem => item.Name)</span>
+                                            <div class="ratting">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </div>
                                         </div>
-                                    </div>
 
 
 
-                                    <div class="product-image">
-                                        <a href="product-detail.html">
-                                            <img style="height:250px" src="@Url.Content(item.Photo)" />
-                                        </a>
-                                        <div class="product-action">
-                                            @*<a href=" @Url.Action("Buy_Favorite", "Product", new { id = item.Id_SanPham })" onclick="Buy()"><i class="fa fa-cart-plus"></i></a>*@
-                                            <a class="btn" onclick="Buy_Cart(@item.Id_SanPham)"><i class="fa fa-cart-plus"></i></a>
-                                            @*<a href=" @Url.Action("Details_", "Cart", new { id = item.Id_SanPham })"><i class="fa fa-heart"></i></a>*@
-                                            <a class="btn" onclick="Buy_Favorite(@item.Id_SanPham)"><i class="fa fa-heart"></i></a>
-                                            <a class="btn" href=" @Url.Action("Details1", "Product", new { id = item.Id_SanPham })">
-                                                <i class="fa fa-search"></i>
+                                        <div class="product-image">
+                                            <a href="product-detail.html">
+                                                <img style="height:250px" src="@Url.Content(item.Photo)" />
                                             </a>
+                                            <div class="product-action">
+                                                @*<a href=" @Url.Action("Buy_Favorite", "Product", new { id = item.Id_SanPham })" onclick="Buy()"><i class="fa fa-cart-plus"></i></a>*@
+                                                <a class="btn" onclick="Buy_Cart(@item.Id_SanPham)"><i class="fa fa-cart-plus"></i></a>
+                                                @*<a href=" @Url.Action("Details_", "Cart", new { id = item.Id_SanPham })"><i class="fa fa-heart"></i></a>*@
+                                                <a class="btn" onclick="Buy_Favorite(@item.Id_SanPham)"><i class="fa fa-heart"></i></a>
+                                                <a class="btn" href=" @Url.Action("Details1", "Product", new { id = item.Id_SanPham })">
+                                                    <i class="fa fa-search"></i>
+                                                </a>
+
+                                            </div>
+                                        </div>
+                                        <div style="height:106px" class="product-price">
+                                            <h3>@string.Format("{0:0,0}", item.Price)<span> VNĐ </span></h3>
+
+
+                                            <a onclick="AddCart()" class="btn" href=" @Url.Action("Buy", "Product", new { id = item.Id_SanPham })"><i class="fa fa-shopping-cart"></i>Mua hàng</a>
+                                            @*<a id="btn_mua" onclick="AddCart()" class="btn" href=" @Url.Action("Details", "Cart", new { id = item.Id_SanPham })"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>*@
+
+
 
                                         </div>
-                                    </div>
-                                    <div style="height:106px" class="product-price">
-                                        <h3>@string.Format("{0:0,0}", item.Price)<span> VNĐ </span></h3>
-
-                                  
-                                        <a onclick="AddCart()" class="btn" href=" @Url.Action("Buy", "Product", new { id = item.Id_SanPham })"><i class="fa fa-shopping-cart"></i>Mua hàng</a>
-                                        @*<a id="btn_mua" onclick="AddCart()" class="btn" href=" @Url.Action("Details", "Cart", new { id = item.Id_SanPham })"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>*@
-
-
 
                                     </div>
-
                                 </div>
-                            </div>
+                                <br />
                             }
                         }
 
