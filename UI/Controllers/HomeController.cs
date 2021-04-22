@@ -1,4 +1,4 @@
-﻿using log4net;
+using log4net;
 using Model.DTO.DTO_Ad;
 using Model.DTO.DTO_Client;
 using System;
@@ -55,6 +55,7 @@ namespace UI.Controllers
                 ServiceRepository serviceObj = new ServiceRepository();
                 HttpResponseMessage response = serviceObj.PostResponse("api/Feedback/Create/",fb);
                 response.EnsureSuccessStatusCode();
+                ViewData["ErrorMessageFeedback"]=("Gửi phản hồi thành công");
                 return View("Index");
             }
             catch
@@ -79,7 +80,57 @@ namespace UI.Controllers
                 ServiceRepository serviceObj = new ServiceRepository();
                 HttpResponseMessage response = serviceObj.PostResponse("api/Feedback/Create/", fb);
                 response.EnsureSuccessStatusCode();
+                ViewData["ErrorMessageFeedback"]=("Gửi phản hồi thành công");
                 return View("~/Product/Details");
+            }
+            catch
+            {
+                return View("~/Views/Shared/Error_");
+            }
+
+
+        }
+        [HttpPost]
+        public ActionResult saveFeedbacksYeuThich(FormCollection fc, DTO_Feedback fb)
+        {
+
+            try
+            {
+
+                fb.Name = fc["Name"];
+                fb.Email = fc["Email"];
+                fb.Details = fc["details"];
+                fb.SDT = (fc["SDT"]);
+                fb.Content = fc["content"];
+                ServiceRepository serviceObj = new ServiceRepository();
+                HttpResponseMessage response = serviceObj.PostResponse("api/Feedback/Create/", fb);
+                response.EnsureSuccessStatusCode();
+                ViewData["ErrorMessage"]=("Gửi phản hồi thành công");
+                return View("~/Cart/YeuThich");
+            }
+            catch
+            {
+                return View("~/Views/Shared/Error_");
+            }
+
+
+        }
+        public ActionResult saveFeedbacksLuaChon(FormCollection fc, DTO_Feedback fb)
+        {
+
+            try
+            {
+
+                fb.Name = fc["Name"];
+                fb.Email = fc["Email"];
+                fb.Details = fc["details"];
+                fb.SDT = (fc["SDT"]);
+                fb.Content = fc["content"];
+                ServiceRepository serviceObj = new ServiceRepository();
+                HttpResponseMessage response = serviceObj.PostResponse("api/Feedback/Create/", fb);
+                response.EnsureSuccessStatusCode();
+                ViewData["ErrorMessage"]=("Gửi phản hồi thành công");
+                return View("~/Cart/Luachon");
             }
             catch
             {
