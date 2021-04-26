@@ -2543,6 +2543,8 @@
     <Content Include="Areas\Admin\Views\Shared\View_2.cshtml" />
     <Content Include="Areas\Admin\Views\Checkout_Customer\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\GetAllFeedbacks.cshtml" />
+    <Content Include="Areas\Admin\Views\Products_Add\Create_Discount.cshtml" />
+    <Content Include="Areas\Admin\Views\Products_Add\Product_Discount.cshtml" />
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\CHANGES.html" />
@@ -2953,6 +2955,9 @@
     <Content Include="Views\Shared\_Layout_Product2.cshtml" />
     <Content Include="Views\Customer\ResetPassword2.cshtml" />
     <Content Include="Views\Cart\HetHang.cshtml" />
+    <Content Include="Views\Home\ListTypeProduct.cshtml" />
+    <Content Include="Views\Product\Index_.cshtml" />
+    <Content Include="Views\Shared\_Layout_Product_.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -31,6 +31,7 @@ namespace DAL.EF
         public virtual DbSet<Checkout_Oder> Checkout_Oder { get; set; }
         public virtual DbSet<Checkout1> Checkout1 { get; set; }
         public virtual DbSet<CodeDiscount> CodeDiscounts { get; set; }
+        public virtual DbSet<Discount_Product> Discount_Product { get; set; }
         public virtual DbSet<DongHo> DongHoes { get; set; }
         public virtual DbSet<Feedback> Feedbacks { get; set; }
         public virtual DbSet<Item> Items { get; set; }

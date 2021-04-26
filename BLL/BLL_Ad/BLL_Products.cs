@@ -226,5 +226,50 @@ namespace BLL.BLL_Ad
 
             return dAL_Product.UpdateQuantityItem(id, quantity);
         }
+
+        public DTO_Dis_Product GetProduct_DiscountById(int id)
+        {
+            EntityMapper<Dis_Product, DTO_Dis_Product> mapObj = new EntityMapper<Dis_Product, DTO_Dis_Product>();
+            Dis_Product dis_Product = dAL_Product.GetProduct_DiscountById(id);
+            DTO_Dis_Product dTO_Accounts = mapObj.Translate(dis_Product);
+
+            return dTO_Accounts;
+        }
+        public List<DTO_Dis_Product> GetAllProduct_Discount()
+        {
+            EntityMapper<Dis_Product, DTO_Dis_Product> mapObj = new EntityMapper<Dis_Product, DTO_Dis_Product>();
+            List<Dis_Product> products = dAL_Product.GetAllProduct_Discount();
+            List<DTO_Dis_Product> dTO_Products = new List<DTO_Dis_Product>();
+            foreach (var item in products)
+            {
+                dTO_Products.Add(mapObj.Translate(item));
+            }
+            return dTO_Products;
+        }
+
+        public bool InsertProduct_Discount(DTO_Discount_Product tO_Dis_Product)
+        {
+            EntityMapper<DTO_Discount_Product,Discount_Product > mapObj = new EntityMapper<DTO_Discount_Product,Discount_Product>();
+            Discount_Product product_Item_Type = mapObj.Translate(tO_Dis_Product);
+           
+
+
+
+
+
+
+
+
+
+
+
+            //EntityMapper<DTO_Product, Product> mapObj = new EntityMapper<DTO_Product, Product>();
+            //Product account = mapObj.Translate(dTO_Account.);
+            //EntityMapper<DTO_Item, Item> mapObj1 = new EntityMapper<DTO_Item, Item>();
+            //Item account1 = mapObj1.Translate(item);
+
+
+            return dAL_Product.InsertProduct_Discount(product_Item_Type);
+        }
     }
 }

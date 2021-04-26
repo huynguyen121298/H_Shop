@@ -23,6 +23,9 @@ namespace Model.EF_Mapper
             Mapper.CreateMap<CodeDiscount, DTO_CodeDiscount>();
             Mapper.CreateMap<DTO_CodeDiscount, CodeDiscount>();
 
+            Mapper.CreateMap<Discount_Product, DTO_Discount_Product>();
+            Mapper.CreateMap<DTO_Discount_Product, Discount_Product>();
+
             Mapper.CreateMap<CheckoutCustomer_Order, DTO_CheckoutCustomer_Order>();
             Mapper.CreateMap<DTO_CheckoutCustomer_Order, CheckoutCustomer_Order>();
 
@@ -31,6 +34,10 @@ namespace Model.EF_Mapper
 
             Mapper.CreateMap<Users_Acc, DTO_User_Acc>();
             Mapper.CreateMap<DTO_User_Acc, Users_Acc>();
+
+            Mapper.CreateMap<Dis_Product, DTO_Dis_Product>();
+            Mapper.CreateMap<DTO_Dis_Product, Dis_Product>();
+
 
             Mapper.CreateMap<Product, DTO_Product>();
             Mapper.CreateMap<DTO_Product, Product>();

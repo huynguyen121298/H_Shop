@@ -12,17 +12,14 @@ namespace DAL.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class Product
+    public partial class Discount_Product
     {
+        public string Content { get; set; }
+        public Nullable<double> Price_Dis { get; set; }
+        public Nullable<System.DateTime> Start { get; set; }
+        public Nullable<System.DateTime> End { get; set; }
         public int Id_SanPham { get; set; }
-        public string Name { get; set; }
-        public Nullable<int> Price { get; set; }
-        public string Photo { get; set; }
-        public string Details { get; set; }
-        public int Id_Item { get; set; }
     
-        public virtual Discount_Product Discount_Product { get; set; }
-        public virtual Item Item { get; set; }
-        public virtual Item_Type Item_Type { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

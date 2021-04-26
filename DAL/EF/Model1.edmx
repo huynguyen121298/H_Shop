@@ -86,6 +86,16 @@
           <Property Name="Discount" Type="float" />
           <Property Name="Content" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="Discount_Product">
+          <Key>
+            <PropertyRef Name="Id_SanPham" />
+          </Key>
+          <Property Name="Content" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price_Dis" Type="float" />
+          <Property Name="Start" Type="date" />
+          <Property Name="End" Type="date" />
+          <Property Name="Id_SanPham" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="DongHo">
           <Key>
             <PropertyRef Name="Id" />
@@ -151,7 +161,7 @@
             <PropertyRef Name="Id_SanPham" />
           </Key>
           <Property Name="Id_SanPham" Type="int" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="Price" Type="int" />
           <Property Name="Photo" Type="varchar" MaxLength="50" />
           <Property Name="Details" Type="nvarchar(max)" />
@@ -267,6 +277,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Discount_Product_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Discount_Product" Type="Self.Discount_Product" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id_SanPham" />
+            </Principal>
+            <Dependent Role="Discount_Product">
+              <PropertyRef Name="Id_SanPham" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Product_Item">
           <End Role="Item" Type="Self.Item" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
@@ -298,6 +320,7 @@
           <EntitySet Name="Checkout_Oder" EntityType="Self.Checkout_Oder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Checkout1" EntityType="Self.Checkout1" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CodeDiscount" EntityType="Self.CodeDiscount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Discount_Product" EntityType="Self.Discount_Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DongHo" EntityType="Self.DongHo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Feedbacks" EntityType="Self.Feedbacks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
@@ -325,6 +348,10 @@
           <AssociationSet Name="FK_Checkout_Oder_Checkout_Customer" Association="Self.FK_Checkout_Oder_Checkout_Customer">
             <End Role="Checkout_Customer" EntitySet="Checkout_Customer" />
             <End Role="Checkout_Oder" EntitySet="Checkout_Oder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Discount_Product_Product" Association="Self.FK_Discount_Product_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Discount_Product" EntitySet="Discount_Product" />
           </AssociationSet>
           <AssociationSet Name="FK_Product_Item" Association="Self.FK_Product_Item">
             <End Role="Item" EntitySet="Item" />
@@ -426,6 +453,17 @@
           <Property Name="Content" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Checkout_Customer" Relationship="Self.FK_Checkout_Customer_CodeDiscount" FromRole="CodeDiscount" ToRole="Checkout_Customer" />
         </EntityType>
+        <EntityType Name="Discount_Product">
+          <Key>
+            <PropertyRef Name="Id_SanPham" />
+          </Key>
+          <Property Name="Content" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price_Dis" Type="Double" />
+          <Property Name="Start" Type="DateTime" Precision="0" />
+          <Property Name="End" Type="DateTime" Precision="0" />
+          <Property Name="Id_SanPham" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Discount_Product_Product" FromRole="Discount_Product" ToRole="Product" />
+        </EntityType>
         <EntityType Name="DongHo">
           <Key>
             <PropertyRef Name="Id" />
@@ -493,11 +531,12 @@
             <PropertyRef Name="Id_SanPham" />
           </Key>
           <Property Name="Id_SanPham" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Price" Type="Int32" />
           <Property Name="Photo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Id_Item" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Discount_Product" Relationship="Self.FK_Discount_Product_Product" FromRole="Product" ToRole="Discount_Product" />
           <NavigationProperty Name="Item" Relationship="Self.FK_Product_Item" FromRole="Product" ToRole="Item" />
           <NavigationProperty Name="Item_Type" Relationship="Self.FK_Product_Item_Type" FromRole="Product" ToRole="Item_Type" />
         </EntityType>
@@ -612,6 +651,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Discount_Product_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Discount_Product" Type="Self.Discount_Product" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id_SanPham" />
+            </Principal>
+            <Dependent Role="Discount_Product">
+              <PropertyRef Name="Id_SanPham" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Product_Item">
           <End Role="Item" Type="Self.Item" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
@@ -643,6 +694,7 @@
           <EntitySet Name="Checkout_Oder" EntityType="Self.Checkout_Oder" />
           <EntitySet Name="Checkout1" EntityType="Self.Checkout1" />
           <EntitySet Name="CodeDiscounts" EntityType="Self.CodeDiscount" />
+          <EntitySet Name="Discount_Product" EntityType="Self.Discount_Product" />
           <EntitySet Name="DongHoes" EntityType="Self.DongHo" />
           <EntitySet Name="Feedbacks" EntityType="Self.Feedback" />
           <EntitySet Name="Items" EntityType="Self.Item" />
@@ -670,6 +722,10 @@
           <AssociationSet Name="FK_Checkout_Oder_Checkout_Customer" Association="Self.FK_Checkout_Oder_Checkout_Customer">
             <End Role="Checkout_Customer" EntitySet="Checkout_Customer" />
             <End Role="Checkout_Oder" EntitySet="Checkout_Oder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Discount_Product_Product" Association="Self.FK_Discount_Product_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Discount_Product" EntitySet="Discount_Product" />
           </AssociationSet>
           <AssociationSet Name="FK_Product_Item" Association="Self.FK_Product_Item">
             <End Role="Item" EntitySet="Items" />
@@ -770,6 +826,17 @@
                 <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
                 <ScalarProperty Name="Discount" ColumnName="Discount" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Discount_Product">
+            <EntityTypeMapping TypeName="OnlineShopModel.Discount_Product">
+              <MappingFragment StoreEntitySet="Discount_Product">
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Price_Dis" ColumnName="Price_Dis" />
+                <ScalarProperty Name="Start" ColumnName="Start" />
+                <ScalarProperty Name="End" ColumnName="End" />
+                <ScalarProperty Name="Id_SanPham" ColumnName="Id_SanPham" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

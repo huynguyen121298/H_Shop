@@ -122,11 +122,11 @@ author URL: http://w3layouts.com
                 <div class="col-md-12">
                     <form class="form-horizontal" role="form" method="post" action="@Url.Action("Index", "Product")">
                         <div class="input-group" id="adv-search">
-                            <input type="text" class="form-control" name="searchName" placeholder="Nhập tìm kiếm sản phẩm theo tên..." />&nbsp;
+                            <input style="height:35px" type="text" class="form-control" name="searchName" placeholder="Nhập tìm kiếm sản phẩm theo tên..." />&nbsp;
                             <div class="input-group-btn">
                                 <div class="btn-group" role="group">
 
-                                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true">Tìm kiếm</span></button>
+                                    <button style="height:35px" type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true">Tìm kiếm</span></button>
                                 </div>
                             </div>
                             @*<div class="dropdown dropdown-lg">
@@ -213,7 +213,7 @@ author URL: http://w3layouts.com
                                 <ul class="inner-dropdown  ">
                                     <li><a href=" ~/Product/TypeProduct">Tất cả theo phân loại</a></li>
                                     <li><a href=" ~/Product/Index">Tất cả sản phẩm</a></li>
-                                     <li><a href="@Url.Action("Index2", "Product", new { id = 8 })"> Thời trang nam</a></li>
+                                    @*<li><a href="@Url.Action("Index2", "Product", new { id = 8 })"> Thời trang nam</a></li>
 
                                     <li><a href=" @Url.Action("Index2", "Product", new { id = 9 })"> Thời trang nữ</a></li>
                                     <li><a href=" @Url.Action("Index2", "Product", new { id = 3 })">Máy tính và Laptop</a></li>
@@ -222,7 +222,8 @@ author URL: http://w3layouts.com
                                     <li><a href=" @Url.Action("Index2", "Product", new { id = 7 })">Thiết bị gia dụng</a></li>
                                     <li><a href=" @Url.Action("Index2", "Product", new { id = 6 })">Thể thao và du lịch</a></li>
                                     <li><a href=" @Url.Action("Index2", "Product", new { id = 4 })"> Mẹ và bé</a></li>
-                                    <li><a href=" @Url.Action("Index2", "Product", new { id = 5 })">Sức khỏe và sắc đẹp</a></li>
+                                    <li><a href=" @Url.Action("Index2", "Product", new { id = 5 })">Sức khỏe và sắc đẹp</a></li>*@
+                                    @Html.Action("ListTypeProduct", "Home")
 
                                     
                                     @*@foreach (DTO_Item_Type item in Model)
@@ -455,34 +456,38 @@ author URL: http://w3layouts.com
                 <div class="col-lg-8 mt-5">
                     @using (Html.BeginForm("saveFeedbacks", "Home", FormMethod.Post))
                     {
-                        <form action="saveFeedbacks" method="post">
-                            <div class="row main-w3layouts-sectns">
-                                <div class="col-md-6 w3-btm-spc form-text1">
-                                    <input type="text" value="" placeholder="Nhập tên" name="Name">
-                                </div>
-                                <div class="col-md-6 w3-btm-spc form-text2">
-                                    <input type="text" placeholder="Nhập SDT" name="SDT">
-                                </div>
+                    <form action="saveFeedbacks" method="post">
+                        <div class="row form">
+                            <div class="col-sm-6">
+                                <input type="text" value="" placeholder="Nhập tên" name="Name" required oninvalid="this.setCustomValidity('Vui lòng nhập tên')" oninput="this.setCustomValidity('')">
                             </div>
-                            <div class="row main-w3layouts-sectns">
-                                <div class="col-md-6 w3-btm-spc form-text1">
-                                    <input type="text" value="" placeholder="Nhập Email" name="Email">
-                                </div>
-                                <div class="col-md-6 w3-btm-spc form-text2">
-                                    <input class="form-control" type="text" placeholder="Nhập tiêu đề" name="content">
-                                </div>
+                            <div class="col-sm-6">
+                                <input type="text" value="" placeholder="Nhập Email" name="Email" required oninvalid="this.setCustomValidity('Vui lòng nhập Email')" oninput="this.setCustomValidity('')">
                             </div>
-                            <div class="main-w3layouts-sectns ">
-                                <div class="w3-btm-spc form-text2 p-0">
-                                    <textarea name="details" placeholder="Nhập nội dung của bạn"></textarea>
-                                </div>
+                            <div class="col-sm-12">
+                                <input type="text" placeholder="Nhập SDT" name="SDT" required oninvalid="this.setCustomValidity('Vui lòng nhập SDT')" oninput="this.setCustomValidity('')">
                             </div>
+                            <div class="col-sm-12">
+                                <input class="form-control" type="text" placeholder="Nhập tiêu đề" name="content" required oninvalid="this.setCustomValidity('Vui lòng nhập tiêu đề')" oninput="this.setCustomValidity('')">
+                            </div>
+                            <div class="col-sm-12">
+                                <textarea name="details" placeholder="Nhập nội dung của bạn" required oninvalid="this.setCustomValidity('Vui lòng nhập nội dung')" oninput="this.setCustomValidity('')"></textarea>
+                            </div>
+                            <div class="col-sm-12">
+                                <input class="btn btn-outline-primary" onclick="AddCart()" type="submit" value="Gửi">
+                            </div>
+                        </div>
+                        @*<script>
+                            function AddCart() {
+                                alert("Gửi phản hồi thành công");
 
 
 
-                            <input class="btn btn-outline-primary" onclick="Add()" type="submit" value="Gửi">
+                            }
 
-                        </form>
+                        </script>*@
+                    </form>
+                       
                     }
 
                 </div>
@@ -679,18 +684,10 @@ author URL: http://w3layouts.com
             })
         })
 
-        function Add() {
-            Swal.fire({
-                position: 'top',
-                icon: 'success',
-                title: 'Cảm ơn bạn đã góp ý cho chúng tôi',
-                showConfirmButton: false,
-                timer: 300000
-            })
+       
 
 
-
-        }
+        
     </script>
     <!-- /main slider -->
 

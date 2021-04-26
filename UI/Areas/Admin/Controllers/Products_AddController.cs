@@ -31,6 +31,22 @@ namespace UI.Areas.Admin.Controllers
 
            
         }
+        public ActionResult Product_Discount(DTO_Dis_Product dTO_Product)
+        {
+            try
+            {
+                HttpResponseMessage responseMessage = service.GetResponse("api/Products_Ad/GetAllProduct_Discount");
+                responseMessage.EnsureSuccessStatusCode();
+                List<DTO_Dis_Product> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Dis_Product>>().Result;
+                return View(dTO_Accounts);
+            }
+            catch
+            {
+                return View(dTO_Product);
+            }
+
+
+        }
         public ActionResult GetAllProductByType()
         {
 
@@ -143,8 +159,14 @@ namespace UI.Areas.Admin.Controllers
 
 
             }
+            if (stt == "Điện thoại")
+            {
+                dTO_Product_Item_Type.Id_Item = 10;
 
-          
+
+            }
+
+
 
 
 
@@ -202,8 +224,32 @@ namespace UI.Areas.Admin.Controllers
                 return View(dTO_Product_Item_Type);
             }
         }
+        
+        public ActionResult Create_Discount(int id)
+        {
+            ServiceRepository service = new ServiceRepository();
+            HttpResponseMessage responseMessage = service.GetResponse("api/Products_Ad/GetProduct_DiscountById/" + id);
+            responseMessage.EnsureSuccessStatusCode();
+            DTO_Dis_Product dTO_Dis_Product = responseMessage.Content.ReadAsAsync<DTO_Dis_Product>().Result;
 
-        // GET: Admin/Products_Add/Edit/5
+            return View(dTO_Dis_Product);
+        }
+        [HttpPost]
+        public ActionResult Create_Discount_Product(DTO_Dis_Product tO_Dis_Product)
+        {
+            var stt = Request.Form["stt"];
+            var start = Request.Form["start"];
+            var end = Request.Form["end"];
+            tO_Dis_Product.Content = stt +"%";
+            tO_Dis_Product.Start =Convert.ToDateTime(start);
+            tO_Dis_Product.End = Convert.ToDateTime(end);
+            ServiceRepository service = new ServiceRepository();
+            HttpResponseMessage responseMessage = service.PostResponse("api/Products_Ad/CreateProduct_Discount/" , tO_Dis_Product);
+            responseMessage.EnsureSuccessStatusCode();
+
+
+            return RedirectToAction("Index");
+        }
         public ActionResult Edit(int Id)
         {
             ServiceRepository service = new ServiceRepository();
@@ -213,6 +259,7 @@ namespace UI.Areas.Admin.Controllers
 
             return View(dtoAccounts);
         }
+      
 
         // POST: Admin/Products_Add/Edit/5
         [HttpPost, ValidateInput(false)]
@@ -271,6 +318,12 @@ namespace UI.Areas.Admin.Controllers
             if (stt == "Thời trang nữ")
             {
                 dTO_Product_Item_Type.Id_Item = 9;
+
+
+            }
+            if (stt == "Điện thoại")
+            {
+                dTO_Product_Item_Type.Id_Item = 10;
 
 
             }

@@ -1,5 +1,5 @@
 ﻿@using PagedList.Mvc;
-@model PagedList.IPagedList<List<Model.DTO.DTO_Ad.DTO_Product>>
+@model PagedList.IPagedList<Model.DTO_Model.DTO_Dis_Product>
 @using Model.DTO_Model;
 <!DOCTYPE html>
 <html lang="en">
@@ -12,6 +12,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <meta name="keywords" content="" />
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="92543054677-o2h09g2o5d17fujhhhe3a65djgr508h7.apps.googleusercontent.com">
+    <!-- Custom fonts for this template-->
+    <link href="~/Content/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="~/Content/admin/css/sb-admin-2.min.css" rel="stylesheet">
+
 
     <script>
         addEventListener("load", function () {
@@ -78,6 +88,7 @@
             }
     </style>
 
+
     <!-- css files -->
     <link href="~/css/bootstrap.css" rel='stylesheet' type='text/css' /><!-- bootstrap css -->
     <link href="~/css/style.css" rel='stylesheet' type='text/css' /><!-- custom css -->
@@ -107,12 +118,11 @@
                 <div class="col-md-12">
                     <form class="form-horizontal" role="form" method="post" action="@Url.Action("Index", "Product")">
                         <div class="input-group" id="adv-search">
-                            <input type="text" class="form-control" name="searchName" placeholder="Nhập tìm kiếm sản phẩm theo tên..." />  &nbsp;
-
+                            <input type="text" class="form-control" name="searchName" placeholder="Nhập tìm kiếm sản phẩm theo tên..." />&nbsp;
                             <div class="input-group-btn">
                                 <div class="btn-group" role="group">
 
-                                    <button style="height:35px" type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true">Tìm kiếm</span></button>&nbsp;
+                                    <button style="height:35px" type="submit" class="btn btn-success"><span class="glyphicon glyphicon-search" aria-hidden="true">Tìm kiếm</span></button>&nbsp;
                                 </div>
                             </div>
                             <div class="dropdown dropdown-lg">
@@ -162,6 +172,7 @@
                                         <a href="@Url.Action("Index", "Product", new {searchName1="Tivi"})">Tivi 97"</a>
                                         <a href="@Url.Action("Index", "Product", new {searchName1="Ghê"})">Ghế mátxa</a>
                                     </div>
+
                                     <div class="sidebar-widget tag">
                                         <h2 style="color:cornflowerblue" class="title">Sắp xếp theo</h2>
 
@@ -207,16 +218,15 @@
                                     <li><a href=" ~/Product/Index">Tất cả sản phẩm</a></li>
                                     @*<li><a href="@Url.Action("Index2", "Product", new { id = 8 })"> Thời trang nam</a></li>
 
-                                    <li><a href=" @Url.Action("Index2", "Product", new { id = 9 })"> Thời trang nữ</a></li>
-                                    <li><a href=" @Url.Action("Index2", "Product", new { id = 3 })">Máy tính và Laptop</a></li>
-                                    <li><a href=" @Url.Action("Index2", "Product", new { id = 2 })">Máy ảnh và máy quay phim</a></li>
-                                    <li><a href=" @Url.Action("Index2", "Product", new { id = 1 })">Đồng hồ</a></li>
-                                    <li><a href=" @Url.Action("Index2", "Product", new { id = 7 })">Thiết bị gia dụng</a></li>
-                                    <li><a href=" @Url.Action("Index2", "Product", new { id = 6 })">Thể thao và du lịch</a></li>
-                                    <li><a href=" @Url.Action("Index2", "Product", new { id = 4 })"> Mẹ và bé</a></li>
-                                    <li><a href=" @Url.Action("Index2", "Product", new { id = 5 })">Sức khỏe và sắc đẹp</a></li>*@
+                                        <li><a href=" @Url.Action("Index2", "Product", new { id = 9 })"> Thời trang nữ</a></li>
+                                        <li><a href=" @Url.Action("Index2", "Product", new { id = 3 })">Máy tính và Laptop</a></li>
+                                        <li><a href=" @Url.Action("Index2", "Product", new { id = 2 })">Máy ảnh và máy quay phim</a></li>
+                                        <li><a href=" @Url.Action("Index2", "Product", new { id = 1 })">Đồng hồ</a></li>
+                                        <li><a href=" @Url.Action("Index2", "Product", new { id = 7 })">Thiết bị gia dụng</a></li>
+                                        <li><a href=" @Url.Action("Index2", "Product", new { id = 6 })">Thể thao và du lịch</a></li>
+                                        <li><a href=" @Url.Action("Index2", "Product", new { id = 4 })"> Mẹ và bé</a></li>
+                                        <li><a href=" @Url.Action("Index2", "Product", new { id = 5 })">Sức khỏe và sắc đẹp</a></li>*@
                                     @Html.Action("ListTypeProduct", "Home")
-
 
                                 </ul>
                             </li>
@@ -273,9 +283,9 @@
 
 
 
-                            <li  class="mr-lg-3 mr-2 p-0" id="huy">
+                            <li class="mr-lg-3 mr-2 p-0" id="huy">
                                 <a href="#">Tài Khoản <span class="fa fa-angle-down" aria-hidden="true"></span></a>
-                                <ul style="background: rgba(76, 175, 80, 0.3)" class="inner-dropdown">
+                                <ul class="inner-dropdown">
 
                                     <li>
                                         <a style="background-color:red" href="~/Customer/Login" class="btn btn-google btn-user btn-block"><i class="fa fa-share-square" aria-hidden="true"></i>  Đăng nhập</a>
@@ -309,19 +319,19 @@
 
 
                                     </script>
-                                    <p class="fa fa-angle-down" style="color:cadetblue">
+                                    <p class="fa fa-angle-down" style="color:white">
                                         Xin chào: @Request.Cookies["firstname"].Value
                                     </p>
                                 }
-                            <ul  style="background: rgba(76, 175, 80, 0.5)" class="inner-dropdown  ">
-                                <li><a class="btn btn-facebook btn-user btn-block" style="background-color:dodgerblue" href="~/Customer/ProfileUser">Trang cá nhân</a></li>
+                                <ul style="background: rgba(76, 175, 80, 0.5)" class="inner-dropdown  ">
+                                    <li><a class="btn btn-facebook btn-user btn-block" style="background-color:dodgerblue" href="~/Customer/ProfileUser">Trang cá nhân</a></li>
 
-                                <li><a class="btn btn-success btn-user btn-block" style="background-color:forestgreen" href="#">Cài đặt</a></li>
-                                <li>
+                                    <li><a class="btn btn-success btn-user btn-block" style="background-color:forestgreen" href="#">Cài đặt</a></li>
+                                    <li>
 
-                                    <a class="btn btn-google btn-user btn-block " style="background-color:red" href="@Url.Action("Logout","Customer")"> Thoát </a>
-                                </li>
-                            </ul>
+                                        <a class="btn btn-google btn-user btn-block " style="background-color:red" href="@Url.Action("Logout","Customer")"> Thoát </a>
+                                    </li>
+                                </ul>
                             </li>
 
 

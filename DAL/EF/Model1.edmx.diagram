@@ -4,32 +4,34 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="bf681a1c545747d3901b701e467a3288" Name="Diagram1">
-        <EntityTypeShape EntityType="OnlineShopModel.Account" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
+      <Diagram DiagramId="7e6017b7a6a34846ade909be3bcd25bd" Name="Diagram1">
+        <EntityTypeShape EntityType="OnlineShopModel.Account" Width="1.5" PointX="10" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="OnlineShopModel.checkout" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="OnlineShopModel.Checkout_Customer" Width="1.5" PointX="5" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="OnlineShopModel.Checkout_Oder" Width="1.5" PointX="7.25" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="OnlineShopModel.Checkout1" Width="1.5" PointX="2.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="OnlineShopModel.CodeDiscount" Width="1.5" PointX="2.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineShopModel.Discount_Product" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="OnlineShopModel.DongHo" Width="1.5" PointX="9.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="OnlineShopModel.Feedback" Width="1.5" PointX="4.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OnlineShopModel.Item" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="OnlineShopModel.Item_Type" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineShopModel.Item" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineShopModel.Item_Type" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="OnlineShopModel.MayAnhvaMayQuayPhim" Width="1.5" PointX="6.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="OnlineShopModel.MayTinhvaLapTop" Width="1.5" PointX="9.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OnlineShopModel.MevaBe" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineShopModel.MevaBe" Width="1.5" PointX="8.75" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="OnlineShopModel.Product" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="OnlineShopModel.Role" Width="1.5" PointX="5.75" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="OnlineShopModel.SucKhoevaSacDep" Width="1.5" PointX="8.75" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OnlineShopModel.sysdiagram" Width="1.5" PointX="10.75" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OnlineShopModel.TheThaovaDuLich" Width="1.5" PointX="11.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OnlineShopModel.ThietBiGiaDung" Width="1.5" PointX="11.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OnlineShopModel.ThoiTrangNam" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OnlineShopModel.ThoiTrangNu" Width="1.5" PointX="4.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OnlineShopModel.Users_Acc" Width="1.5" PointX="12.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineShopModel.Role" Width="1.5" PointX="7.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineShopModel.SucKhoevaSacDep" Width="1.5" PointX="10.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineShopModel.sysdiagram" Width="1.5" PointX="11.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineShopModel.TheThaovaDuLich" Width="1.5" PointX="11.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineShopModel.ThietBiGiaDung" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineShopModel.ThoiTrangNam" Width="1.5" PointX="4.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineShopModel.ThoiTrangNu" Width="1.5" PointX="12.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineShopModel.Users_Acc" Width="1.5" PointX="13.75" PointY="3.75" IsExpanded="true" />
         <AssociationConnector Association="OnlineShopModel.FK_Account_Role" ManuallyRouted="false" />
         <AssociationConnector Association="OnlineShopModel.FK_Checkout_Customer_CodeDiscount" ManuallyRouted="false" />
         <AssociationConnector Association="OnlineShopModel.FK_Checkout_Oder_Checkout_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineShopModel.FK_Discount_Product_Product" ManuallyRouted="false" />
         <AssociationConnector Association="OnlineShopModel.FK_Product_Item" ManuallyRouted="false" />
         <AssociationConnector Association="OnlineShopModel.FK_Product_Item_Type" ManuallyRouted="false" />
       </Diagram>

@@ -27,19 +27,19 @@ namespace UI.Controllers
 
             responseUser.EnsureSuccessStatusCode();
             List<DTO_Item_Type> result = responseUser.Content.ReadAsAsync<List<DTO_Item_Type>>().Result;
-            //List<DTO_Item_Type> dTO_Item_Types = new List<DTO_Item_Type>();
-            //DTO_Item_Type dTO_Item_Type = new DTO_Item_Type() { Id_Item = 1, Type_Product = "Type 001" };
-            //DTO_Item_Type dTO_Item_Type2 = new DTO_Item_Type() { Id_Item = 2, Type_Product = "Type 002" };
-            //DTO_Item_Type dTO_Item_Type3 = new DTO_Item_Type() { Id_Item = 3, Type_Product = "Type 003" };
-            //DTO_Item_Type dTO_Item_Type4 = new DTO_Item_Type() { Id_Item = 4, Type_Product = "Type 004" };
-            //dTO_Item_Types.Add(dTO_Item_Type);
-            //dTO_Item_Types.Add(dTO_Item_Type2);
-            //dTO_Item_Types.Add(dTO_Item_Type3);
-            //dTO_Item_Types.Add(dTO_Item_Type4);
+           
             return View(result);
         }
+        public PartialViewResult ListTypeProduct()
+        {
+            HttpResponseMessage responseUser = service.GetResponse("api/Home/GetAllItemType");
 
-        
+            responseUser.EnsureSuccessStatusCode();
+            List<DTO_Item_Type> result = responseUser.Content.ReadAsAsync<List<DTO_Item_Type>>().Result;
+
+            return PartialView(result);
+        }
+
         [HttpPost]
         public ActionResult saveFeedbacks(FormCollection fc, DTO_Feedback fb)
         {
@@ -81,7 +81,7 @@ namespace UI.Controllers
                 HttpResponseMessage response = serviceObj.PostResponse("api/Feedback/Create/", fb);
                 response.EnsureSuccessStatusCode();
                 ViewData["ErrorMessageFeedback"]=("Gửi phản hồi thành công");
-                return View("~/Product/Details");
+                return RedirectToAction("Details", "Product");
             }
             catch
             {
@@ -106,7 +106,7 @@ namespace UI.Controllers
                 HttpResponseMessage response = serviceObj.PostResponse("api/Feedback/Create/", fb);
                 response.EnsureSuccessStatusCode();
                 ViewData["ErrorMessage"]=("Gửi phản hồi thành công");
-                return View("~/Cart/YeuThich");
+                return RedirectToAction("YeuThich", "Cart");
             }
             catch
             {
@@ -130,7 +130,8 @@ namespace UI.Controllers
                 HttpResponseMessage response = serviceObj.PostResponse("api/Feedback/Create/", fb);
                 response.EnsureSuccessStatusCode();
                 ViewData["ErrorMessage"]=("Gửi phản hồi thành công");
-                return View("~/Cart/Luachon");
+               
+                return RedirectToAction("LuaChon", "Cart");
             }
             catch
             {

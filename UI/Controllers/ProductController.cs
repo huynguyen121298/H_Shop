@@ -126,6 +126,27 @@ namespace UI.Controllers
 
 
         }
+        public ActionResult Index_(DTO_Dis_Product dTO_Product,int? page)
+        {
+            if (page == null) page = 1;
+            int pageSize = 25;
+
+            int pageNumber = (page ?? 1);
+            HttpResponseMessage responseMessage = service.GetResponse("api/Products_Ad/GetAllProduct_Discount");
+            responseMessage.EnsureSuccessStatusCode();
+            List<DTO_Dis_Product> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Dis_Product>>().Result;
+            return View(dTO_Accounts.ToPagedList(pageNumber, pageSize));
+
+
+            
+            
+
+
+
+
+
+
+        }
         public ActionResult Search(  int? page, string searchName)
         {
 

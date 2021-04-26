@@ -101,5 +101,23 @@ namespace Web_API.Controllers
         {
             return BLL_Products.UpdateQuantityItem(item);
         }
+
+        [HttpGet]
+        [Route("GetAllProduct_Discount")]
+        public JsonResult<List<DTO_Dis_Product>> GetAllProduct_Discount()
+        {
+            return Json<List<DTO_Dis_Product>>(BLL_Products.GetAllProduct_Discount());
+        }
+        [HttpGet]
+        [Route("GetProduct_DiscountById/{id:int}")]
+        public JsonResult<DTO_Dis_Product> GetProduct_DiscountById(int id)
+        {
+            return Json<DTO_Dis_Product>(BLL_Products.GetProduct_DiscountById(id));
+        }
+        [Route("CreateProduct_Discount")]
+        public bool CreateProduct_Discount(DTO_Discount_Product dTO_Product_Item)
+        {
+            return BLL_Products.InsertProduct_Discount(dTO_Product_Item);
+        }
     }
 }

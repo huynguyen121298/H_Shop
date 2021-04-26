@@ -34,7 +34,7 @@ namespace DAL.DAL_Ad
         }
         public Product_Item_Type GetProductItemById(int id)
         {
-            var infoProduct = from item in db.Items
+            var infoProduct = (from item in db.Items
                               join product in db.Products on item.Id_SanPham equals product.Id_SanPham
                               where product.Id_SanPham == id && item.Id_SanPham==id
                               select new Product_Item_Type()
@@ -50,8 +50,13 @@ namespace DAL.DAL_Ad
                                   
 
 
-                                   };
-            return infoProduct.FirstOrDefault();
+                                   }).FirstOrDefault();
+            if (GetPriceDiscountById(infoProduct.Id_SanPham) != 0)
+            {
+                infoProduct.Price = Convert.ToInt32(GetPriceDiscountById(infoProduct.Id_SanPham));
+            }
+            return infoProduct;
+            //return infoProduct.FirstOrDefault();
         }
         public Product_Item_Type GetProductItemById2(string id)
         {
@@ -115,8 +120,22 @@ namespace DAL.DAL_Ad
 
 
                               };
+
             return infoProduct.ToList();
         }
+
+        public double GetPriceDiscountById(int id)
+        {
+            DateTime dateTime = DateTime.Today;
+            var item_discount = db.Discount_Product.Where(t => t.Id_SanPham == id && t.End.Value >= dateTime).FirstOrDefault();
+
+            if(item_discount != null && item_discount.Price_Dis != null)
+            {
+                return Convert.ToDouble(item_discount.Price_Dis);
+            }
+            return 0;
+        }
+
         public List<Product_Item_Type> GetAllProductItemById()
         {
             var infoProduct = from item in db.Items
@@ -148,10 +167,14 @@ namespace DAL.DAL_Ad
             using (var transaction = db.Database.BeginTransaction())
             {
                     db.Items.Add(item);
-                 db.SaveChanges();
+                    db.SaveChanges();
                     
                     productItem.Id_SanPham = item.Id_SanPham;
+                    
                     db.Products.Add(productItem);
+                    Discount_Product dis = new Discount_Product();
+                    dis.Id_SanPham = item.Id_SanPham;
+                    db.Discount_Product.Add(dis);
 
 
 
@@ -326,7 +349,92 @@ namespace DAL.DAL_Ad
             
 
 
-       }
+        }
+        public Dis_Product GetProduct_DiscountById(int id)
+        {
+            var infoProduct_discount = from dis in db.Discount_Product
+                              join product in db.Products on dis.Id_SanPham equals product.Id_SanPham
+                              where product.Id_SanPham == id && dis.Id_SanPham == id
+                              select new Dis_Product()
+                              {
+                                  Id_SanPham = product.Id_SanPham,
+                                  Name = product.Name,
+                                  Price = product.Price,
+                                  Details = product.Details,
+                                  Photo = product.Photo,
+                                  Id_Item = product.Id_Item,
+                                  Content=dis.Content,
+                                  Price_Dis =dis.Price_Dis,
+                                  Start=dis.Start,
+                                  End=dis.End
+                                  
+
+
+
+                              };
+            return infoProduct_discount.FirstOrDefault();
+        }
+        public List<Dis_Product> GetAllProduct_Discount()
+        {
+            var infoProduct = from dis in db.Discount_Product
+                              join product in db.Products on dis.Id_SanPham equals product.Id_SanPham
+
+                              select new Dis_Product()
+                              {
+                                  Id_SanPham = product.Id_SanPham,
+                                  Name = product.Name,
+                                  Price = product.Price,
+                                  Details = product.Details,
+                                  Photo = product.Photo,
+                                  Id_Item = product.Id_Item,
+                                  Content = dis.Content,
+                                  Price_Dis = dis.Price_Dis,
+                                  Start = dis.Start,
+                                  End = dis.End
+                                 
+
+
+
+
+                              };
+            return infoProduct.ToList();
+        }
+
+        public bool InsertProduct_Discount(Discount_Product dis)
+        {
+            //bool status;
+
+           
+                Discount_Product prodItem = db.Discount_Product.Where(p => p.Id_SanPham == dis.Id_SanPham).FirstOrDefault();
+                if (prodItem != null)
+                {
+                    prodItem.Id_SanPham = dis.Id_SanPham;
+                    prodItem.Price_Dis = dis.Price_Dis;
+                    prodItem.Content = dis.Content;
+                    prodItem.Start = dis.Start;
+                    prodItem.End = dis.End;
+                    db.SaveChanges();
+                    return true;
+
+
+                }
+                else
+                {
+                   db.Discount_Product.Add(dis);
+                    
+                }
+                return false;
+               
+               
+
+
+
+
+
+           
+
+
+        }
 
     }
 }
