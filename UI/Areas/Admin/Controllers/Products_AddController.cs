@@ -17,11 +17,22 @@ namespace UI.Areas.Admin.Controllers
         // GET: Admin/Products_Add
         public ActionResult Index(DTO_Product dTO_Product)
         {
+            //try
+            //{
+            //    HttpResponseMessage responseMessage = service.GetResponse("api/Products_Ad/getallproducts");
+            //    responseMessage.EnsureSuccessStatusCode();
+            //    List<DTO_Product> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Product>>().Result;
+            //    return View(dTO_Accounts);
+            //}
+            //catch
+            //{
+            //    return View(dTO_Product);
+            //}
             try
             {
-                HttpResponseMessage responseMessage = service.GetResponse("api/Products_Ad/getallproducts");
+                HttpResponseMessage responseMessage = service.GetResponse("api/Products_Ad/GetAllProduct_Discount");
                 responseMessage.EnsureSuccessStatusCode();
-                List<DTO_Product> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Product>>().Result;
+                List<DTO_Dis_Product> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Dis_Product>>().Result;
                 return View(dTO_Accounts);
             }
             catch
@@ -29,7 +40,7 @@ namespace UI.Areas.Admin.Controllers
                 return View(dTO_Product);
             }
 
-           
+
         }
         public ActionResult Product_Discount(DTO_Dis_Product dTO_Product)
         {
@@ -47,12 +58,20 @@ namespace UI.Areas.Admin.Controllers
 
 
         }
+        //public ActionResult GetAllProductByType()
+        //{
+
+        //    HttpResponseMessage responseMessage = service.GetResponse("api/Products_Ad/GetAllProductByType");
+        //    responseMessage.EnsureSuccessStatusCode();
+        //    List<List<DTO_Product>> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<List<DTO_Product>>>().Result;
+        //    return View(dTO_Accounts);
+        //}
         public ActionResult GetAllProductByType()
         {
 
             HttpResponseMessage responseMessage = service.GetResponse("api/Products_Ad/GetAllProductByType");
             responseMessage.EnsureSuccessStatusCode();
-            List<List<DTO_Product>> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<List<DTO_Product>>>().Result;
+            List<List<DTO_Dis_Product>> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<List<DTO_Dis_Product>>>().Result;
             return View(dTO_Accounts);
         }
         public ActionResult Index2(int id)
@@ -62,7 +81,9 @@ namespace UI.Areas.Admin.Controllers
 
             HttpResponseMessage responseMessage = service.GetResponse("api/Products_Ad/GetAllProductByIdItem/"+id);
             responseMessage.EnsureSuccessStatusCode();
-            List<DTO_Product> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Product>>().Result;
+            //List<DTO_Product> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Product>>().Result;
+            //return View(dTO_Accounts);
+            List<DTO_Dis_Product> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Dis_Product>>().Result;
             return View(dTO_Accounts);
         }
 
@@ -240,6 +261,14 @@ namespace UI.Areas.Admin.Controllers
             var stt = Request.Form["stt"];
             var start = Request.Form["start"];
             var end = Request.Form["end"];
+            if (start == "")
+            {
+                start = null;
+            }
+            if (end == "")
+            {
+                end = null;
+            }
             tO_Dis_Product.Content = stt +"%";
             tO_Dis_Product.Start =Convert.ToDateTime(start);
             tO_Dis_Product.End = Convert.ToDateTime(end);

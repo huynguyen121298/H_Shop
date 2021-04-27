@@ -18,10 +18,15 @@ namespace UI.Controllers
 
         public ActionResult TypeProduct()
         {
-            HttpResponseMessage responseMessage3 = service.GetResponse("api/Products_Ad/GetAllProductByType");
-            responseMessage3.EnsureSuccessStatusCode();
-            List<List<DTO_Product>> dTO_Accounts2 = responseMessage3.Content.ReadAsAsync<List<List<DTO_Product>>>().Result;
-            var view = dTO_Accounts2.ToPagedList(1, 50);
+            HttpResponseMessage responseMessage = service.GetResponse("api/Products_Ad/GetAllProductByType");
+            responseMessage.EnsureSuccessStatusCode();
+            List<List<DTO_Dis_Product>> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<List<DTO_Dis_Product>>>().Result;
+           
+
+            //HttpResponseMessage responseMessage3 = service.GetResponse("api/Products_Ad/GetAllProductByType");
+            //responseMessage3.EnsureSuccessStatusCode();
+            //List<List<DTO_Product>> dTO_Accounts2 = responseMessage3.Content.ReadAsAsync<List<List<DTO_Product>>>().Result;
+            var view = dTO_Accounts.ToPagedList(1, 50);
             return View(view);
 
         }
@@ -53,7 +58,7 @@ namespace UI.Controllers
                     HttpResponseMessage responseMessage2 = service.GetResponse("api/product/GetAllProductByName/" + searchName);
                     responseMessage2.EnsureSuccessStatusCode();
 
-                    List<DTO_Product_Client> dTO_Accounts2 = responseMessage2.Content.ReadAsAsync<List<DTO_Product_Client>>().Result;
+                    List<DTO_Dis_Product> dTO_Accounts2 = responseMessage2.Content.ReadAsAsync<List<DTO_Dis_Product>>().Result;
                     return View(dTO_Accounts2.ToPagedList(pageNumber, pageSize));
                 }
                 catch
@@ -61,7 +66,7 @@ namespace UI.Controllers
                     HttpResponseMessage responseMessage3 = service.GetResponse("api/product/GetAllProductByName/" + searchName1);
                     responseMessage3.EnsureSuccessStatusCode();
 
-                    List<DTO_Product_Client> dTO_Accounts3 = responseMessage3.Content.ReadAsAsync<List<DTO_Product_Client>>().Result;
+                    List<DTO_Dis_Product> dTO_Accounts3 = responseMessage3.Content.ReadAsAsync<List<DTO_Dis_Product>>().Result;
                     return View(dTO_Accounts3.ToPagedList(pageNumber, pageSize));
 
                 }
@@ -97,7 +102,7 @@ namespace UI.Controllers
                 HttpResponseMessage responseMessage2 = service.GetResponse("api/product/GetAllProductByPrice/" + priceGiaMin + "/" + priceGiaMax);
                 responseMessage2.EnsureSuccessStatusCode();
 
-                List<DTO_Product_Client> dTO_Accounts2 = responseMessage2.Content.ReadAsAsync<List<DTO_Product_Client>>().Result;
+                List<DTO_Dis_Product> dTO_Accounts2 = responseMessage2.Content.ReadAsAsync<List<DTO_Dis_Product>>().Result;
                 return View(dTO_Accounts2.ToPagedList(pageNumber, pageSize));
             }
             try
@@ -106,16 +111,20 @@ namespace UI.Controllers
                 HttpResponseMessage responseMessage2 = service.GetResponse("api/product/GetAllProductByPrice/" + gia_ + "/" + gia);
                 responseMessage2.EnsureSuccessStatusCode();
 
-                List<DTO_Product_Client> dTO_Accounts2 = responseMessage2.Content.ReadAsAsync<List<DTO_Product_Client>>().Result;
+                List<DTO_Dis_Product> dTO_Accounts2 = responseMessage2.Content.ReadAsAsync<List<DTO_Dis_Product>>().Result;
                 return View(dTO_Accounts2.ToPagedList(pageNumber, pageSize));
 
               
             }
             catch
             {
-                HttpResponseMessage responseMessage = service.GetResponse("api/product/GetAllProducts");
+                //HttpResponseMessage responseMessage = service.GetResponse("api/product/GetAllProducts");
+                //responseMessage.EnsureSuccessStatusCode();
+                //List<DTO_Product_Client> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Product_Client>>().Result;
+                //return View(dTO_Accounts.ToPagedList(pageNumber, pageSize));
+                HttpResponseMessage responseMessage = service.GetResponse("api/Products_Ad/GetAllProduct_Discount");
                 responseMessage.EnsureSuccessStatusCode();
-                List<DTO_Product_Client> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Product_Client>>().Result;
+                List<DTO_Dis_Product> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Dis_Product>>().Result;
                 return View(dTO_Accounts.ToPagedList(pageNumber, pageSize));
 
             }
@@ -194,7 +203,7 @@ namespace UI.Controllers
                 HttpResponseMessage responseMessage2 = service.GetResponse("api/product/GetAllProductByName/" + search);
                 responseMessage2.EnsureSuccessStatusCode();
 
-                List<DTO_Product_Client> dTO_Accounts2 = responseMessage2.Content.ReadAsAsync<List<DTO_Product_Client>>().Result;
+                List<DTO_Dis_Product> dTO_Accounts2 = responseMessage2.Content.ReadAsAsync<List<DTO_Dis_Product>>().Result;
                 return View(dTO_Accounts2.ToPagedList(pageNumber, pageSize));
 
             }
@@ -206,15 +215,15 @@ namespace UI.Controllers
                 HttpResponseMessage responseMessage2 = service.GetResponse("api/product/GetAllProductByPrice/" + gia_ + "/" + gia);
                 responseMessage2.EnsureSuccessStatusCode();
 
-                List<DTO_Product_Client> dTO_Accounts2 = responseMessage2.Content.ReadAsAsync<List<DTO_Product_Client>>().Result;
+                List<DTO_Dis_Product> dTO_Accounts2 = responseMessage2.Content.ReadAsAsync<List<DTO_Dis_Product>>().Result;
                 return View(dTO_Accounts2.ToPagedList(pageNumber, pageSize));
 
             }
-           
-
-            HttpResponseMessage responseMessage = service.GetResponse("api/product/GetAllProductByIdItemClient/" + id);
+            HttpResponseMessage responseMessage = service.GetResponse("api/Products_Ad/GetAllProductByIdItem/" + id);
             responseMessage.EnsureSuccessStatusCode();
-            List<DTO_Product_Client> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Product_Client>>().Result;
+           
+            List<DTO_Dis_Product> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Dis_Product>>().Result;
+          
             if (dTO_Accounts == null)
             {
                 return Content("Chưa có sản phẩm bạn đang muốn tìm kiếm");

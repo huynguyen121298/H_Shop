@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAL.DAL_Model;
 using DAL.EF;
 
 namespace DAL.DAL_Client
@@ -22,15 +23,61 @@ namespace DAL.DAL_Client
         {
             return db.Products.Where(s => s.Id_SanPham == id).FirstOrDefault();
         }
-        public List<Product> GetProductByPrice(int? gia, int? gia_)
+        public List<Dis_Product> GetProductByPrice(int? gia, int? gia_)
         {
+            var infoProduct = (from dis in db.Discount_Product
+                              join product in db.Products on dis.Id_SanPham equals product.Id_SanPham
 
-            return db.Products.Where(s => s.Price <= gia_ && s.Price >= gia).ToList();
+                              select new Dis_Product()
+                              {
+                                  Id_SanPham = product.Id_SanPham,
+                                  Name = product.Name,
+                                  Price = product.Price,
+                                  Details = product.Details,
+                                  Photo = product.Photo,
+                                  Id_Item = product.Id_Item,
+                                  Content = dis.Content,
+                                  Price_Dis = dis.Price_Dis,
+                                  Start = dis.Start,
+                                  End = dis.End
+
+
+
+
+
+                              }).Where(s => s.Price <= gia_ && s.Price >= gia).ToList();
+            return infoProduct;
         }
-        public List<Product> GetProductByName(string name)
-        {
+        //public List<Product> GetProductByName(string name)
+        //{
 
-            return db.Products.Where(s => s.Name.StartsWith(name)).ToList();
+        //    return db.Products.Where(s => s.Name.StartsWith(name)).ToList();
+        //}
+        public List<Dis_Product> GetProductByName(string name)
+        {
+            var infoProduct = (from dis in db.Discount_Product
+                               join product in db.Products on dis.Id_SanPham equals product.Id_SanPham
+
+                               select new Dis_Product()
+                               {
+                                   Id_SanPham = product.Id_SanPham,
+                                   Name = product.Name,
+                                   Price = product.Price,
+                                   Details = product.Details,
+                                   Photo = product.Photo,
+                                   Id_Item = product.Id_Item,
+                                   Content = dis.Content,
+                                   Price_Dis = dis.Price_Dis,
+                                   Start = dis.Start,
+                                   End = dis.End
+
+
+
+
+
+                               }).Where(s => s.Name.StartsWith(name)).ToList();
+
+            return infoProduct;
         }
         public List<Product> GetProductByName2(string name)
         {

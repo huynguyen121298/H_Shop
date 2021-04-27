@@ -29,17 +29,29 @@ namespace Web_API.Controllers
         {
             return Json<List<DTO_Product_Client>>(bLL_Product.GetAllProducts());
         }
+        //[HttpGet]
+        //[Route("GetAllProductByPrice/{giaMin:int}/{giaMax:int}")]
+        //public JsonResult<List<DTO_Product_Client>> GetAllProductByPrice(int giaMin,int giaMax)
+        //{
+        //    return Json<List<DTO_Product_Client>>(bLL_Product.GetAllProductByPrice(giaMin, giaMax));
+        //}
         [HttpGet]
         [Route("GetAllProductByPrice/{giaMin:int}/{giaMax:int}")]
-        public JsonResult<List<DTO_Product_Client>> GetAllProductByPrice(int giaMin,int giaMax)
+        public JsonResult<List<DTO_Dis_Product>> GetAllProductByPrice(int giaMin, int giaMax)
         {
-            return Json<List<DTO_Product_Client>>(bLL_Product.GetAllProductByPrice(giaMin, giaMax));
+            return Json<List<DTO_Dis_Product>>(bLL_Product.GetAllProductByPrice(giaMin, giaMax));
         }
+        //[HttpGet]
+        //[Route("GetAllProductByName/{name}")]
+        //public JsonResult<List<DTO_Product_Client>> GetAllProductByName(string name)
+        //{
+        //    return Json<List<DTO_Product_Client>>(bLL_Product.GetAllProductByName(name));
+        //}
         [HttpGet]
         [Route("GetAllProductByName/{name}")]
-        public JsonResult<List<DTO_Product_Client>> GetAllProductByName(string name)
+        public JsonResult<List<DTO_Dis_Product>> GetAllProductByName(string name)
         {
-            return Json<List<DTO_Product_Client>>(bLL_Product.GetAllProductByName(name));
+            return Json<List<DTO_Dis_Product>>(bLL_Product.GetAllProductByName(name));
         }
 
 

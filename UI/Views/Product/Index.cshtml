@@ -1,13 +1,13 @@
 ﻿@*@using Model.DTO_Model;*@
-@using Model.DTO.DTO_Client;
+@using Model.DTO_Model;
 @using PagedList.Mvc;
-@model PagedList.IPagedList<Model.DTO.DTO_Client.DTO_Product_Client>
+@model PagedList.IPagedList<Model.DTO_Model.DTO_Dis_Product>
 
 
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout_Product.cshtml";
+    Layout = "~/Views/Shared/_Layout_Product_.cshtml";
 }
 
 <!DOCTYPE html>
@@ -33,7 +33,45 @@
         <script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
     <!-- Template Stylesheet -->
     <link href="~/css/style_SP.css" rel="stylesheet">
+    <style>
+
+        .old-price {
+            margin-top: 10px;
+            font-size: 0.8em;
+            text-decoration: line-through;
+            color: grey;
+        }
+
+        .new-price {
+            color: #f6eb14;
+            font-size: 1.45em;
+            line-height: 1.1;
+        }
+
+
+        ins {
+            color: green;
+            font-size: 32px;
+            text-decoration: none;
+            padding: 1em 1em 1em .5em;
+        }
+
+        .amount {
+            position: relative;
+        }
+
+            .amount::after {
+                content: "";
+                width: 100%;
+                height: 1px;
+                background: black;
+                position: absolute;
+                bottom: -10px;
+                left: 0;
+            }
+    </style>
 </head>
+
 
 
 
@@ -102,16 +140,28 @@
                 <p>@ViewData["MessQuantity"]</p>
                 <div class="col-lg-12">
                     <div class="row">
-                        @foreach (DTO_Product_Client item in Model)
-                        {
+                         @foreach (DTO_Dis_Product item in Model)
+                            {
+                                var price = item.Price_Dis;
+                                DateTime dateTime = DateTime.Today;
+                                var endDay = item.End;
+                                
+                                bool totalday =endDay >= dateTime;
+
+
+
+
+
+
+
 
                             <div class="col-md-2">
                                 @*<div class="product-title">
-                            @Html.DisplayNameFor(model => model.Item.Id_SanPham)
-                        </div>*@
+                                        @Html.DisplayNameFor(model => model.Item.Id_SanPham)
+                                    </div>*@
                                 <div class="product-item">
                                     <div style="height:102px" class="product-title">
-                                        <span style="color:darkgoldenrod">@Html.DisplayFor(modelItem => item.Name)</span>   
+                                        <span style="color:darkgoldenrod">@Html.DisplayFor(modelItem => item.Name)</span>
 
                                         <div class="ratting">
                                             <i class="fa fa-star"></i>
@@ -119,6 +169,22 @@
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
+                                        </div>
+                                        <div style="color:red" class="ratting">
+                                            @{
+                                               
+                                                    if (price != null && totalday == true)
+                                                    {
+                                                        <img style="width:30px;height:20px" src="~/images/sale.jpg" /> @item.Content
+
+                                                    }
+                                                }
+
+
+
+                                            
+
+
                                         </div>
                                     </div>
 
@@ -140,9 +206,38 @@
                                         </div>
                                     </div>
                                     <div style="height:106px" class="product-price">
-                                        <h3>@string.Format("{0:0,0}", item.Price)<span> VNĐ </span></h3>
+                                        @{
 
-                                   
+
+
+
+
+                                            if (price != null && totalday == true)
+                                            {
+                                                <span class="old-price"> @string.Format("{0:0,0}", item.Price) VNĐ </span>
+                                                <br />
+
+                                                <span class="new-price">@string.Format("{0:0,0}", item.Price_Dis) VNĐ</span>
+
+                                            }
+                                            else
+                                            {
+                                                string newprice = string.Format("{0:0,0}", item.Price);
+
+                                                <h3>@newprice<span> VNĐ </span></h3>
+                                            }
+
+                                        }
+
+
+
+                                        
+
+
+
+
+
+
                                         <a onclick="AddCart()" class="btn" href=" @Url.Action("Buy", "Product", new { id = item.Id_SanPham })"><i class="fa fa-shopping-cart"></i>Mua hàng</a>
                                         @*<a id="btn_mua" onclick="AddCart()" class="btn" href=" @Url.Action("Details", "Cart", new { id = item.Id_SanPham })"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>*@
 
@@ -178,11 +273,11 @@
                                 <div class="modal-body">
                                     <p>Thêm sản phẩm thành công</p>
                                 </div>-->
-                                @*<div class="modal-footer">
+                    @*<div class="modal-footer">
                             <button type="button" class="btn btn-primary">Save changes</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>*@
-                            <!--</div>
+                    <!--</div>
                         </div>
                     </div>-->
 
@@ -213,7 +308,7 @@
 
         </script>*@
 
-<script>
+    <script>
 
         $(document).ready(function Buy() {
 
@@ -242,8 +337,8 @@
 
 
         //}
-    function Buy_Favorite(id) {
-        var id_temp = id;
+        function Buy_Favorite(id) {
+            var id_temp = id;
             $.ajax({
 
                 url: '/Cart/Details_',
@@ -251,22 +346,22 @@
                 dataType: 'json',
                 type: 'POST',
                 error: function () {
-                   
-                            alert("Sản phẩm  đã hết hàng");
-                   
+
+                    alert("Sản phẩm  đã hết hàng");
+
                 },
                 success: function (res) {
                     for (let i = 0; i < res.buy.length; i++) {
                         if (res.buy[i]["Id_SanPham"] == id_temp) {
                             alert("Sản phẩm " + res.buy[i]["Name"] + " đã được thêm vào sản phẩm yêu thích");
-                            
+
                             break;
-                        } 
-                        
-                        
+                        }
+
+
                     }
-                    
-                    
+
+
 
 
                     console.log("List of rest: " + res)
@@ -274,11 +369,11 @@
                     $("#sttbuy").text(res.buy.length)
                     //$("#sttbuy").html(res.buy[0]["Quantity"])
                 }
-               
+
             });
         }
-    function Buy_Cart(id) {
-        var id_temp = id;
+        function Buy_Cart(id) {
+            var id_temp = id;
             $.ajax({
                 url: '/Product/Buy_Favorite',
                 data: { Id: id },
@@ -291,14 +386,14 @@
                     console.log("Id is: " + id_temp);
                     console.log(res.buy);
                     for (let i = 0; i < res.buy.length; i++) {
-                       
+
                         if (res.buy[i]["Id_SanPham"] == id_temp) {
                             alert("Sản phẩm " + res.buy[i]["Name"] + " đã được thêm vào giỏ hàng");
                             break;
-                        }      
+                        }
                     }
 
-                    
+
 
                     //console.log("Res is: " + res)
                     //console.log(res)
@@ -309,26 +404,26 @@
                     console.log("Total of product in cart is: " + res.buy.length)
                     $("#total-product").text(res.buy.length);
                 }
-               
+
             });
         }
 
 
 
-</script>
+    </script>
     @section Upload {
         <script>
-            //$('#tang').click(function (event) {
-            //    event.preventDefault();
-            //    $.ajax({
-            //        url: '/Product/Tang',
-            //        type: 'POST',
-            //        data: {  },
-            //        success: function () { alert('thanh cong') }
-            //    });
+                    //$('#tang').click(function (event) {
+                    //    event.preventDefault();
+                    //    $.ajax({
+                    //        url: '/Product/Tang',
+                    //        type: 'POST',
+                    //        data: {  },
+                    //        success: function () { alert('thanh cong') }
+                    //    });
 
-            //});
-            
+                    //});
+
         </script>
     }
 

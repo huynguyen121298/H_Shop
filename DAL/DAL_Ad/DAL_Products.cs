@@ -103,7 +103,7 @@ namespace DAL.DAL_Ad
         }
         public List<Product_Item_Type> GetProductItemById_Client(int id)
         {
-            var infoProduct = from item in db.Item_Type
+            var infoProduct = (from item in db.Item_Type
                               join product in db.Products on item.Id_Item equals product.Id_Item
                               where product.Id_Item == id && item.Id_Item == id
                               select new Product_Item_Type()
@@ -119,7 +119,15 @@ namespace DAL.DAL_Ad
 
 
 
-                              };
+                              }).ToList();
+            foreach(var item in infoProduct)
+            {
+                if (GetPriceDiscountByIdList(item.Id_SanPham) != 0)
+                {
+                    item.Price = Convert.ToInt32(GetPriceDiscountById(item.Id_SanPham));
+                }
+            }
+            
 
             return infoProduct.ToList();
         }
@@ -133,6 +141,18 @@ namespace DAL.DAL_Ad
             {
                 return Convert.ToDouble(item_discount.Price_Dis);
             }
+            return 0;
+        }
+        public double GetPriceDiscountByIdList(int id)
+        {
+            DateTime dateTime = DateTime.Today;
+            var item_discount = db.Discount_Product.Where(t => t.Id_SanPham == id && t.End.Value >= dateTime).ToList();
+            foreach (var item in item_discount)
+            {
+                if(item!=null && item.Price_Dis !=null)
+                    return Convert.ToDouble(item.Price_Dis);
+            }
+            
             return 0;
         }
 
@@ -303,8 +323,10 @@ namespace DAL.DAL_Ad
             {
                 Product product = db.Products.Find(id);
                 Item item = db.Items.Find(id);
+                Discount_Product discount_Product = db.Discount_Product.Find(id);
                 db.Products.Remove(product);
                 db.Items.Remove(item);
+                db.Discount_Product.Remove(discount_Product);
                 //db.Items.Remove(item);
                 db.SaveChanges();
                 return true;
@@ -316,23 +338,80 @@ namespace DAL.DAL_Ad
            
             
         }
-        public List<Product> getproductById_Item(int id)
+        //public List<Product> getproductById_Item(int id)
+        //{
+        //    //List<Item_Type> item_Types = new List<Item_Type>();
+        //   // List<Product> productsByType = new List<Product>();
+        //   // item_Types = db.Item_Type.ToList();
+        //    //foreach (Item_Type item in item_Types)
+        //    //{
+        //    //    List<Product> products = db.Products.Where(m => m.Id_Item == id).ToList();
+        //    //    productsByType.Add(products);
+        //    //}
+        //    return db.Products.Where(m => m.Id_Item == id).ToList();
+
+        //}
+        public List<Dis_Product> getproductById_Item(int id)
         {
             //List<Item_Type> item_Types = new List<Item_Type>();
-           // List<Product> productsByType = new List<Product>();
-           // item_Types = db.Item_Type.ToList();
+            // List<Product> productsByType = new List<Product>();
+            // item_Types = db.Item_Type.ToList();
             //foreach (Item_Type item in item_Types)
             //{
             //    List<Product> products = db.Products.Where(m => m.Id_Item == id).ToList();
             //    productsByType.Add(products);
             //}
-            return db.Products.Where(m => m.Id_Item == id).ToList();
-           
+            var infoProduct_discount = (from dis in db.Discount_Product
+                                        join product in db.Products on dis.Id_SanPham equals product.Id_SanPham
+                                        where product.Id_Item == id
+                                        select new Dis_Product()
+                                        {
+                                            Id_SanPham = product.Id_SanPham,
+                                            Name = product.Name,
+                                            Price = product.Price,
+                                            Details = product.Details,
+                                            Photo = product.Photo,
+                                            Id_Item = product.Id_Item,
+                                            Content = dis.Content,
+                                            Price_Dis = dis.Price_Dis,
+                                            Start = dis.Start,
+                                            End = dis.End
+
+
+
+
+                                        });
+            //return infoProduct_discount.FirstOrDefault();
+            // return db.Products.Where(m => m.Id_Item == id).ToList();
+            return infoProduct_discount.ToList();
+
         }
-        public List<List<Product>> getproductByType()
+        //public List<List<Product>> getproductByType()
+        //{
+        //    List<Item_Type> item_Types = new List<Item_Type>();
+        //    List<List<Product>> productsByType = new List<List<Product>>();
+        //    item_Types = db.Item_Type.ToList();
+        //    foreach (Item_Type item in item_Types)
+        //    {
+        //        //    Product obj_name = new Product();
+        //        //    obj_name.Id_Item = item.Id_Item;
+        //        //    obj_name.Name = item.Type_Product;
+        //        //    List<Product> products = db.Products.Where(m => m.Id_Item == item.Id_Item).ToList();
+        //        //    obj_name.products = products;
+        //        //    productsByType.Add(products);
+        //           List<Product> products = db.Products.Where(m => m.Id_Item == item.Id_Item).ToList();
+        //            productsByType.Add(products);
+        //    }
+        //    return productsByType.ToList();
+
+
+
+        //}
+        public List<List<Dis_Product>> getproductByType()
         {
+            
             List<Item_Type> item_Types = new List<Item_Type>();
-            List<List<Product>> productsByType = new List<List<Product>>();
+            List<List<Dis_Product>> productsByType = new List<List<Dis_Product>>();
             item_Types = db.Item_Type.ToList();
             foreach (Item_Type item in item_Types)
             {
@@ -342,11 +421,12 @@ namespace DAL.DAL_Ad
                 //    List<Product> products = db.Products.Where(m => m.Id_Item == item.Id_Item).ToList();
                 //    obj_name.products = products;
                 //    productsByType.Add(products);
-                   List<Product> products = db.Products.Where(m => m.Id_Item == item.Id_Item).ToList();
-                    productsByType.Add(products);
+                //List<Dis_Product> products = db.Products.Where(m => m.Id_Item == item.Id_Item).ToList();
+                List<Dis_Product> products = getproductById_Item(item.Id_Item);
+                productsByType.Add(products);
             }
             return productsByType.ToList();
-            
+
 
 
         }
@@ -374,30 +454,69 @@ namespace DAL.DAL_Ad
                               };
             return infoProduct_discount.FirstOrDefault();
         }
-        public List<Dis_Product> GetAllProduct_Discount()
-        {
-            var infoProduct = from dis in db.Discount_Product
-                              join product in db.Products on dis.Id_SanPham equals product.Id_SanPham
+        //public List<Dis_Product> GetAllProduct_Discount()
+        //{
+        //    var infoProduct = (from dis in db.Discount_Product
+        //                      join product in db.Products on dis.Id_SanPham equals product.Id_SanPham
 
-                              select new Dis_Product()
-                              {
-                                  Id_SanPham = product.Id_SanPham,
-                                  Name = product.Name,
-                                  Price = product.Price,
-                                  Details = product.Details,
-                                  Photo = product.Photo,
-                                  Id_Item = product.Id_Item,
-                                  Content = dis.Content,
-                                  Price_Dis = dis.Price_Dis,
-                                  Start = dis.Start,
-                                  End = dis.End
+        //                      select new Dis_Product()
+        //                      {
+        //                          Id_SanPham = product.Id_SanPham,
+        //                          Name = product.Name,
+        //                          Price = product.Price,
+        //                          Details = product.Details,
+        //                          Photo = product.Photo,
+        //                          Id_Item = product.Id_Item,
+        //                          Content = dis.Content,
+        //                          Price_Dis = dis.Price_Dis,
+        //                          Start = dis.Start,
+        //                          End = dis.End
                                  
 
 
 
 
-                              };
-            return infoProduct.ToList();
+        //                      }).ToList();
+        //    List<Dis_Product> dis_Product = new List<Dis_Product>();
+        //    foreach (var item in infoProduct)
+        //    {
+        //        if (GetPriceDiscountByIdList(Convert.ToInt32(item.Id_SanPham)) != 0)
+        //        {
+        //            item.Price = Convert.ToInt32(GetPriceDiscountByIdList(Convert.ToInt32(item.Id_SanPham)));
+        //        }
+        //        else
+        //        {
+        //            item.Price = item.Price;
+        //        }
+        //        dis_Product.Add(item);
+        //    }
+        //    return dis_Product;
+        //}
+        public List<Dis_Product> GetAllProduct_Discount()
+        {
+            var infoProduct = (from dis in db.Discount_Product
+                               join product in db.Products on dis.Id_SanPham equals product.Id_SanPham
+
+                               select new Dis_Product()
+                               {
+                                   Id_SanPham = product.Id_SanPham,
+                                   Name = product.Name,
+                                   Price = product.Price,
+                                   Details = product.Details,
+                                   Photo = product.Photo,
+                                   Id_Item = product.Id_Item,
+                                   Content = dis.Content,
+                                   Price_Dis = dis.Price_Dis,
+                                   Start = dis.Start,
+                                   End = dis.End
+
+
+
+
+
+                               }).ToList();
+           
+            return infoProduct;
         }
 
         public bool InsertProduct_Discount(Discount_Product dis)

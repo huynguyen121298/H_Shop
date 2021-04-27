@@ -37,14 +37,30 @@ namespace BLL.BLL_Ad
             }
             return dTO_Products;
         }
-        public List<List<DTO_Product>> GetAllProductItem_Type()
+        //public List<List<DTO_Product>> GetAllProductItem_Type()
+        //{
+        //    EntityMapper<Product, DTO_Product> mapObj = new EntityMapper<Product, DTO_Product>();
+        //    List<List<Product>> products = dAL_Product.getproductByType();
+        //    List<List<DTO_Product>> dTO_Products = new List<List<DTO_Product>>();
+        //    foreach (var item in products)
+        //    {
+        //        List<DTO_Product> dTO_Products1 = new List<DTO_Product>();
+        //        foreach (var item1 in item)
+        //        {
+        //            dTO_Products1.Add(mapObj.Translate(item1));
+        //        }
+        //        dTO_Products.Add(dTO_Products1);
+        //    }
+        //    return dTO_Products;
+        //}
+        public List<List<DTO_Dis_Product>> GetAllProductItem_Type()
         {
-            EntityMapper<Product, DTO_Product> mapObj = new EntityMapper<Product, DTO_Product>();
-            List<List<Product>> products = dAL_Product.getproductByType();
-            List<List<DTO_Product>> dTO_Products = new List<List<DTO_Product>>();
+            EntityMapper<Dis_Product, DTO_Dis_Product> mapObj = new EntityMapper<Dis_Product, DTO_Dis_Product>();
+            List<List<Dis_Product>> products = dAL_Product.getproductByType();
+            List<List<DTO_Dis_Product>> dTO_Products = new List<List<DTO_Dis_Product>>();
             foreach (var item in products)
             {
-                List<DTO_Product> dTO_Products1 = new List<DTO_Product>();
+                List<DTO_Dis_Product> dTO_Products1 = new List<DTO_Dis_Product>();
                 foreach (var item1 in item)
                 {
                     dTO_Products1.Add(mapObj.Translate(item1));
@@ -61,11 +77,23 @@ namespace BLL.BLL_Ad
 
             return dTO_Accounts;
         }
-        public List<DTO_Product> GetProductById_Item(int id)
+        //public List<DTO_Product> GetProductById_Item(int id)
+        //{
+        //    EntityMapper<Product, DTO_Product> mapObj = new EntityMapper<Product, DTO_Product>();
+        //    List<Product> products = dAL_Product.getproductById_Item(id);
+        //    List<DTO_Product> dTO_Accounts = new List<DTO_Product>();
+        //    foreach (var item in products)
+        //    {
+        //        dTO_Accounts.Add(mapObj.Translate(item));
+        //    }
+
+        //    return dTO_Accounts;
+        //}
+        public List<DTO_Dis_Product> GetProductById_Item(int id)
         {
-            EntityMapper<Product, DTO_Product> mapObj = new EntityMapper<Product, DTO_Product>();
-            List<Product> products = dAL_Product.getproductById_Item(id);
-            List<DTO_Product> dTO_Accounts = new List<DTO_Product>();
+            EntityMapper<Dis_Product, DTO_Dis_Product> mapObj = new EntityMapper<Dis_Product, DTO_Dis_Product>();
+            List<Dis_Product> products = dAL_Product.getproductById_Item(id);
+            List<DTO_Dis_Product> dTO_Accounts = new List<DTO_Dis_Product>();
             foreach (var item in products)
             {
                 dTO_Accounts.Add(mapObj.Translate(item));

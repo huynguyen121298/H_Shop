@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Model.DTO.DTO_Ad.DTO_Product>
+﻿@model IEnumerable<Model.DTO_Model.DTO_Dis_Product>
+
 
 @using Model.DTO.DTO_Ad;
 @{
@@ -14,7 +15,7 @@
     <i class="fas fa-fw fa-cog"></i>
     <span>Tùy chọn sản phẩm</span>
 </a>
-    
+
 <div id="collapseTwo1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
     <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Xem sản phẩm theo:</h6>
@@ -39,7 +40,7 @@
         <br>
         <a class="collapse-item" href=" @Url.Action("Index2", "Products_Add", new { id = 5 })">Sức khỏe và sắc đẹp</a>
         <br>
-        <a class="collapse-item" href=" @Url.Action("Index2", "Products_Add", new { id = 10 })">Điện thoại</a>
+        <a class="collapse-item" href=" @Url.Action("Index2", "Products_Add", new { id = 5 })">Điện thoại</a>
 
     </div>
 </div>
@@ -47,7 +48,7 @@
 <p style="font-size:larger ;text-align:center">
 
     <a class="btn btn-warning " href=" @Url.Action("Create", "Products_Add")"> Tạo sản phẩm mới </a>
-    <a class="btn btn-info " href="~/Admin/Products_Add/Product_Discount" > Sản phẩm đang được giảm giá! </a>
+    
 </p>
 
 <div class="card shadow mb-4">
@@ -81,6 +82,8 @@
                         <th>Mã sản phẩm</th>
                         <th>Tên sản phẩm</th>
                         <th>Giá sản phẩm</th>
+                        <th>Nội dung giảm</th>
+                        <th>Giá sau giảm</th>
                         <th>Hình ảnh sản phẩm</th>
                         <th>Lựa chọn</th>
 
@@ -92,6 +95,8 @@
                         <th>Mã sản phẩm</th>
                         <th>Tên sản phẩm</th>
                         <th>Giá sản phẩm</th>
+                        <th>Nội dung giảm</th>
+                        <th>Giá sau giảm</th>
                         <th>Hình ảnh sản phẩm</th>
                         <th>Lựa chọn</th>
 
@@ -102,6 +107,7 @@
                     @foreach (var item in Model)
                     {
 
+
                         <tr>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Id_SanPham)
@@ -111,7 +117,26 @@
                             </td>
                             <td>
                                 @*@Html.DisplayFor(modelItem => item.Price)*@
-                                @string.Format("{0:0,0}",item.Price) VNĐ
+                                @string.Format("{0:0,0}", item.Price) VNĐ
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Content)
+                            </td>
+                            <td>
+                                @{
+                                    var price = item.Price_Dis;
+                                    if (price != null)
+                                    {
+                                        string newprice = string.Format("{0:0,0}", item.Price_Dis);
+                                        <p>@newprice VNĐ</p>
+
+                                    }
+                                    else
+                                    {
+                                        @Html.DisplayFor(modelItem => item.Price_Dis)
+                                    }
+                                }
+
                             </td>
                             <td>
                                 <img src=" @Url.Content(item.Photo)" style="height:100px; width:100px;margin:10px" />

@@ -56,6 +56,7 @@ namespace UI.Areas.Admin.Controllers
                 dTO_Account.RoleId = 1;
                 if (pass != "")
                 {
+                    dTO_Account.Password = pass;
                     HttpResponseMessage response = service.PostResponse("api/Admin_acc/Update/", dTO_Account);
                     response.EnsureSuccessStatusCode();
                 }
@@ -73,6 +74,7 @@ namespace UI.Areas.Admin.Controllers
                 dTO_Account.RoleId = 2;
                 if (pass != "")
                 {
+                    dTO_Account.Password = pass;
                     HttpResponseMessage response = service.PostResponse("api/Admin_acc/Update/", dTO_Account);
                     response.EnsureSuccessStatusCode();
                 }
