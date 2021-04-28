@@ -133,49 +133,61 @@
             List<DTO_Dis_Product> dTO_Products1 = new List<DTO_Dis_Product>();
             foreach (DTO_Dis_Product item in item1)
             {
-               <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Id_SanPham)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Name)
-                            </td>
-                            <td>
-                                @*@Html.DisplayFor(modelItem => item.Price)*@
-                                @string.Format("{0:0,0}", item.Price) VNĐ
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Content)
-                            </td>
-                            <td>
-                                @{
-                                    var price = item.Price_Dis;
-                                    if (price != null)
-                                    {
-                                        string newprice = string.Format("{0:0,0}", item.Price_Dis);
-                                        <p>@newprice VNĐ</p>
+                var price = item.Price_Dis;
+                var priceOld = item.Price;
+                DateTime dateTime = DateTime.Today;
+                var endDay = item.End;
+                bool checkPrice = price < priceOld;
 
-                                    }
-                                    else
-                                    {
-                                        @Html.DisplayFor(modelItem => item.Price_Dis)
-                                    }
-                                }
+                bool totalday = endDay >= dateTime;
 
-                            </td>
-                            <td>
-                                <img src=" @Url.Content(item.Photo)" style="height:100px; width:100px;margin:10px" />
-                            </td>
 
-                            <td>
-                                <a class="btn btn-success " href=" @Url.Action("Edit", "Products_Add", new { id = item.Id_SanPham })">Chỉnh sửa</a>
-                                <a class="btn btn-primary " href=" @Url.Action("Details", "Products_Add", new { id = item.Id_SanPham })">Chi tiết</a>
-                                <a class="btn btn-info " href=" @Url.Action("Create_Discount", "Products_Add", new { id = item.Id_SanPham })">Tùy chỉnh giảm giá</a>
-                                <button type="button" class="btn btn-danger" data-toggle="modal" onclick="target(@item.Id_SanPham)" data-target="#del">
-                                    Xóa
-                                </button>
-                            </td>
-                        </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id_SanPham)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.Price)*@
+                        @string.Format("{0:0,0}", item.Price) VNĐ
+                    </td>
+                    <td>
+                        @{
+                            if (price != null && totalday == true && checkPrice == true)
+                            {
+                                @Html.DisplayFor(modelItem => item.Content);
+                            }
+
+                        }
+
+                    </td>
+                    <td>
+                        @{
+                            if (price != null && totalday == true && checkPrice == true)
+                            {
+                                string newprice = string.Format("{0:0,0}", item.Price_Dis);
+                                <p>@newprice VNĐ</p>
+
+                            }
+
+                        }
+
+                    </td>
+                    <td>
+                        <img src=" @Url.Content(item.Photo)" style="height:100px; width:100px;margin:10px" />
+                    </td>
+
+                    <td>
+                        <a class="btn btn-success " href=" @Url.Action("Edit", "Products_Add", new { id = item.Id_SanPham })">Chỉnh sửa</a>
+                        <a class="btn btn-primary " href=" @Url.Action("Details", "Products_Add", new { id = item.Id_SanPham })">Chi tiết</a>
+                        <a class="btn btn-info " href=" @Url.Action("Create_Discount", "Products_Add", new { id = item.Id_SanPham })">Tùy chỉnh giảm giá</a>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" onclick="target(@item.Id_SanPham)" data-target="#del">
+                            Xóa
+                        </button>
+                    </td>
+                </tr>
             }
 
 

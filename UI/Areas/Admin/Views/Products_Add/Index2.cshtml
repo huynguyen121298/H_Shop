@@ -110,6 +110,13 @@
 
                     @foreach (var item in Model)
                     {
+                        var price = item.Price_Dis;
+                        var priceOld = item.Price;
+                        DateTime dateTime = DateTime.Today;
+                        var endDay = item.End;
+                        bool checkPrice = price < priceOld;
+
+                        bool totalday = endDay >= dateTime;
 
 
                         <tr>
@@ -124,21 +131,24 @@
                                 @string.Format("{0:0,0}", item.Price) VNĐ
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Content)
+                                @{
+                                    if (price != null && totalday == true && checkPrice == true)
+                                    {
+                                        @Html.DisplayFor(modelItem => item.Content);
+                                    }
+
+                                }
+
                             </td>
                             <td>
                                 @{
-                                    var price = item.Price_Dis;
-                                    if (price != null)
+                                    if (price != null && totalday == true && checkPrice == true)
                                     {
                                         string newprice = string.Format("{0:0,0}", item.Price_Dis);
                                         <p>@newprice VNĐ</p>
 
                                     }
-                                    else
-                                    {
-                                        @Html.DisplayFor(modelItem => item.Price_Dis)
-                                    }
+
                                 }
 
                             </td>
