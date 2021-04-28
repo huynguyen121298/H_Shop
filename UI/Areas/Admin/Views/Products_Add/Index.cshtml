@@ -21,6 +21,8 @@
         <h6 class="collapse-header">Xem sản phẩm theo:</h6>
         <a class="collapse-item" href="~/Admin/Products_Add/Index">Tất cả sản phẩm</a><br />
         <a class="collapse-item" href="~/Admin/Products_Add/GetAllProductByType">Theo thể loại sản phẩm</a><br />
+        <a class="collapse-item" href="~/Admin/Products_Add/Product_Discount">Sản phẩm đang giảm giá</a><br />
+
         <a class="collapse-item" href=" @Url.Action("Index2", "Products_Add", new { id = 1 })">Đồng hồ</a>
         <br>
         <a class="collapse-item" href=" @Url.Action("Index2", "Products_Add", new { id =  8})">Thời trang nam</a>
@@ -48,7 +50,8 @@
 <p style="font-size:larger ;text-align:center">
 
     <a class="btn btn-warning " href=" @Url.Action("Create", "Products_Add")"> Tạo sản phẩm mới </a>
-    
+    <a class="btn btn-info " href="~/Admin/Products_Add/Product_Discount"> Sản phẩm đang được giảm giá! </a>
+
 </p>
 
 <div class="card shadow mb-4">
@@ -106,6 +109,13 @@
 
                     @foreach (var item in Model)
                     {
+                        var price = item.Price_Dis;
+                        var priceOld = item.Price;
+                        DateTime dateTime = DateTime.Today;
+                        var endDay = item.End;
+                        bool checkPrice = price < priceOld;
+
+                        bool totalday = endDay >= dateTime;
 
 
                         <tr>
@@ -120,21 +130,24 @@
                                 @string.Format("{0:0,0}", item.Price) VNĐ
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Content)
+                                @{
+                                    if (price != null && totalday == true && checkPrice == true)
+                                    {
+                                        @Html.DisplayFor(modelItem => item.Content);
+                                    }
+
+                                }
+                                
                             </td>
                             <td>
                                 @{
-                                    var price = item.Price_Dis;
-                                    if (price != null)
+                                    if (price != null && totalday == true && checkPrice == true)
                                     {
                                         string newprice = string.Format("{0:0,0}", item.Price_Dis);
                                         <p>@newprice VNĐ</p>
 
                                     }
-                                    else
-                                    {
-                                        @Html.DisplayFor(modelItem => item.Price_Dis)
-                                    }
+                                  
                                 }
 
                             </td>

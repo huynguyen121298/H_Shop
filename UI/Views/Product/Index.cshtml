@@ -141,12 +141,14 @@
                 <div class="col-lg-12">
                     <div class="row">
                          @foreach (DTO_Dis_Product item in Model)
-                            {
-                                var price = item.Price_Dis;
-                                DateTime dateTime = DateTime.Today;
-                                var endDay = item.End;
-                                
-                                bool totalday =endDay >= dateTime;
+                         {
+                             var price = item.Price_Dis;
+                             var priceOld = item.Price;
+                             DateTime dateTime = DateTime.Today;
+                             var endDay = item.End;
+                             bool checkPrice = price < priceOld;
+
+                             bool totalday = endDay >= dateTime;
 
 
 
@@ -173,7 +175,7 @@
                                         <div style="color:red" class="ratting">
                                             @{
                                                
-                                                    if (price != null && totalday == true)
+                                                    if (price != null && totalday == true && checkPrice == true)
                                                     {
                                                         <img style="width:30px;height:20px" src="~/images/sale.jpg" /> @item.Content
 
@@ -212,7 +214,7 @@
 
 
 
-                                            if (price != null && totalday == true)
+                                            if (price != null && totalday == true && checkPrice == true)
                                             {
                                                 <span class="old-price"> @string.Format("{0:0,0}", item.Price) VNĐ </span>
                                                 <br />

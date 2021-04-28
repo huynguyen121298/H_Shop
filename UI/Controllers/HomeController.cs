@@ -23,12 +23,9 @@ namespace UI.Controllers
         public string userName;
         public ActionResult Index()
         {
-            HttpResponseMessage responseUser = service.GetResponse("api/Home/GetAllItemType" );
-
-            responseUser.EnsureSuccessStatusCode();
-            List<DTO_Item_Type> result = responseUser.Content.ReadAsAsync<List<DTO_Item_Type>>().Result;
            
-            return View(result);
+           
+            return View();
         }
         public PartialViewResult ListTypeProduct()
         {

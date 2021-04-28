@@ -269,6 +269,7 @@ namespace UI.Areas.Admin.Controllers
             {
                 end = null;
             }
+           
             tO_Dis_Product.Content = stt +"%";
             tO_Dis_Product.Start =Convert.ToDateTime(start);
             tO_Dis_Product.End = Convert.ToDateTime(end);
@@ -282,7 +283,7 @@ namespace UI.Areas.Admin.Controllers
         public ActionResult Edit(int Id)
         {
             ServiceRepository service = new ServiceRepository();
-            HttpResponseMessage responseMessage = service.GetResponse("api/Products_Ad/GetProductItemById/" + Id);
+            HttpResponseMessage responseMessage = service.GetResponse("api/Products_Ad/GetProductItemById_admin/" + Id);
             responseMessage.EnsureSuccessStatusCode();
             DTO_Product_Item_Type dtoAccounts = responseMessage.Content.ReadAsAsync<DTO_Product_Item_Type>().Result;
 

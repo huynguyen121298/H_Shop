@@ -213,36 +213,12 @@ author URL: http://w3layouts.com
                                 <ul class="inner-dropdown  ">
                                     <li><a href=" ~/Product/TypeProduct">Tất cả theo phân loại</a></li>
                                     <li><a href=" ~/Product/Index">Tất cả sản phẩm</a></li>
-                                    @*<li><a href="@Url.Action("Index2", "Product", new { id = 8 })"> Thời trang nam</a></li>
-
-                                    <li><a href=" @Url.Action("Index2", "Product", new { id = 9 })"> Thời trang nữ</a></li>
-                                    <li><a href=" @Url.Action("Index2", "Product", new { id = 3 })">Máy tính và Laptop</a></li>
-                                    <li><a href=" @Url.Action("Index2", "Product", new { id = 2 })">Máy ảnh và máy quay phim</a></li>
-                                    <li><a href=" @Url.Action("Index2", "Product", new { id = 1 })">Đồng hồ</a></li>
-                                    <li><a href=" @Url.Action("Index2", "Product", new { id = 7 })">Thiết bị gia dụng</a></li>
-                                    <li><a href=" @Url.Action("Index2", "Product", new { id = 6 })">Thể thao và du lịch</a></li>
-                                    <li><a href=" @Url.Action("Index2", "Product", new { id = 4 })"> Mẹ và bé</a></li>
-                                    <li><a href=" @Url.Action("Index2", "Product", new { id = 5 })">Sức khỏe và sắc đẹp</a></li>*@
+                                    <li><a href=" ~/Product/Index_">Sản phẩm đang giảm giá</a></li>
+                              
                                     @Html.Action("ListTypeProduct", "Home")
 
-                                    
-                                    @*@foreach (DTO_Item_Type item in Model)
-                                    {
 
-
-
-
-
-
-                                       <li><a href="@Url.Action("Index2", "Product", new { id =item.Id_Item }) "><p style="color:black">@item.Type_Product</p> </a></li> 
-
-
-
-
-
-                                    }*@
-
-
+      
                                 </ul>
                             </li>
 

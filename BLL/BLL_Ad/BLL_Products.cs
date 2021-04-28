@@ -109,6 +109,14 @@ namespace BLL.BLL_Ad
 
             return dTO_Accounts;
         }
+        public DTO_Product_Item_Type GetProductItemById_admin(int id)
+        {
+            EntityMapper<Product_Item_Type, DTO_Product_Item_Type> mapObj = new EntityMapper<Product_Item_Type, DTO_Product_Item_Type>();
+            Product_Item_Type account = dAL_Product.GetProductItemById_admin(id);
+            DTO_Product_Item_Type dTO_Accounts = mapObj.Translate(account);
+
+            return dTO_Accounts;
+        }
         public DTO_Product_Item_Type GetProductItemById2(string id)
         {
             EntityMapper<Product_Item_Type, DTO_Product_Item_Type> mapObj = new EntityMapper<Product_Item_Type, DTO_Product_Item_Type>();

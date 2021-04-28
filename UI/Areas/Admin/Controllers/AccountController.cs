@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using UI.Areas.Admin.Models;
 using UI.Service;
 using System.Globalization;
+using UI.Security_;
 
 namespace UI.Areas.Admin.Controllers
 {
@@ -65,6 +66,7 @@ namespace UI.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [DeatAuthorize(Order = 2)]
         public ActionResult AddRegister([Bind(Include = "FirstName,LastName,Email,Password,ConfirmPassword")] RegisterAdminModel model, string AuthenticationCode)
         {
            

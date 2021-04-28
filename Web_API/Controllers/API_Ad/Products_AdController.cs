@@ -33,6 +33,12 @@ namespace Web_API.Controllers
         {
             return Json<DTO_Product_Item_Type>(BLL_Products.GetProductItemById(Id));
         }
+        [HttpGet]
+        [Route("GetProductItemById_admin/{Id:int}")]
+        public JsonResult<DTO_Product_Item_Type> GetProductItemById_admin(int Id)
+        {
+            return Json<DTO_Product_Item_Type>(BLL_Products.GetProductItemById_admin(Id));
+        }
         //[HttpGet]
         //[Route("GetProductItemById2/{Id:string}")]
         //public JsonResult<DTO_Product_Item_Type> GetProductItemById2(string Id)

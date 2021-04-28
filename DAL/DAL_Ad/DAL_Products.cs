@@ -58,6 +58,29 @@ namespace DAL.DAL_Ad
             return infoProduct;
             //return infoProduct.FirstOrDefault();
         }
+        public Product_Item_Type GetProductItemById_admin(int id)
+        {
+            var infoProduct = (from item in db.Items
+                               join product in db.Products on item.Id_SanPham equals product.Id_SanPham
+                               where product.Id_SanPham == id && item.Id_SanPham == id
+                               select new Product_Item_Type()
+                               {
+                                   Id_SanPham = product.Id_SanPham,
+                                   Name = product.Name,
+                                   Price = product.Price,
+                                   Details = product.Details,
+                                   Photo = product.Photo,
+                                   Id_Item = product.Id_Item,
+                                   Quantity = item.Quantity
+
+
+
+
+                               }).FirstOrDefault();
+           
+            return infoProduct;
+            
+        }
         public Product_Item_Type GetProductItemById2(string id)
         {
             var infoProduct = from item in db.Items
@@ -353,14 +376,6 @@ namespace DAL.DAL_Ad
         //}
         public List<Dis_Product> getproductById_Item(int id)
         {
-            //List<Item_Type> item_Types = new List<Item_Type>();
-            // List<Product> productsByType = new List<Product>();
-            // item_Types = db.Item_Type.ToList();
-            //foreach (Item_Type item in item_Types)
-            //{
-            //    List<Product> products = db.Products.Where(m => m.Id_Item == id).ToList();
-            //    productsByType.Add(products);
-            //}
             var infoProduct_discount = (from dis in db.Discount_Product
                                         join product in db.Products on dis.Id_SanPham equals product.Id_SanPham
                                         where product.Id_Item == id
@@ -415,13 +430,7 @@ namespace DAL.DAL_Ad
             item_Types = db.Item_Type.ToList();
             foreach (Item_Type item in item_Types)
             {
-                //    Product obj_name = new Product();
-                //    obj_name.Id_Item = item.Id_Item;
-                //    obj_name.Name = item.Type_Product;
-                //    List<Product> products = db.Products.Where(m => m.Id_Item == item.Id_Item).ToList();
-                //    obj_name.products = products;
-                //    productsByType.Add(products);
-                //List<Dis_Product> products = db.Products.Where(m => m.Id_Item == item.Id_Item).ToList();
+                
                 List<Dis_Product> products = getproductById_Item(item.Id_Item);
                 productsByType.Add(products);
             }
@@ -457,26 +466,26 @@ namespace DAL.DAL_Ad
         //public List<Dis_Product> GetAllProduct_Discount()
         //{
         //    var infoProduct = (from dis in db.Discount_Product
-        //                      join product in db.Products on dis.Id_SanPham equals product.Id_SanPham
+        //                       join product in db.Products on dis.Id_SanPham equals product.Id_SanPham
 
-        //                      select new Dis_Product()
-        //                      {
-        //                          Id_SanPham = product.Id_SanPham,
-        //                          Name = product.Name,
-        //                          Price = product.Price,
-        //                          Details = product.Details,
-        //                          Photo = product.Photo,
-        //                          Id_Item = product.Id_Item,
-        //                          Content = dis.Content,
-        //                          Price_Dis = dis.Price_Dis,
-        //                          Start = dis.Start,
-        //                          End = dis.End
-                                 
-
+        //                       select new Dis_Product()
+        //                       {
+        //                           Id_SanPham = product.Id_SanPham,
+        //                           Name = product.Name,
+        //                           Price = product.Price,
+        //                           Details = product.Details,
+        //                           Photo = product.Photo,
+        //                           Id_Item = product.Id_Item,
+        //                           Content = dis.Content,
+        //                           Price_Dis = dis.Price_Dis,
+        //                           Start = dis.Start,
+        //                           End = dis.End
 
 
 
-        //                      }).ToList();
+
+
+        //                       }).ToList();
         //    List<Dis_Product> dis_Product = new List<Dis_Product>();
         //    foreach (var item in infoProduct)
         //    {
@@ -490,7 +499,7 @@ namespace DAL.DAL_Ad
         //        }
         //        dis_Product.Add(item);
         //    }
-        //    return dis_Product;
+        //    return dis_Product.Where(s=>s.Conte.StartsWith==);
         //}
         public List<Dis_Product> GetAllProduct_Discount()
         {
