@@ -512,7 +512,7 @@ namespace UI.Controllers
                 HttpResponseMessage response = serviceObj.PutResponse(url + "UpdateCustomer", model);
                 //Change token
                 HttpCookie cookie = HttpContext.Request.Cookies.Get(Constants.TOKEN_NUMBER);
-                string token = cookie.Value.ToString();
+                //string token = cookie.Value.ToString();
 
                 response.EnsureSuccessStatusCode();
                 bool resultUpdate = response.Content.ReadAsAsync<bool>().Result;
