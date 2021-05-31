@@ -403,27 +403,366 @@ namespace UI.Controllers
             List<DTO_Product_Item_Type> cart = (List<DTO_Product_Item_Type>)Session["cart"];
             if (cart != null)
             {
+                //var idSanPham = Id;
                 foreach (var item in cart)
                 {
-                    //int quantityBuy = Convert.ToInt32(Request.Form["quantity"]);
 
-                    HttpResponseMessage response2 = service.GetResponse("api/Product/GetSoLuong/" + item.Id_SanPham);
-
-                    response2.EnsureSuccessStatusCode();
-                    int quantity2 = response2.Content.ReadAsAsync<int>().Result;
-                    int quantityAfterBuy = quantity2 - (int)item.Quantity;
-                    if (quantityAfterBuy <= 0)
+                    if (item.Id_SanPham == Id)
                     {
-                        //flag = false;
-                        string message = (item.Name + " đã vượt quá số lượng đang có");
-                        //return Json(new { buy = 0, status = message });
+                        //int quantityBuy = Convert.ToInt32(Request.Form["quantity"]);
 
-                        ViewData["Notice"] = message;
-                       
+                        HttpResponseMessage response2 = service.GetResponse("api/Product/GetSoLuong/" + Id);
+
+                        response2.EnsureSuccessStatusCode();
+                        int quantity2 = response2.Content.ReadAsAsync<int>().Result;
+                        int quantityAfterBuy = quantity2 - (int)item.Quantity;
+                        if (quantityAfterBuy <= 0)
+                        {
+                            //ViewData["MessQuantity"] = item.Name + " đã vượt quá số lượng đang có";
+                            return RedirectToAction("HetHang", "Cart");
+                        }
+                        List<DTO_Product_Item_Type> li2 = (List<DTO_Product_Item_Type>)Session["cart"];
+                        HttpResponseMessage responseUser2 = service.GetResponse("api/Products_Ad/GetProductItemById/" + Id);
+                        responseUser2.EnsureSuccessStatusCode();
+                        DTO_Product_Item_Type proItem2 = responseUser2.Content.ReadAsAsync<DTO_Product_Item_Type>().Result;
+
+                        int index2 = isExist(Id);
+                        if (index2 != -1)
+                        {
+                            li2[index2].Quantity++;
+                        }
+                        else
+                        {
+                            li2.Add(new DTO_Product_Item_Type()
+                            {
+
+                                Id_SanPham = proItem2.Id_SanPham,
+                                // = proItem._id,
+                                Name = proItem2.Name,
+                                Price = proItem2.Price,
+                                Details = proItem2.Details,
+                                Photo = proItem2.Photo,
+                                Id_Item = proItem2.Id_Item,
+                                Quantity = 1
+                            });
+                            return View("Details");
+                        }
+
+
+                        Session["cart"] = li2;
+                        return View("Details");
                     }
-                    else
+
+
+
+
+
+                }
+                HttpResponseMessage response = service.GetResponse("api/Product/GetSoLuong/" + Id);
+
+                response.EnsureSuccessStatusCode();
+                int quantity = response.Content.ReadAsAsync<int>().Result;
+                //int quantityAfterBuy = quantity - (int)item.Quantity;
+                if (quantity <= 0)
+                {
+                    //ViewData["MessQuantity"] =" đã vượt quá số lượng đang có";
+                    return RedirectToAction("HetHang", "Cart");
+                }
+                List<DTO_Product_Item_Type> li = (List<DTO_Product_Item_Type>)Session["cart"];
+                HttpResponseMessage responseUser = service.GetResponse("api/Products_Ad/GetProductItemById/" + Id);
+                responseUser.EnsureSuccessStatusCode();
+                DTO_Product_Item_Type proItem = responseUser.Content.ReadAsAsync<DTO_Product_Item_Type>().Result;
+
+                int index = isExist(Id);
+                if (index != -1)
+                {
+                    li[index].Quantity++;
+                }
+                else
+                {
+                    li.Add(new DTO_Product_Item_Type()
                     {
 
+                        Id_SanPham = proItem.Id_SanPham,
+                        // = proItem._id,
+                        Name = proItem.Name,
+                        Price = proItem.Price,
+                        Details = proItem.Details,
+                        Photo = proItem.Photo,
+                        Id_Item = proItem.Id_Item,
+                        Quantity = 1
+                    });
+                    return View("Details");
+                }
+
+
+                Session["cart"] = li;
+                return View("Details");
+            }
+            else
+            {
+                HttpResponseMessage response = service.GetResponse("api/Product/GetSoLuong/" + Id);
+
+                response.EnsureSuccessStatusCode();
+                int quantity = response.Content.ReadAsAsync<int>().Result;
+
+                if (quantity <= 0)
+                {
+                    //flag = false;
+                    //string message = (" Sản phẩm đã hết hàng");
+                    return RedirectToAction("HetHang", "Cart");
+                    //.Add(message);
+                }
+                List<DTO_Product_Item_Type> li = new List<DTO_Product_Item_Type>();
+                // var product = db.Products.Find(Id);
+
+                HttpResponseMessage responseUser = service.GetResponse("api/Products_Ad/GetProductItemById/" + Id);
+                responseUser.EnsureSuccessStatusCode();
+                DTO_Product_Item_Type proItem = responseUser.Content.ReadAsAsync<DTO_Product_Item_Type>().Result;
+
+
+
+                li.Add(new DTO_Product_Item_Type()
+                {
+
+                    Quantity = 1,
+                    Id_SanPham = proItem.Id_SanPham,
+                    //_id = proItem._id,
+                    Name = proItem.Name,
+                    Price = proItem.Price,
+                    Details = proItem.Details,
+                    Photo = proItem.Photo,
+                    Id_Item = proItem.Id_Item,
+                    //Quantity = item.Quantity
+                });
+                Session["cart"] = li;
+                return View("Details");
+            }
+
+
+        }
+        public ActionResult BuyLove(int Id)
+        {
+            List<DTO_Product_Item_Type> cart = (List<DTO_Product_Item_Type>)Session["cart"];
+            if (cart != null)
+            {
+                //var idSanPham = Id;
+                foreach (var item in cart)
+                {
+
+                    if (item.Id_SanPham == Id)
+                    {
+                        //int quantityBuy = Convert.ToInt32(Request.Form["quantity"]);
+
+                        HttpResponseMessage response2 = service.GetResponse("api/Product/GetSoLuong/" + Id);
+
+                        response2.EnsureSuccessStatusCode();
+                        int quantity2 = response2.Content.ReadAsAsync<int>().Result;
+                        int quantityAfterBuy = quantity2 - (int)item.Quantity;
+                        if (quantityAfterBuy <= 0)
+                        {
+                            ViewData["MessQuantity"] = item.Name + " đã vượt quá số lượng đang có";
+                            return View("~/Views/Cart/YeuThich.cshtml");
+                        }
+                        List<DTO_Product_Item_Type> li2 = (List<DTO_Product_Item_Type>)Session["cart"];
+                        HttpResponseMessage responseUser2 = service.GetResponse("api/Products_Ad/GetProductItemById/" + Id);
+                        responseUser2.EnsureSuccessStatusCode();
+                        DTO_Product_Item_Type proItem2 = responseUser2.Content.ReadAsAsync<DTO_Product_Item_Type>().Result;
+
+                        int index2 = isExist(Id);
+                        if (index2 != -1)
+                        {
+                            li2[index2].Quantity++;
+                        }
+                        else
+                        {
+                            li2.Add(new DTO_Product_Item_Type()
+                            {
+
+                                Id_SanPham = proItem2.Id_SanPham,
+                                // = proItem._id,
+                                Name = proItem2.Name,
+                                Price = proItem2.Price,
+                                Details = proItem2.Details,
+                                Photo = proItem2.Photo,
+                                Id_Item = proItem2.Id_Item,
+                                Quantity = 1
+                            });
+                            return View("Details");
+                        }
+
+
+                        Session["cart"] = li2;
+                        return View("Details");
+                    }
+
+
+
+
+
+                }
+                HttpResponseMessage response = service.GetResponse("api/Product/GetSoLuong/" + Id);
+
+                response.EnsureSuccessStatusCode();
+                int quantity = response.Content.ReadAsAsync<int>().Result;
+                //int quantityAfterBuy = quantity - (int)item.Quantity;
+                if (quantity <= 0)
+                {
+                    ViewData["MessQuantity"] = " đã vượt quá số lượng đang có";
+                    return View("~/Views/Cart/YeuThich.cshtml");
+                }
+                List<DTO_Product_Item_Type> li = (List<DTO_Product_Item_Type>)Session["cart"];
+                HttpResponseMessage responseUser = service.GetResponse("api/Products_Ad/GetProductItemById/" + Id);
+                responseUser.EnsureSuccessStatusCode();
+                DTO_Product_Item_Type proItem = responseUser.Content.ReadAsAsync<DTO_Product_Item_Type>().Result;
+
+                int index = isExist(Id);
+                if (index != -1)
+                {
+                    li[index].Quantity++;
+                }
+                else
+                {
+                    li.Add(new DTO_Product_Item_Type()
+                    {
+
+                        Id_SanPham = proItem.Id_SanPham,
+                        // = proItem._id,
+                        Name = proItem.Name,
+                        Price = proItem.Price,
+                        Details = proItem.Details,
+                        Photo = proItem.Photo,
+                        Id_Item = proItem.Id_Item,
+                        Quantity = 1
+                    });
+                    return View("Details");
+                }
+
+
+                Session["cart"] = li;
+                return View("Details");
+            }
+            else
+            {
+                HttpResponseMessage response = service.GetResponse("api/Product/GetSoLuong/" + Id);
+
+                response.EnsureSuccessStatusCode();
+                int quantity = response.Content.ReadAsAsync<int>().Result;
+
+                if (quantity <= 0)
+                {
+                    //flag = false;
+                    //string message = (" Sản phẩm đã hết hàng");
+                    return RedirectToAction("HetHang", "Cart");
+                    //.Add(message);
+                }
+                List<DTO_Product_Item_Type> li = new List<DTO_Product_Item_Type>();
+                // var product = db.Products.Find(Id);
+
+                HttpResponseMessage responseUser = service.GetResponse("api/Products_Ad/GetProductItemById/" + Id);
+                responseUser.EnsureSuccessStatusCode();
+                DTO_Product_Item_Type proItem = responseUser.Content.ReadAsAsync<DTO_Product_Item_Type>().Result;
+
+
+
+                li.Add(new DTO_Product_Item_Type()
+                {
+
+                    Quantity = 1,
+                    Id_SanPham = proItem.Id_SanPham,
+                    //_id = proItem._id,
+                    Name = proItem.Name,
+                    Price = proItem.Price,
+                    Details = proItem.Details,
+                    Photo = proItem.Photo,
+                    Id_Item = proItem.Id_Item,
+                    //Quantity = item.Quantity
+                });
+                Session["cart"] = li;
+                return View("Details");
+            }
+
+
+        }
+
+
+
+
+        public ActionResult Buy_Favorite(int Id)
+        {
+           
+            List<DTO_Product_Item_Type> cart = (List<DTO_Product_Item_Type>)Session["cart"];
+            if (cart != null)
+            {
+                //var idSanPham = Id;
+                foreach (var item in cart)
+                {
+                    
+                    if(item.Id_SanPham==Id )
+                    {
+                        //int quantityBuy = Convert.ToInt32(Request.Form["quantity"]);
+
+                        HttpResponseMessage response2 = service.GetResponse("api/Product/GetSoLuong/" + Id);
+
+                        response2.EnsureSuccessStatusCode();
+                        int quantity2 = response2.Content.ReadAsAsync<int>().Result;
+                        int quantityAfterBuy = quantity2 - (int)item.Quantity;
+                        if (quantityAfterBuy <= 0)
+                        {
+                            //flag = false;
+                            string message = (item.Name + " đã vượt quá số lượng đang có");
+                            return Json(new { buy = 0, status = message });
+                            //.Add(message);
+                        }
+                        List<DTO_Product_Item_Type> li2 = (List<DTO_Product_Item_Type>)Session["cart"];
+                        HttpResponseMessage responseUser2 = service.GetResponse("api/Products_Ad/GetProductItemById/" + Id);
+                        responseUser2.EnsureSuccessStatusCode();
+                        DTO_Product_Item_Type proItem2 = responseUser2.Content.ReadAsAsync<DTO_Product_Item_Type>().Result;
+
+                        int index2 = isExist(Id);
+                        if (index2 != -1)
+                        {
+                            li2[index2].Quantity++;
+                        }
+                        else
+                        {
+                            li2.Add(new DTO_Product_Item_Type()
+                            {
+
+                                Id_SanPham = proItem2.Id_SanPham,
+                                // = proItem._id,
+                                Name = proItem2.Name,
+                                Price = proItem2.Price,
+                                Details = proItem2.Details,
+                                Photo = proItem2.Photo,
+                                Id_Item = proItem2.Id_Item,
+                                Quantity = 1
+                            });
+                            return Json(new { buy = li2, status = "Thành công" });
+                        }
+
+
+                        Session["cart"] = li2;
+                        return Json(new { buy = li2, status = "Thành công" });
+                    }
+                    
+
+                      
+                    
+                    
+                }
+                  HttpResponseMessage response = service.GetResponse("api/Product/GetSoLuong/" + Id);
+
+                        response.EnsureSuccessStatusCode();
+                        int quantity = response.Content.ReadAsAsync<int>().Result;
+                        //int quantityAfterBuy = quantity - (int)item.Quantity;
+                        if (quantity <= 0)
+                        {
+                            //flag = false;
+                            string message = (" Sản phẩm này đã hết hàng");
+                            return Json(new { buy = 0, status = message });
+                            //.Add(message);
+                        }
                         List<DTO_Product_Item_Type> li = (List<DTO_Product_Item_Type>)Session["cart"];
                         HttpResponseMessage responseUser = service.GetResponse("api/Products_Ad/GetProductItemById/" + Id);
                         responseUser.EnsureSuccessStatusCode();
@@ -440,6 +779,7 @@ namespace UI.Controllers
                             {
 
                                 Id_SanPham = proItem.Id_SanPham,
+                                // = proItem._id,
                                 Name = proItem.Name,
                                 Price = proItem.Price,
                                 Details = proItem.Details,
@@ -447,190 +787,12 @@ namespace UI.Controllers
                                 Id_Item = proItem.Id_Item,
                                 Quantity = 1
                             });
-
+                            return Json(new { buy = li, status = "Thành công" });
                         }
 
 
                         Session["cart"] = li;
-                        return RedirectToAction("Details", "Product");
-                    }
-
-
-
-
-
-
-
-
-                }
-
-
-            }
-            else
-            {
-                List<DTO_Product_Item_Type> li = new List<DTO_Product_Item_Type>();
-                // var product = db.Products.Find(Id);
-
-                HttpResponseMessage responseUser = service.GetResponse("api/Products_Ad/GetProductItemById/" + Id);
-                responseUser.EnsureSuccessStatusCode();
-                DTO_Product_Item_Type proItem = responseUser.Content.ReadAsAsync<DTO_Product_Item_Type>().Result;
-
-
-                li.Add(new DTO_Product_Item_Type()
-                {
-
-                    Quantity = 1,
-                    Id_SanPham = proItem.Id_SanPham,
-                    Name = proItem.Name,
-                    Price = proItem.Price,
-                    Details = proItem.Details,
-                    Photo = proItem.Photo,
-                    Id_Item = proItem.Id_Item,
-                    //Quantity = item.Quantity
-                });
-                Session["cart"] = li;
-                return RedirectToAction("Details", "Product");
-
-
-            }
-            return RedirectToAction("HetHang", "Cart");
-
-            ////HttpResponseMessage response = service.GetResponse("api/Product/GetSoLuong/" + Id);
-
-            ////    response.EnsureSuccessStatusCode();
-            ////    int quantity = response.Content.ReadAsAsync<int>().Result;
-            ////    if (quantity > 0)
-            ////    {
-            ////        if (Session["cart"] == null)
-            ////        {
-            ////            List<DTO_Product_Item_Type> li = new List<DTO_Product_Item_Type>();
-            ////            // var product = db.Products.Find(Id);
-
-            ////            HttpResponseMessage responseUser = service.GetResponse("api/Products_Ad/GetProductItemById/" + Id);
-            ////            responseUser.EnsureSuccessStatusCode();
-            ////            DTO_Product_Item_Type proItem = responseUser.Content.ReadAsAsync<DTO_Product_Item_Type>().Result;
-
-
-            ////            li.Add(new DTO_Product_Item_Type()
-            ////            {
-
-            ////                Quantity = 1,
-            ////                Id_SanPham = proItem.Id_SanPham,
-            ////                Name = proItem.Name,
-            ////                Price = proItem.Price,
-            ////                Details = proItem.Details,
-            ////                Photo = proItem.Photo,
-            ////                Id_Item = proItem.Id_Item,
-            ////                //Quantity = item.Quantity
-            ////            });
-            ////            Session["cart"] = li;
-
-
-
-
-
-
-            ////        }
-            ////        else
-            ////        {
-            ////            List<DTO_Product_Item_Type> li = (List<DTO_Product_Item_Type>)Session["cart"];
-            ////            HttpResponseMessage responseUser = service.GetResponse("api/Products_Ad/GetProductItemById/" + Id);
-            ////            responseUser.EnsureSuccessStatusCode();
-            ////            DTO_Product_Item_Type proItem = responseUser.Content.ReadAsAsync<DTO_Product_Item_Type>().Result;
-
-            ////            int index = isExist(Id);
-            ////            if (index != -1)
-            ////            {
-            ////                li[index].Quantity++;
-            ////            }
-            ////            else
-            ////            {
-            ////                li.Add(new DTO_Product_Item_Type()
-            ////                {
-
-            ////                    Id_SanPham = proItem.Id_SanPham,
-            ////                    Name = proItem.Name,
-            ////                    Price = proItem.Price,
-            ////                    Details = proItem.Details,
-            ////                    Photo = proItem.Photo,
-            ////                    Id_Item = proItem.Id_Item,
-            ////                    Quantity = 1
-            ////                });
-
-            ////            }
-
-
-            ////            Session["cart"] = li;
-
-            ////        }
-            ////        return RedirectToAction("Details", "Product");
-            ////    }
-            ////    else
-            ////    {
-
-            ////        return RedirectToAction("HetHang","Cart");
-            ////    }
-
-
-        }
-
-
-
-
-        public ActionResult Buy_Favorite(int Id)
-        {
-            //bool flag = true;
-            //List<string> messages = new List<string>();
-            List<DTO_Product_Item_Type> cart = (List<DTO_Product_Item_Type>)Session["cart"];
-            if (cart != null)
-            {
-                foreach (var item in cart)
-                {
-                    //int quantityBuy = Convert.ToInt32(Request.Form["quantity"]);
-
-                    HttpResponseMessage response = service.GetResponse("api/Product/GetSoLuong/" + item.Id_SanPham);
-
-                    response.EnsureSuccessStatusCode();
-                    int quantity = response.Content.ReadAsAsync<int>().Result;
-                    int quantityAfterBuy = quantity - (int)item.Quantity;
-                    if (quantityAfterBuy <= 0)
-                    {
-                        //flag = false;
-                        string message = (item.Name + " đã vượt quá số lượng đang có");
-                        return Json(new { buy = 0, status = message });
-                        //.Add(message);
-                    }
-                    List<DTO_Product_Item_Type> li = (List<DTO_Product_Item_Type>)Session["cart"];
-                    HttpResponseMessage responseUser = service.GetResponse("api/Products_Ad/GetProductItemById/" + Id);
-                    responseUser.EnsureSuccessStatusCode();
-                    DTO_Product_Item_Type proItem = responseUser.Content.ReadAsAsync<DTO_Product_Item_Type>().Result;
-
-                    int index = isExist(Id);
-                    if (index != -1)
-                    {
-                        li[index].Quantity++;
-                    }
-                    else
-                    {
-                        li.Add(new DTO_Product_Item_Type()
-                        {
-
-                            Id_SanPham = proItem.Id_SanPham,
-                            // = proItem._id,
-                            Name = proItem.Name,
-                            Price = proItem.Price,
-                            Details = proItem.Details,
-                            Photo = proItem.Photo,
-                            Id_Item = proItem.Id_Item,
-                            Quantity = 1
-                        });
                         return Json(new { buy = li, status = "Thành công" });
-                    }
-
-
-                    Session["cart"] = li;
-                    return Json(new { buy = li, status = "Thành công" });
-                }
             }
             else
             {
@@ -672,90 +834,7 @@ namespace UI.Controllers
                 return Json(new { buy = li, status = "Thành công" });
             }
             
-            //ViewData["messages"] = messages;
-            //if (flag)
-
-
-
-            //{
-            //    if (Session["cart"] == null)
-            //    {
-            //        List<DTO_Product_Item_Type> li = new List<DTO_Product_Item_Type>();
-            //        // var product = db.Products.Find(Id);
-
-            //        HttpResponseMessage responseUser = service.GetResponse("api/Products_Ad/GetProductItemById/" + Id);
-            //        responseUser.EnsureSuccessStatusCode();
-            //        DTO_Product_Item_Type proItem = responseUser.Content.ReadAsAsync<DTO_Product_Item_Type>().Result;
-
-
-
-            //        li.Add(new DTO_Product_Item_Type()
-            //        {
-
-            //            Quantity = 1,
-            //            Id_SanPham = proItem.Id_SanPham,
-            //            //_id = proItem._id,
-            //            Name = proItem.Name,
-            //            Price = proItem.Price,
-            //            Details = proItem.Details,
-            //            Photo = proItem.Photo,
-            //            Id_Item = proItem.Id_Item,
-            //            //Quantity = item.Quantity
-            //        });
-            //        Session["cart"] = li;
-            //        return Json(new { buy = li, status = "Thành công" });
-
-
-
-
-
-
-            //    }
-            //    else
-            //    {
-            //        List<DTO_Product_Item_Type> li = (List<DTO_Product_Item_Type>)Session["cart"];
-            //        HttpResponseMessage responseUser = service.GetResponse("api/Products_Ad/GetProductItemById/" + Id);
-            //        responseUser.EnsureSuccessStatusCode();
-            //        DTO_Product_Item_Type proItem = responseUser.Content.ReadAsAsync<DTO_Product_Item_Type>().Result;
-
-            //        int index = isExist(Id);
-            //        if (index != -1)
-            //        {
-            //            li[index].Quantity++;
-            //        }
-            //        else
-            //        {
-            //            li.Add(new DTO_Product_Item_Type()
-            //            {
-
-            //                Id_SanPham = proItem.Id_SanPham,
-            //                // = proItem._id,
-            //                Name = proItem.Name,
-            //                Price = proItem.Price,
-            //                Details = proItem.Details,
-            //                Photo = proItem.Photo,
-            //                Id_Item = proItem.Id_Item,
-            //                Quantity = 1
-            //            });
-            //            return Json(new { buy = li, status = "Thành công" });
-            //        }
-
-
-            //        Session["cart"] = li;
-            //        return Json(new { buy = li, status = "Thành công" });
-
-            //    }
-
-            //}
-            //else
-            //{
-
-            //    //ViewData["MessQuantity"] = ("Sản phẩm đã hết");
-            //    //return RedirectToAction("HetHang", "Cart");
-            //    return Json(new { buy = 0, status = "Hết hàng" });
-            //}
-
-            return View();
+           
         }
 
 
