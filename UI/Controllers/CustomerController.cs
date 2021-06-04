@@ -22,7 +22,7 @@ namespace UI.Controllers
     {
         private string url;
         private ServiceRepository serviceObj;
-        // GET: Customer
+       
         public ActionResult Index()
         {
             return View();
