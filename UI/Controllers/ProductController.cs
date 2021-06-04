@@ -72,27 +72,7 @@ namespace UI.Controllers
 
             }
 
-            //if (searchPrice !=null && searchPrice !="" && searchPrice!="0")
-            //{
-            //    //if (max500 )
-            //    //{
-            //    //    gia_ = 0; gia = 500000;
-            //    //}
-            //    if (searchPrice == "2")
-            //    {
-            //        gia_ = 500000; gia = 1000000;
-            //    }
-            //    if (searchPrice == "3")
-            //    {
-            //        gia_ = 1000000; gia = 2000000;
-            //    }
-            //    if (searchPrice == "4")
-            //    {
-            //        gia_ = 2000000; gia = 1000000000;
-            //    }
-
-
-            //}
+           
 
             if (priceGiaMin!=null && priceGiaMax!=null && priceGiaMin!="" && priceGiaMax != "")
             {
