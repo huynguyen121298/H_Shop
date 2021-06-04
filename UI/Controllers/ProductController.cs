@@ -23,6 +23,7 @@ namespace UI.Controllers
             List<List<DTO_Dis_Product>> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<List<DTO_Dis_Product>>>().Result;
            
 
+
             var view = dTO_Accounts.ToPagedList(1, 50);
             return View(view);
 
@@ -95,7 +96,11 @@ namespace UI.Controllers
             }
             catch
             {
+<<<<<<< HEAD
              
+=======
+              
+>>>>>>> sprint/01
                 HttpResponseMessage responseMessage = service.GetResponse("api/Products_Ad/GetAllProduct_Discount");
                 responseMessage.EnsureSuccessStatusCode();
                 List<DTO_Dis_Product> dTO_Accounts = responseMessage.Content.ReadAsAsync<List<DTO_Dis_Product>>().Result;
